@@ -18,5 +18,8 @@
 
 ## Полезные ссылки
 
-Доска Miro
+Заархивированная базовая версия проекта:
+https://drive.google.com/file/d/1fvah2Vdq5vhGgBBRnZ9eX_A8um83bzHG/view?usp=sharing
+
+Доска Miro:
 https://miro.com/welcomeonboard/cXVrZ0JwSUZIZFZEcGJNWUtyeFRVeUlzazlDb2NLaTBvYXZLcUdjZVdFS0FVYlhHUXhBTFNCMVV6RFU4T3pNNnwzMDc0NDU3MzY1NzMzOTY5NjgzfDI=?share_link_id=131045256301
