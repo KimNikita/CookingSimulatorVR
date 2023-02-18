@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d0422a7b2c2e13b4a854b80d33f2a0d2
+guid: 06e962beb8aca81498eecc215fbdeba2
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable: []
@@ -7,23 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Base
-    second: {fileID: 2100000, guid: 9a984c2ec124aff4db6e465c285fcbad, type: 2}
+      name: "\u043F\u043B\u0430\u0441\u0442\u0438\u043A"
+    second: {fileID: 2100000, guid: b19b0f1bf67afbd478be3319ed63162a, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Coca-Cola_logo.svg
-    second: {fileID: 2100000, guid: e9201c37d7bd4bf458fd5f0b8964a6aa, type: 2}
+      name: "\u0441\u0442\u0430\u043A\u0430\u043D"
+    second: {fileID: 2100000, guid: 549dfda86b973ce4fb970a46e1e75b0e, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Detail
-    second: {fileID: 2100000, guid: 580a68f751175114394aede8a5874a3e, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fanta_logo_(2009).svg
-    second: {fileID: 2100000, guid: b3c6a09cd00f9954890be3bd8aab8b0e, type: 2}
+      name: "\u0442\u0440\u0443\u0431\u043E\u0447\u043A\u0430"
+    second: {fileID: 2100000, guid: cca56758b540ddd47815b7aff6dde77b, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
