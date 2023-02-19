@@ -24,9 +24,23 @@ public class TrashBin : MonoBehaviour
   {
     if (Hand.HasChildren())
     {
-      GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetChildTag()];
-      ScoreText.text = GlobalVariables.scoreValue + "$";
-      Destroy(Hand.GetTransform().GetChild(0).gameObject);
+      if (Hand.GetChildTag() != "Untagged")
+      {
+        if (GlobalVariables.Costs.ContainsKey(Hand.GetChildTag()))
+        {
+          GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetChildTag()];
+          ScoreText.text = GlobalVariables.scoreValue + "$";
+          Destroy(Hand.GetTransform().GetChild(0).gameObject);
+        }
+        else
+        {
+          Debug.LogError("Unknown tag of object in hand");
+        }
+      }
+      else
+      {
+        Debug.LogError("Add tag to object in hand");
+      }
     }
   }
 

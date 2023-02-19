@@ -13,7 +13,7 @@ public class Hand : MonoBehaviour
 
   public static bool HasChildren()
   {
-    return instance.transform.childCount != 0 ? true : false;
+    return instance.transform.childCount != 0;
   }
 
   public static Vector3 GetPosition()
