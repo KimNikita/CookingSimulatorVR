@@ -2839,7 +2839,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1561753727, guid: 89ff244a58c1b4e40b2905013ad3b107, type: 3}
+    - {fileID: 1561753728, guid: 89ff244a58c1b4e40b2905013ad3b107, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 89ff244a58c1b4e40b2905013ad3b107, type: 3}
 --- !u!4 &1210225572 stripped
 Transform:
@@ -4530,37 +4532,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.81024253, y: 0.993326, z: 0.047522623}
   m_Center: {x: -0.39686984, y: -0.000000059604645, z: -0.023761233}
---- !u!95 &4044267323910053617
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7531461981001274527}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 099e6cc38da8ff74bb68d0bf29e24642, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4044267323910053618
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7531461981001274527}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e8192f35a44301488ec0f072d9a16fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!64 &4044267324144482775
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -4791,8 +4762,6 @@ GameObject:
   - component: {fileID: 1902579494173251406}
   - component: {fileID: 2058924223041001934}
   - component: {fileID: 4044267323910053616}
-  - component: {fileID: 4044267323910053617}
-  - component: {fileID: 4044267323910053618}
   m_Layer: 0
   m_Name: Door.L
   m_TagString: Untagged
