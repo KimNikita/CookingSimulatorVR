@@ -26,7 +26,7 @@ public class TrashBin : MonoBehaviour
     {
       GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetChildTag()];
       ScoreText.text = GlobalVariables.scoreValue + "$";
-      Destroy(Hand.GetTransform().GetChild(0));
+      Destroy(Hand.GetTransform().GetChild(0).gameObject);
     }
   }
 
