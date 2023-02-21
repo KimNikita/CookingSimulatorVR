@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Cheese
+  - Tomato
+  - Cutlet
+  - Fanta
+  - Cola
+  - Order
   layers:
   - Default
   - TransparentFX
