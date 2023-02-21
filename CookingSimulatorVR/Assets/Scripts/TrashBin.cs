@@ -32,7 +32,7 @@ public class TrashBin : MonoBehaviour
           ScoreText.text = GlobalVariables.scoreValue + "$";
           Destroy(Hand.GetTransform().GetChild(0).gameObject);
         }
-        else
+        else if (Hand.GetChildTag() != "Order")
         {
           Debug.LogError("Unknown tag of object in hand");
         }
