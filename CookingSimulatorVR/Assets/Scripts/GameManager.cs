@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     while (!GlobalVariables.end)
     {
       // ждем перед генерацией нового заказа
-      yield return new WaitForSeconds(GlobalVariables.timeBetweenOrders);
+      yield return new WaitForSeconds(GlobalVariables.Times["BetweenOrders"]);
 
       // генерируем заказ по шаблону, добавляя его в список на сцене и инициализируя
       Transform newOrderPlace = ordersList.GetComponent<OrdersList>().GetNewOrderPlace();

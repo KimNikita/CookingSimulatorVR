@@ -13,6 +13,14 @@ public static class GlobalVariables
     { "Cola", 70 }
   };
 
+  public static Dictionary<string, float> Times = new Dictionary<string, float>
+  {
+    { "BetweenOrders", 20},
+    { "Base", 5 },
+    { "Drink", 7 },
+    { "Beef", 10 }
+  };
+
   public struct BurgerRecipe
   {
     public string name;
