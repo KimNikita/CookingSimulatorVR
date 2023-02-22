@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class ImageProgressBarMove : MonoBehaviour
 {
-  public GameObject interactiveObject;
   public UnityEvent onBarFilled;
 
   [Header("Custom Settiings")]
@@ -35,8 +34,10 @@ public class ImageProgressBarMove : MonoBehaviour
       Debug.LogError("There is no referenced image on this component!");
     }
 
+    // EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
+
     // Создаём контроллер для события наведения указателя на объект
-    EventTrigger eventTrigger = interactiveObject.AddComponent<EventTrigger>();
+    EventTrigger eventTrigger = gameObject.transform.parent.gameObject.AddComponent<EventTrigger>();
 
     EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
     pointerEnter.eventID = EventTriggerType.PointerEnter;
