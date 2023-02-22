@@ -12,12 +12,14 @@ public class MoveBunToTray : MonoBehaviour
     public Transform tray;
     public void StartMoving()
     {
-        objectToMove = Object.Instantiate(objectToMove);
-        line = new List<Transform>();
-        RefreshLine();
-
-        value = 0;
-        StartCoroutine(PlusValue());
+        if(tray.transform.childCount == 0)
+        {
+            objectToMove = Object.Instantiate(objectToMove);
+            line = new List<Transform>();
+            RefreshLine();
+            value = 0;
+            StartCoroutine(PlusValue());
+        }
     }    
     void RefreshLine()
     {

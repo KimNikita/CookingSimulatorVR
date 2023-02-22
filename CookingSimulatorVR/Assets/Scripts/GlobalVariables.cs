@@ -10,7 +10,8 @@ public static class GlobalVariables
     { "Tomato", 20 },
     { "Beef", 50 },
     { "Fanta", 60 },
-    { "Cola", 70 }
+    { "Cola", 70 },
+    { "Bun", 0} // to do: how much does bun cost
   };
 
   public static Dictionary<string, float> Times = new Dictionary<string, float>

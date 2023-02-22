@@ -6,10 +6,12 @@ TagManager:
   tags:
   - Cheese
   - Tomato
-  - Cutlet
   - Fanta
   - Cola
   - Order
+  - Hand
+  - Beef
+  - Bun
   layers:
   - Default
   - TransparentFX
