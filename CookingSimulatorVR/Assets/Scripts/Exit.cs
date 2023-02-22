@@ -54,6 +54,7 @@ public class Exit : MonoBehaviour
     }
 
     progressBarImage.fillAmount = 0.0f;
+    GlobalVariables.end = true;
 
     if (onBarFilled != null)
     {
