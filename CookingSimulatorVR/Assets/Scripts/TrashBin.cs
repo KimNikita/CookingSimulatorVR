@@ -8,6 +8,8 @@ public class TrashBin : MonoBehaviour
 {
   public TextMeshProUGUI ScoreText;
   public GameObject interactiveObject;
+  public AudioClip sound;
+  public float volume = 1;
 
   void Start()
   {
@@ -31,6 +33,7 @@ public class TrashBin : MonoBehaviour
           GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetChildTag()];
           ScoreText.text = GlobalVariables.scoreValue + "$";
           Destroy(Hand.GetTransform().GetChild(0).gameObject);
+          gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
         }
         else if (Hand.GetChildTag() != "Order")
         {

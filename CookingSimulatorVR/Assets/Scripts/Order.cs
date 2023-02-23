@@ -12,6 +12,9 @@ public class Order : MonoBehaviour
   public GameObject orderUI;
   public Canvas ordersListUI;
 
+  public AudioClip sound;
+  public float volume = 0.5f;
+
   // public GameObject красный поднос;
 
   public int hasBurger;
@@ -25,7 +28,13 @@ public class Order : MonoBehaviour
     hasDrink = Random.Range(0, 2);
     orderTime = GlobalVariables.Times["Base"];
 
+    // Вариант когда UI нового заказа всегда появляется левее остальных
+    // с использованием grid layout
     GameObject newOrderUI = Instantiate(orderUI, ordersListUI.transform);
+
+    // Вариант когда UI нового заказа всегда появляется правее остальных
+    // Понятия не имею как это замутить
+    // GameObject newOrderUI = Instantiate(orderUI, );
 
     if (hasBurger == 0 && hasDrink == 0 || hasBurger == 1)
     {
@@ -39,6 +48,8 @@ public class Order : MonoBehaviour
       orderTime += GlobalVariables.Times["Drink"];
       newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = drinkRecipe.name;
     }
+
+    gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
 
     newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
   }

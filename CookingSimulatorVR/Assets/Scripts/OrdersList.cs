@@ -7,6 +7,8 @@ public class OrdersList : MonoBehaviour
 {
   // содержит префабы OrderPlace в качестве детей
 
+  // Вариант где новый заказ всегда появляется правее остальных
+  /*
   public Transform GetNewOrderPlace()
   {
     // двигаем все заказы влево, если самое правое место под заказ не свободно
@@ -23,6 +25,20 @@ public class OrdersList : MonoBehaviour
       }
     }
 
+    return gameObject.transform.GetChild(0).transform;
+  }
+  */
+
+  // Вариант где новый заказ всегда появляется левее остальных
+  public Transform GetNewOrderPlace()
+  {
+    for (int i = gameObject.transform.childCount - 1; i > 0; i--)
+    {
+      if (gameObject.transform.GetChild(i - 1).childCount != 0)
+      {
+        return gameObject.transform.GetChild(i).transform;
+      }
+    }
     return gameObject.transform.GetChild(0).transform;
   }
 
