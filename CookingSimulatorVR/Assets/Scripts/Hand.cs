@@ -34,4 +34,9 @@ public class Hand : MonoBehaviour
     }
     return "None";
   }
+
+  public static Quaternion GetRotation()
+  {
+    return instance.transform.rotation;
+  }
 }

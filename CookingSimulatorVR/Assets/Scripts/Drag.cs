@@ -21,6 +21,7 @@ public class Drag : MonoBehaviour
     if (!Hand.HasChildren())
     {
       gameObject.transform.position = Hand.GetPosition();
+      gameObject.transform.rotation = Hand.GetRotation();
       gameObject.transform.parent = Hand.GetTransform();
     }
   }
