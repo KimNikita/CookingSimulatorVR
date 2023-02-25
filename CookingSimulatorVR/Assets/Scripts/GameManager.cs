@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
   void Start()
   {
+    gameObject.GetComponent<AudioSource>().Play();
     ScoreText.text = GlobalVariables.scoreValue + "$";
     StartCoroutine(OrderSpawner());
   }

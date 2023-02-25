@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class Order : MonoBehaviour
@@ -8,9 +9,11 @@ public class Order : MonoBehaviour
   public GlobalVariables.BurgerRecipe burgerRecipe;
   public GlobalVariables.DrinkRecipe drinkRecipe;
 
-  // для отображения и изменения названий в canvas на объекте
-  public TextMeshProUGUI burgerNameText;
-  public TextMeshProUGUI drinkNameText;
+  public GameObject orderUI;
+  public Canvas ordersListUI;
+
+  public AudioClip sound;
+  public float volume = 0.5f;
 
   // public GameObject красный поднос;
 
@@ -23,20 +26,32 @@ public class Order : MonoBehaviour
   {
     hasBurger = Random.Range(0, 2);
     hasDrink = Random.Range(0, 2);
-    orderTime = GlobalVariables.Times["Base"] + GlobalVariables.Times["Beef"] + GlobalVariables.Times["Drink"];
+    orderTime = GlobalVariables.Times["Base"];
 
-    if (hasBurger == 1)
+    // Вариант когда UI нового заказа всегда появляется левее остальных
+    // с использованием grid layout
+    GameObject newOrderUI = Instantiate(orderUI, ordersListUI.transform);
+
+    // Вариант когда UI нового заказа всегда появляется правее остальных
+    // Понятия не имею как это замутить
+    // GameObject newOrderUI = Instantiate(orderUI, );
+
+    if (hasBurger == 0 && hasDrink == 0 || hasBurger == 1)
     {
       burgerRecipe = GlobalVariables.BurgerRecipes[Random.Range(0, GlobalVariables.BurgerRecipes.Count)];
+      orderTime += GlobalVariables.Times["Beef"];
+      newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = burgerRecipe.name;
     }
     if (hasDrink == 1)
     {
       drinkRecipe = GlobalVariables.DrinkRecipes[Random.Range(0, GlobalVariables.DrinkRecipes.Count)];
+      orderTime += GlobalVariables.Times["Drink"];
+      newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = drinkRecipe.name;
     }
 
-    // TODO добавить UI отображение с прогресс баром и прочим,
-    // связать окончание времени с прогрессбаром и жизнью объекта
+    gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
 
+    newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
   }
 
   public void Check()

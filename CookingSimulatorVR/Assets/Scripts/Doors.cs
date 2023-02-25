@@ -6,7 +6,7 @@ public class Doors : MonoBehaviour
 {
   public GameObject target;
   public AudioClip clip;
-  public float volume = 0.5f;
+  public float volume = 0.3f;
   public void OpenDoors()
   {
     gameObject.GetComponent<Animator>().SetBool("Open", true);
