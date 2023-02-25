@@ -20,8 +20,12 @@ public class Red_Button : MonoBehaviour
 
   public void ActiveObj()
   {
-    anim.SetTrigger("Active_Button_Red");
-    StartCoroutine(Wait());
+    if (!GlobalVariables.hasDrink)
+    {
+      GlobalVariables.hasDrink = true;
+      anim.SetTrigger("Active_Button_Red");
+      StartCoroutine(Wait());
+    }
   }
 
   IEnumerator Wait()
@@ -31,7 +35,7 @@ public class Red_Button : MonoBehaviour
     anim_cup.SetBool("Active_Button_R", true);
     yield return new WaitForSecondsRealtime(1.8f);
     anim_cup.SetBool("Active_Button_R", false);
-    yield return new WaitForSecondsRealtime(0.4f);
+    yield return new WaitForSecondsRealtime(1f);
     cup_clone = Instantiate(cup, point.transform.position, cup.transform.rotation);
     
     
