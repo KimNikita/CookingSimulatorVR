@@ -41,12 +41,15 @@ public class Order : MonoBehaviour
       burgerRecipe = GlobalVariables.BurgerRecipes[Random.Range(0, GlobalVariables.BurgerRecipes.Count)];
       orderTime += GlobalVariables.Times["Beef"];
       newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = burgerRecipe.name;
+      gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = burgerRecipe.name;
+
     }
     if (hasDrink == 1)
     {
       drinkRecipe = GlobalVariables.DrinkRecipes[Random.Range(0, GlobalVariables.DrinkRecipes.Count)];
       orderTime += GlobalVariables.Times["Drink"];
       newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = drinkRecipe.name;
+      gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = drinkRecipe.name;
     }
 
     gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
