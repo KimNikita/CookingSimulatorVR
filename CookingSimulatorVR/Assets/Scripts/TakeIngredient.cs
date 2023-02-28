@@ -5,23 +5,24 @@ using UnityEngine.EventSystems;
 
 public class TakeIngredient : MonoBehaviour
 {
-    void Start()
-    {
-        EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-        EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-        pointerDown.eventID = EventTriggerType.PointerDown;
-        pointerDown.callback.AddListener((eventData) => { MoveToHand(); });
-        eventTrigger.triggers.Add(pointerDown);
-    }
+  public GameObject ingredientPrefab;
+  public string ingredientTag;
+  void Start()
+  {
+    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
+    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
+    pointerDown.eventID = EventTriggerType.PointerDown;
+    pointerDown.callback.AddListener((eventData) => { MoveToHand(); });
+    eventTrigger.triggers.Add(pointerDown);
+  }
 
-    public void MoveToHand()
+  public void MoveToHand()
+  {
+    if (!Hand.HasChildren())
     {
-        if (!Hand.HasChildren())
-        {
-            GameObject clone = Object.Instantiate<GameObject>(gameObject);
-            clone.transform.position = Hand.GetPosition();
-            clone.transform.parent = Hand.GetTransform();
-            GameObject.FindGameObjectWithTag("Hand").transform.SetParent(clone.transform);
-        }
+      GameObject instance = Instantiate(ingredientPrefab, Hand.GetPosition(), new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w), Hand.GetTransform());
+      instance.tag = ingredientTag;
+      instance.AddComponent<BoxCollider>();
     }
+  }
 }
