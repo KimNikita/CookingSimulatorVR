@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 7035926913957941193}
   - component: {fileID: 178296001947731785}
   - component: {fileID: 2307407842479140987}
+  - component: {fileID: -7081379408872114023}
   m_Layer: 0
   m_Name: Bottom burger
-  m_TagString: Untagged
+  m_TagString: Bun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2884519621898698834}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.3428, y: 1.1243, z: 2.147}
+  m_LocalPosition: {x: -0.057391405, y: 1.0261315, z: 2.137877}
   m_LocalScale: {x: 0.5559733, y: 0.5559733, z: 0.5559733}
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,3 +80,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &-7081379408872114023
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2884519621898698834}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.50316143, y: 0.075936414, z: 0.50316143}
+  m_Center: {x: 0, y: -0.0022692084, z: -0.000000014901165}
