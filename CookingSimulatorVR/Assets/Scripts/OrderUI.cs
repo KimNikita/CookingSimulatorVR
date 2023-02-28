@@ -26,8 +26,19 @@ public class OrderUI : MonoBehaviour
 
     while (Time.time < overTime)
     {
-      // TODO добавить изменение цвета
       progressBarImage.fillAmount = Mathf.Lerp(1, 0, (Time.time - startTime) / timeToFill);
+      if (progressBarImage.fillAmount <= 0.5f && progressBarImage.fillAmount > 0.25)
+      {
+        progressBarImage.color = new Color(255, 127, 0, 255);
+      }
+      else if (progressBarImage.fillAmount <= 0.25f)
+      {
+        progressBarImage.color = new Color(255, 0, 0, 255);
+      }
+      else
+      {
+        progressBarImage.color = new Color(0, 255, 0, 255);
+      }
       yield return null;
     }
 

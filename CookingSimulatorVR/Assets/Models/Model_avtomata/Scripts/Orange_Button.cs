@@ -11,6 +11,10 @@ public class Orange_Button : MonoBehaviour
   public static GameObject cup_clone;
   public GameObject point;
   private bool Active_Button_O = false;
+
+  public AudioClip sound;
+  public float volume = 1;
+
   private void Start()
   {
     anim = GetComponent<Animator>();
@@ -22,6 +26,7 @@ public class Orange_Button : MonoBehaviour
     if (!GlobalVariables.hasDrink)
     {
       GlobalVariables.hasDrink = true;
+      gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
       anim.SetTrigger("Active_Button_Orange");
       StartCoroutine(Wait());
     }
@@ -36,6 +41,5 @@ public class Orange_Button : MonoBehaviour
     anim_cup.SetBool("Active_Button_O", false);
     yield return new WaitForSecondsRealtime(1f);
     cup_clone = Instantiate(cup, point.transform.position, cup.transform.rotation);
-
   }
 }
