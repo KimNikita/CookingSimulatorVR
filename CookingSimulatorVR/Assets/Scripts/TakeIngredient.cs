@@ -14,7 +14,7 @@ public class TakeIngredient : MonoBehaviour
         eventTrigger.triggers.Add(pointerDown);
     }
 
-    void MoveToHand()
+    public void MoveToHand()
     {
         if (!Hand.HasChildren())
         {
