@@ -13,17 +13,13 @@ public class MoveBunToTray : MonoBehaviour
   public Transform tray;
   public void StartMoving()
   {
-
-    Debug.Log(tray.transform.childCount);
     if (tray.transform.childCount == 0)
     {
-      Debug.Log("Move Bun");
       instance = Instantiate(objectToMove);
       line = new List<Transform>();
       RefreshLine();
       value = 0;
       StartCoroutine(PlusValue());
-      //tray.GetComponent<BurgerBuilder>().ingredients.Add(instance.transform);
     }
   }
   void RefreshLine()
@@ -65,6 +61,7 @@ public class MoveBunToTray : MonoBehaviour
       Move();
     }
     instance.transform.parent = tray;
+    instance.transform.rotation = tray.rotation;
   }
   void Move()
   {

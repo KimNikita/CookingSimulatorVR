@@ -30,6 +30,14 @@ public class TrashBin : MonoBehaviour
       {
         if (GlobalVariables.Costs.ContainsKey(Hand.GetChildTag()))
         {
+          int childCount = Hand.GetTransform().GetChild(0).childCount;
+          if (childCount != 0)
+          {
+            for (int i = 0; i < childCount; i++)
+            {
+              GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetTransform().GetChild(0).GetChild(i).tag];
+            }
+          }
           GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetChildTag()];
           ScoreText.text = GlobalVariables.scoreValue + "$";
           Destroy(Hand.GetTransform().GetChild(0).gameObject);
