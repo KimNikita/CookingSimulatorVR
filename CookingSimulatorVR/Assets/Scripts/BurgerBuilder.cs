@@ -33,10 +33,10 @@ public class BurgerBuilder : MonoBehaviour
     }
     void MoveIngredientToHand()
     {
-        //GameObject clone = Object.Instantiate<GameObject>(gameObject);
-        //clone.transform.position = Hand.GetPosition();
-        //clone.transform.parent = Hand.GetTransform();
-        //GameObject.FindGameObjectWithTag("Hand").transform.SetParent(clone.transform);
+        Transform last_ingr = ingredients.Last().transform;
+        last_ingr.GetComponent<TakeIngredient>().MoveToHand();
+        ingredients.RemoveAt(ingredients.Count - 1);
+        Destroy(last_ingr);
     }
     void MoveIngredientFromHand()
     {
