@@ -10,7 +10,6 @@ public class Order : MonoBehaviour
   public GlobalVariables.DrinkRecipe drinkRecipe;
 
   public GameObject orderUI;
-  public Canvas ordersListUI;
 
   public AudioClip sound;
   public float volume = 0.5f;
@@ -22,7 +21,7 @@ public class Order : MonoBehaviour
 
   public float orderTime;
 
-  public void GenerateOrder()
+  public void GenerateOrder(GameObject ordersListUI)
   {
     hasBurger = Random.Range(0, 2);
     hasDrink = Random.Range(0, 2);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class OrdersList : MonoBehaviour
 {
-  // содержит префабы OrderPlace в качестве детей
+  // содержит OrderPlace в качестве детей
 
   // Вариант где новый заказ всегда появляется правее остальных
   /*
@@ -29,7 +29,7 @@ public class OrdersList : MonoBehaviour
   }
   */
 
-  // Вариант где новый заказ всегда появляется левее остальных
+  // Вариант где новый заказ всегда появляется левее остальных bad variant
   public Transform GetNewOrderPlace()
   {
     for (int i = gameObject.transform.childCount - 1; i > 0; i--)
