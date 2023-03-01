@@ -25,9 +25,10 @@ public class OrderPlace : MonoBehaviour
       {
         if (Hand.GetChildTag() == "Order")
         {
-          if (gameObject.transform.childCount == 0)
+          if (gameObject.transform.childCount == 1)
           {
             Hand.GetTransform().GetChild(0).position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.05f, gameObject.transform.position.z);
+            Hand.GetTransform().GetChild(0).rotation = gameObject.transform.rotation;
             Hand.GetTransform().GetChild(0).parent = gameObject.transform;
           }
         }
