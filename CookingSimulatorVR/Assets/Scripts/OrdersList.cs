@@ -34,7 +34,7 @@ public class OrdersList : MonoBehaviour
   {
     for (int i = gameObject.transform.childCount - 1; i > 0; i--)
     {
-      if (gameObject.transform.GetChild(i - 1).childCount != 0)
+      if (gameObject.transform.GetChild(i - 1).childCount == 2)
       {
         return gameObject.transform.GetChild(i).transform;
       }
