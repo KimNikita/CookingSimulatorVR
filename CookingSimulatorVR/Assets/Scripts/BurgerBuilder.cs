@@ -19,18 +19,28 @@ public class BurgerBuilder : MonoBehaviour
   }
   void OnPointerDown()
   {
-    if (tray.childCount != 0)
+    if (!Hand.HasChildren()) // if hand is empty - put the ingredient into it
     {
-      if (!Hand.HasChildren()) // if hand is empty - put the ingredient into it
+      if (tray.childCount != 0)
       {
-        gameObject.transform.GetChild(0).rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
-        gameObject.transform.GetChild(0).transform.position = Hand.GetPosition();
-        gameObject.transform.GetChild(0).transform.parent = Hand.GetTransform();
+        tray.GetChild(0).rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
+        tray.GetChild(0).transform.position = Hand.GetPosition();
+        tray.GetChild(0).transform.parent = Hand.GetTransform();
       }
-      else
+    }
+    else
+    {
+      string ingredientTag = Hand.GetChildTag();
+      // TODO may be need list of possible ingredients
+      if (tray.childCount == 0 && ingredientTag == "Bun")
       {
-        string ingredientTag = Hand.GetChildTag();
-        // TODO may be need list of possible ingredients
+        Transform burger = Hand.GetTransform().GetChild(0);
+        burger.transform.position = tray.transform.position + new Vector3(0.035f, 0, 0.05f); // костыль
+        burger.transform.rotation = tray.transform.rotation;
+        burger.parent = tray.transform;
+      }
+      else if (tray.childCount != 0)
+      {
         if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
         {
           Transform new_ingredient = Hand.GetTransform().GetChild(0);
