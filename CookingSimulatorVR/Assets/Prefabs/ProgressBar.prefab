@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 2022055632283661960}
   - component: {fileID: 2022055632283661961}
   m_Layer: 5
-  m_Name: BunsProgressBar
+  m_Name: ProgressBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
