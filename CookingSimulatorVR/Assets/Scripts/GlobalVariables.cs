@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class GlobalVariables
 {
-    public static Dictionary<string, int> Costs = new Dictionary<string, int>
+  public static Dictionary<string, int> Costs = new Dictionary<string, int>
   {
     { "Cheese", 30 },
     { "Tomato", 20 },
@@ -13,7 +13,8 @@ public static class GlobalVariables
     { "Fanta", 60 },
     { "Cola", 70 },
     { "Bun", 10},
-    { "Lolipop", 5}
+    { "Lolipop", 5},
+    {"Tips", 0 }
   };
 
   public static Dictionary<string, float> Times = new Dictionary<string, float>
@@ -56,6 +57,7 @@ public static class GlobalVariables
     { new DrinkRecipe("Drink name 1") },
     { new DrinkRecipe("Drink name 2") }
   };
+
 
   public static bool end = false;
   public static int scoreValue = 100;
