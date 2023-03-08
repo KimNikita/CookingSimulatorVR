@@ -49,7 +49,7 @@ public static class GlobalVariables
 
   public static List<BurgerRecipe> BurgerRecipes = new List<BurgerRecipe>
   {
-    { new BurgerRecipe("CheeseBurger", new List<string>{ "Bun", "Cheese", "Beef", "Cheese", "Bun" }) },
+    { new BurgerRecipe("Cheese Burger", new List<string>{ "Bun", "Cheese", "Beef", "Cheese", "Bun" }) },
     { new BurgerRecipe("Gamburger", new List<string>{ "Bun", "Beef", "Tomato", "Beef", "Bun" }) }
   };
 

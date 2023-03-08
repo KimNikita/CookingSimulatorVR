@@ -32,11 +32,23 @@ public class DrinkPlace : MonoBehaviour
         while (value <= 1)
         {
             yield return new WaitForSeconds(0.01f);
-            value += 0.01f;
+            value += 0.07f;
             Move();
         }        
         object1.parent = tray.transform;
         value = 0;
+    }
+    IEnumerator MinusValue()
+    {
+        object1.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
+        value = 1;
+        while (value >= 0)
+        {
+            yield return new WaitForSeconds(0.01f);
+            value -= 0.07f;
+            Move();
+        }
+        object1.parent = Hand.GetTransform();
     }
     void Move()
     {
@@ -54,9 +66,9 @@ public class DrinkPlace : MonoBehaviour
         {
             if (tray.childCount == 2)
             {
-                tray.GetChild(1).rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
-                tray.GetChild(1).transform.position = Hand.GetPosition();
-                tray.GetChild(1).transform.parent = Hand.GetTransform();
+                object1 = tray.GetChild(1);
+
+                StartCoroutine(MinusValue());
             }
         }
         else
@@ -69,6 +81,17 @@ public class DrinkPlace : MonoBehaviour
                 {
                     object1 = Hand.GetTransform().GetChild(0);
                     line1.Add(tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f));
+                    
+                    var triggersList = object1.GetComponent<EventTrigger>().triggers;
+                    foreach (var trigger in triggersList)
+                    {
+                        if(trigger.eventID == EventTriggerType.PointerDown)
+                        {
+                            triggersList.Remove(trigger);
+                            break;
+                        }
+                    }
+
                     StartCoroutine(PlusValue());
                 }
             }
