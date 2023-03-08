@@ -86,7 +86,7 @@ public class BurgerBuilder : MonoBehaviour
             else*/
             if (tray.childCount != 0)
             {
-                if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
+                if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Beef" || ingredientTag == "Bun")
                 {
                     object1 = Hand.GetTransform().GetChild(0);
                     object1.parent = tray; // это не удалять. так ингредиенты ложатся хотя бы параллельно подносу
