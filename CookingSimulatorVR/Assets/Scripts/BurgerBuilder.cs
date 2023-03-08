@@ -9,34 +9,7 @@ public class BurgerBuilder : MonoBehaviour
     private Transform tray;
     [Range(0, 1)] public float value;
     List<Vector3> line1;
-    public Transform object1;
-    void LerpLine1()
-    {
-        object1.position = Vector3.Lerp(line1[0], line1[1], value);
-    }
-    IEnumerator PlusValue()
-    {
-        object1.transform.rotation = tray.GetChild(0).rotation;
-        //if(object1.transform.CompareTag("Bun"))
-            object1.transform.rotation = new Quaternion(0, 90, 0, 0);
-        while (value <= 1)
-        {
-            yield return new WaitForSeconds(0.01f);
-            value += 0.01f;
-            Move();
-        }        
-        object1.parent = tray.GetChild(0).transform;
-        value = 0;
-    }
-    void Move()
-    {
-        LerpLine1();
-        DrawLine1();
-    }
-    void DrawLine1()
-    {
-        Debug.DrawLine(line1[0], line1[1], Color.red, 0.01f);
-    }
+    Transform object1;
     void Start()
     {
         tray = gameObject.transform;
@@ -49,6 +22,32 @@ public class BurgerBuilder : MonoBehaviour
         line1 = new List<Vector3>(2);
         line1.Add(Hand.GetTransform().position); // точка из которой начинается движение               
     }
+    void LerpLine1()
+    {
+        object1.position = Vector3.Lerp(line1[0], line1[1], value);
+    }
+    IEnumerator PlusValue()
+    {
+        object1.transform.rotation = tray.GetChild(0).rotation;
+        object1.transform.rotation = new Quaternion(0, 90, 0, 0);
+        while (value <= 1)
+        {
+            yield return new WaitForSeconds(0.01f);
+            value += 0.01f;
+            Move();
+        }
+        object1.parent = tray.GetChild(0).transform;
+        value = 0;
+    }
+    void Move()
+    {
+        LerpLine1();
+        DrawLine1();
+    }
+    void DrawLine1()
+    {
+        Debug.DrawLine(line1[0], line1[1], Color.red, 0.01f);
+    }   
     Transform GetLastIngredient()
     {
         Transform lastIngr = null;
@@ -88,7 +87,7 @@ public class BurgerBuilder : MonoBehaviour
             if (tray.childCount != 0)
             {
                 if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
-                {                    
+                {
                     object1 = Hand.GetTransform().GetChild(0);
                     object1.parent = tray; // это не удалять. так ингредиенты ложатся хотя бы параллельно подносу
 
@@ -99,10 +98,10 @@ public class BurgerBuilder : MonoBehaviour
                     BoxCollider new_ingr_collider = object1.GetComponent<BoxCollider>();
                     float new_ingr_y = new_ingr_collider.size.y;
 
-                    Vector3 destination = last_ingr_collider.gameObject.transform.position + new Vector3(0, last_ingr_y / 2f + new_ingr_y / 2f, 0);                    
+                    Vector3 destination = last_ingr_collider.gameObject.transform.position + new Vector3(0, last_ingr_y / 2f + new_ingr_y / 2f, 0);
                     line1.Add(destination);
 
-                    StartCoroutine(PlusValue());                    
+                    StartCoroutine(PlusValue());
                 }
             }
         }
