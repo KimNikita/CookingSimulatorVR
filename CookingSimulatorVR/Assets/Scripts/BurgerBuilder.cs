@@ -41,7 +41,7 @@ public class BurgerBuilder : MonoBehaviour
       }
       else if (tray.childCount != 0)
       {
-        if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
+        if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Beef" || ingredientTag == "Bun")
         {
           Transform new_ingredient = Hand.GetTransform().GetChild(0);
 

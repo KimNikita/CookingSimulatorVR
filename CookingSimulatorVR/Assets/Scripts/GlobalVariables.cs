@@ -14,7 +14,8 @@ public static class GlobalVariables
     { "Cola", 70 },
     { "Bun", 10},
     { "Lolipop", 5},
-    {"Tips", 0 }
+    { "Tips", 0 },
+    { "NDS", 15 }
   };
 
   public static Dictionary<string, float> Times = new Dictionary<string, float>
@@ -48,14 +49,14 @@ public static class GlobalVariables
 
   public static List<BurgerRecipe> BurgerRecipes = new List<BurgerRecipe>
   {
-    { new BurgerRecipe("Burger name 1", new List<string>{ "ingredient 1", "ingredient 2" }) },
-    { new BurgerRecipe("Burger name 2", new List<string>{ "ingredient 1", "ingredient 2" }) }
+    { new BurgerRecipe("CheeseBurger", new List<string>{ "Bun", "Cheese", "Beef", "Cheese", "Bun" }) },
+    { new BurgerRecipe("Gamburger", new List<string>{ "Bun", "Beef", "Tomato", "Beef", "Bun" }) }
   };
 
   public static List<DrinkRecipe> DrinkRecipes = new List<DrinkRecipe>
   {
-    { new DrinkRecipe("Drink name 1") },
-    { new DrinkRecipe("Drink name 2") }
+    { new DrinkRecipe("Fanta") },
+    { new DrinkRecipe("Cola") }
   };
 
 
