@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class OrderUI : MonoBehaviour
 {
   public float timeToFill;
+  public float startTime;
 
   private GameObject order;
   public Image progressBarImage = null;
@@ -21,10 +22,10 @@ public class OrderUI : MonoBehaviour
 
   IEnumerator Fill()
   {
-    float startTime = Time.time;
+    startTime = Time.time;
     float overTime = startTime + timeToFill;
 
-    while (Time.time < overTime)
+    while (progressBarImage.fillAmount>0)
     {
       progressBarImage.fillAmount = Mathf.Lerp(1, 0, (Time.time - startTime) / timeToFill);
       if (progressBarImage.fillAmount <= 0.5f && progressBarImage.fillAmount > 0.25)

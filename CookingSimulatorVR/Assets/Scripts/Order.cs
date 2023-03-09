@@ -76,7 +76,7 @@ public class Order : MonoBehaviour
       if (_lolipopWasGiven == false && Hand.GetChildTag() == "Lolipop")
       {
         Debug.Log(newOrderUI.GetComponent<OrderUI>().timeToFill);
-        newOrderUI.GetComponent<OrderUI>().timeToFill *= 1.25f;
+        newOrderUI.GetComponent<OrderUI>().startTime += 4f;
         _lolipopWasGiven = true;
         Destroy(Hand.GetTransform().GetChild(0).gameObject);
       }
