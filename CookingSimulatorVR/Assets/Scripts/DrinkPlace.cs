@@ -28,7 +28,7 @@ public class DrinkPlace : MonoBehaviour
     }
     IEnumerator PlusValue()
     {   
-        object1.transform.rotation = tray.transform.rotation;
+        //object1.transform.rotation = tray.transform.rotation;
         while (value <= 1)
         {
             yield return new WaitForSeconds(0.01f);
