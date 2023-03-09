@@ -34,20 +34,6 @@ public class ImageProgressBarMove : MonoBehaviour
       Debug.LogError("There is no referenced image on this component!");
     }
 
-    // EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-    // Создаём контроллер для события наведения указателя на объект
-    EventTrigger eventTrigger = gameObject.transform.parent.gameObject.AddComponent<EventTrigger>();
-
-    EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
-    pointerEnter.eventID = EventTriggerType.PointerEnter;
-    pointerEnter.callback.AddListener((eventData) => { StartFillingProgressBar(); });
-    eventTrigger.triggers.Add(pointerEnter);
-
-    EventTrigger.Entry pointerExit = new EventTrigger.Entry();
-    pointerExit.eventID = EventTriggerType.PointerExit;
-    pointerExit.callback.AddListener((eventData) => { StopFillingProgressBar(); });
-    eventTrigger.triggers.Add(pointerExit);
   }
 
   void Update()
@@ -60,12 +46,12 @@ public class ImageProgressBarMove : MonoBehaviour
     }
   }
 
-  void StartFillingProgressBar()
+  public void StartFillingProgressBar()
   {
     barFillCoroutine = StartCoroutine("Fill");
   }
 
-  void StopFillingProgressBar()
+  public void StopFillingProgressBar()
   {
     StopCoroutine(barFillCoroutine);
     progressBarImage.fillAmount = 0.0f;
