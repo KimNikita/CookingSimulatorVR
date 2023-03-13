@@ -4,15 +4,23 @@ using UnityEngine;
 
 public static class GlobalVariables
 {
+  public static Dictionary<string, string> Translate = new Dictionary<string, string>
+  {
+    { "Cheeseburger", "Чизбургер" },
+    { "Gamburger", "Гамбургер" },
+    { "Fanta", "Фанта" },
+    { "Cola", "Кока-кола" }
+  };
+
   public static Dictionary<string, int> Costs = new Dictionary<string, int>
   {
-    { "Cheese", 30 },
-    { "Tomato", 20 },
-    { "Cooked Beef", 50 },
-    { "Beef", 50 },
-    { "Fanta", 60 },
-    { "Cola", 70 },
-    { "Bun", 10},
+    { "Cheese", 20 },
+    { "Tomato", 15 },
+    { "Cooked Beef", 30 },
+    { "Beef", 30 },
+    { "Fanta", 15 },
+    { "Cola", 20 },
+    { "Bun", 5},
     { "Lolipop", 5},
     { "Tips", 0 },
     { "NDS", 15 }
@@ -20,9 +28,8 @@ public static class GlobalVariables
 
   public static Dictionary<string, float> Times = new Dictionary<string, float>
   {
-    { "BetweenOrders", 20},
-    { "AdditionalTime", 0},
-    { "Base", 10 },
+    { "BetweenOrders", 15},
+    { "Base", 15 },
     { "Drink", 7 },
     { "Beef", 10 }
   };
@@ -49,7 +56,7 @@ public static class GlobalVariables
 
   public static List<BurgerRecipe> BurgerRecipes = new List<BurgerRecipe>
   {
-    { new BurgerRecipe("Cheese Burger", new List<string>{ "Bun", "Cheese", "Beef", "Cheese", "Bun" }) },
+    { new BurgerRecipe("Cheeseburger", new List<string>{ "Bun", "Cheese", "Beef", "Cheese", "Bun" }) },
     { new BurgerRecipe("Gamburger", new List<string>{ "Bun", "Beef", "Tomato", "Beef", "Bun" }) }
   };
 
