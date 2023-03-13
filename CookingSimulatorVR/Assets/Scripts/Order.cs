@@ -49,9 +49,9 @@ public class Order : MonoBehaviour
     {
       burgerRecipe = GlobalVariables.BurgerRecipes[Random.Range(0, GlobalVariables.BurgerRecipes.Count)];
       orderTime += GlobalVariables.Times["Beef"];
-      newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = burgerRecipe.name;
+      newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[burgerRecipe.name];
       newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
-      gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = burgerRecipe.name;
+      gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[burgerRecipe.name];
       gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = Color.black;
 
     }
@@ -59,9 +59,9 @@ public class Order : MonoBehaviour
     {
       drinkRecipe = GlobalVariables.DrinkRecipes[Random.Range(0, GlobalVariables.DrinkRecipes.Count)];
       orderTime += GlobalVariables.Times["Drink"];
-      newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = drinkRecipe.name;
+      newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[drinkRecipe.name];
       newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.black;
-      gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = drinkRecipe.name;
+      gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[drinkRecipe.name];
       gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.black;
     }
 
