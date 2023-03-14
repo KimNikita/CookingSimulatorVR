@@ -25,9 +25,8 @@ public class GameManager : MonoBehaviour
       yield return new WaitForSeconds(GlobalVariables.Times["BetweenOrders"]);
 
       // генерируем заказ по шаблону, добавляя его в список на сцене и инициализируя
-      Transform newOrderPlace = ordersList.GetComponent<OrdersList>().GetNewOrderPlace();
-      GameObject newOrder = Instantiate(orderTemplate, new Vector3(newOrderPlace.position.x, newOrderPlace.position.y - 0.05f, newOrderPlace.position.z), newOrderPlace.rotation, newOrderPlace);
-      newOrder.GetComponent<Order>().GenerateOrder(ordersListUI);
+      GameObject newOrder = Instantiate(orderTemplate);
+      newOrder.GetComponent<Order>().GenerateOrder(ordersList, ordersListUI);
     }
     // save results
 
