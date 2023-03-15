@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6295942400955479112
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7971215414926457216}
+  - component: {fileID: -3613012219939342086}
+  - component: {fileID: 73290965631872923}
+  m_Layer: 0
+  m_Name: "\u043C\u0435\u0441\u0442\u043E \u0434\u043B\u044F \u0436\u0430\u0440\u043A\u0438"
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7971215414926457216
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295942400955479112}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.06400001, y: 0.07800007, z: 0.21000001}
+  m_LocalScale: {x: 0.006850639, y: 0.006850639, z: 0.006850639}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
+--- !u!65 &-3613012219939342086
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295942400955479112}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 54.777565, y: 11.035802, z: 54.386612}
+  m_Center: {x: -0.72084445, y: 5.2125797, z: -0.99849784}
+--- !u!114 &73290965631872923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6295942400955479112}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97baf083abb1d034f905d159e05da7e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  value: 0
+  progressBarImage: {fileID: 0}
+  cookedBeef: {fileID: 8846904234037770439, guid: 83726aefaa206854080107220de713e2,
+    type: 3}
+  burntBeef: {fileID: 7221819811954625895, guid: 69b9c130ef42351418610362ab0e757d,
+    type: 3}

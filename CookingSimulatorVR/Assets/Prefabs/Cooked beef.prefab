@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5053759782281227736}
   - component: {fileID: 7045451669606750482}
   - component: {fileID: 8399725748120771995}
-  - component: {fileID: 4865796486019730982}
   - component: {fileID: 4725031155325271289}
+  - component: {fileID: -2505041656024821319}
   m_Layer: 0
   m_Name: Cooked beef
   m_TagString: Cooked Beef
@@ -95,20 +95,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.298873, y: 0.059693757, z: 0.28796306}
   m_Center: {x: -0.004484661, y: -0.023215977, z: 0.0003594756}
---- !u!114 &4865796486019730982
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8846904234037770439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9771a907d4124374e9a220b2f29f2034, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredientPrefab: {fileID: 8846904234037770439}
-  ingredientTag: Cooked Beef
 --- !u!114 &4725031155325271289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,3 +108,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preparedness: 0.33333334
+--- !u!114 &-2505041656024821319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8846904234037770439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9771a907d4124374e9a220b2f29f2034, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ingredientPrefab: {fileID: 8846904234037770439}
+  ingredientTag: Cooked Beef
