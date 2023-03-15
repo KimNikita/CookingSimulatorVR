@@ -27,14 +27,14 @@ public class DrinkPlace : MonoBehaviour
         object1.position = Vector3.Lerp(line1[0], line1[1], value);
     }
     IEnumerator PlusValue()
-    {
-        //object1.transform.rotation = tray.transform.rotation;
+    {   
+        object1.transform.rotation = tray.transform.rotation;
         while (value <= 1)
         {
             yield return new WaitForSeconds(0.01f);
             value += 0.07f;
             Move();
-        }
+        }        
         object1.parent = tray.transform;
         value = 0;
     }
@@ -61,7 +61,7 @@ public class DrinkPlace : MonoBehaviour
     }
     void OnPointerDown()
     {
-        if (line1.Count == 0) line1.Add(Hand.GetTransform().position); // точка из которой начинается движение
+        if(line1.Count == 0) line1.Add(Hand.GetTransform().position); // точка из которой начинается движение
         if (!Hand.HasChildren())
         {
             if (tray.childCount == 2)
@@ -81,11 +81,11 @@ public class DrinkPlace : MonoBehaviour
                 {
                     object1 = Hand.GetTransform().GetChild(0);
                     line1.Add(tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f));
-
+                    
                     var triggersList = object1.GetComponent<EventTrigger>().triggers;
                     foreach (var trigger in triggersList)
                     {
-                        if (trigger.eventID == EventTriggerType.PointerDown)
+                        if(trigger.eventID == EventTriggerType.PointerDown)
                         {
                             triggersList.Remove(trigger);
                             break;
