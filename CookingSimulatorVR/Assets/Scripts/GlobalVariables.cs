@@ -31,7 +31,8 @@ public static class GlobalVariables
     { "BetweenOrders", 15},
     { "Base", 15 },
     { "Drink", 7 },
-    { "Beef", 10 }
+    { "Beef", 10 },
+    {"roastTime", 10 }
   };
 
   public struct BurgerRecipe

@@ -5,9 +5,9 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
 
-public class Bonus_stonks : MonoBehaviour
-{
 
+public class Bonus_doubleTime : MonoBehaviour
+{
   public GameObject interactiveObject;
   [SerializeField] private float time;
   [SerializeField] public Image timerImage;
@@ -24,18 +24,18 @@ public class Bonus_stonks : MonoBehaviour
     timeLeft = time;
     interactiveObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
     StartCoroutine(StartTimer());
-    
+
     EventTrigger eventTrigger = interactiveObject.AddComponent<EventTrigger>();
     EventTrigger.Entry pointerDown = new EventTrigger.Entry();
     pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { Double_money(); });
+    pointerDown.callback.AddListener((eventData) => { Double_time(); });
     eventTrigger.triggers.Add(pointerDown);
 
 
-   
+
   }
 
-  void Double_money()
+  void Double_time()
   {
     if (flag)
     {
@@ -43,16 +43,17 @@ public class Bonus_stonks : MonoBehaviour
       timeLeft = 10f;
       flag = false;
     }
-
-    GlobalVariables.Costs["Tips"] = 20;
+    
+    GlobalVariables.Times["roastTime"] /= 2;
     interactiveObject.transform.parent = null;
-    interactiveObject.transform.position = new Vector3(2.302f, 2.5f, 2.15f);
+    interactiveObject.transform.position = new Vector3(2.302f, 3f, 2.15f);
     interactiveObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
   }
 
   private IEnumerator StartTimer()
   {
-    while(timeLeft > 0)
+    while (timeLeft > 0)
     {
       timeLeft -= Time.deltaTime;
       var normalizedValue = Mathf.Clamp(timeLeft / time, 0.0f, 1.0f);
@@ -60,7 +61,7 @@ public class Bonus_stonks : MonoBehaviour
       yield return null;
     }
 
-    GlobalVariables.Costs["Tips"] = 0;
+    GlobalVariables.Times["roastTime"] *= 2;
     Destroy(gameObject);
   }
 }
