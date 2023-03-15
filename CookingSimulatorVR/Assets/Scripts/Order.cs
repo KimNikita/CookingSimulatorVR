@@ -19,18 +19,9 @@ public class Order : MonoBehaviour
     public int hasDrink;
 
     public float orderTime;
-  private bool _lolipopWasGiven = false;
-  public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
-  {
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { Drop(); });
-    eventTrigger.triggers.Add(pointerDown);
 
-    hasBurger = Random.Range(0, 2);
-    hasDrink = Random.Range(0, 2);
-    if (hasBurger == 0 && hasDrink == 0)
+    private bool _lolipopWasGiven = false;
+    public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
     {
         EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry pointerDown = new EventTrigger.Entry();
@@ -38,18 +29,22 @@ public class Order : MonoBehaviour
         pointerDown.callback.AddListener((eventData) => { Drop(); });
         eventTrigger.triggers.Add(pointerDown);
 
-    newOrderUI = Instantiate(orderUI);
-    newOrderUI.transform.SetParent(ordersListUI.transform.GetChild(ordersListUI.transform.childCount - 1), false);
-    newOrderUI.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-    newOrderUI.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-    newOrderUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
-    newOrderUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
-    newOrderUI.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
-    newOrderUI.SetActive(false);
+        hasBurger = Random.Range(0, 2);
+        hasDrink = Random.Range(0, 2);
+        if (hasBurger == 0 && hasDrink == 0)
+        {
+            hasBurger = 1;
+        }
+        orderTime = GlobalVariables.Times["Base"];
 
-        // Вариант когда UI нового заказа всегда появляется правее остальных
-        // Понятия не имею как это замутить
-        // GameObject newOrderUI = Instantiate(orderUI, );
+        newOrderUI = Instantiate(orderUI);
+        newOrderUI.transform.SetParent(ordersListUI.transform.GetChild(ordersListUI.transform.childCount - 1), false);
+        newOrderUI.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+        newOrderUI.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+        newOrderUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+        newOrderUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+        newOrderUI.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        newOrderUI.SetActive(false);
 
         if (hasBurger == 1)
         {
@@ -60,16 +55,25 @@ public class Order : MonoBehaviour
             gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[burgerRecipe.name];
             gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = Color.black;
 
-    ordersList.GetComponent<OrdersList>().PlaceOrder(orderTime, ordersListUI, transform, newOrderUI.transform);
+        }
+        if (hasDrink == 1)
+        {
+            drinkRecipe = GlobalVariables.DrinkRecipes[Random.Range(0, GlobalVariables.DrinkRecipes.Count)];
+            orderTime += GlobalVariables.Times["Drink"];
+            newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[drinkRecipe.name];
+            newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.black;
+            gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[drinkRecipe.name];
+            gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.black;
+        }
 
-    gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
+        ordersList.GetComponent<OrdersList>().PlaceOrder(orderTime, ordersListUI, transform, newOrderUI.transform);
 
-    newOrderUI.SetActive(true);
-    newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
-  }
-  private void Drop()
-  {
-    if (Hand.HasChildren())
+        gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
+
+        newOrderUI.SetActive(true);
+        newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
+    }
+    private void Drop()
     {
         if (Hand.HasChildren())
         {
