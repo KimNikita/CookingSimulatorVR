@@ -23,7 +23,6 @@ public class OrderUI : MonoBehaviour
   IEnumerator Fill()
   {
     startTime = Time.time;
-    float overTime = startTime + timeToFill;
 
     while (progressBarImage.fillAmount>0)
     {
