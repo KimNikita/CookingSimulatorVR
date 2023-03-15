@@ -13,7 +13,18 @@ public class OrderUI : MonoBehaviour
 
   public Coroutine barFillCoroutine = null;
 
-    public void StartProgressBar(float _timeToFill, GameObject _order)
+  public void StartProgressBar(float _timeToFill, GameObject _order)
+  {
+    timeToFill = _timeToFill;
+    order = _order;
+    barFillCoroutine = StartCoroutine("Fill");
+  }
+
+  IEnumerator Fill()
+  {
+    startTime = Time.time;
+
+    while (progressBarImage.fillAmount>0)
     {
       progressBarImage.fillAmount = Mathf.Lerp(1, 0, (Time.time - startTime) / timeToFill);
       if (progressBarImage.fillAmount <= 0.5f && progressBarImage.fillAmount > 0.25)
