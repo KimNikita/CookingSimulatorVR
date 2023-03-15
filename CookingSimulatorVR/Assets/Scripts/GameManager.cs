@@ -5,31 +5,31 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public TextMeshProUGUI ScoreText;
-    public GameObject orderTemplate;
-    public GameObject ordersList;
-    public GameObject ordersListUI;
+  public TextMeshProUGUI ScoreText;
+  public GameObject orderTemplate;
+  public GameObject ordersList;
+  public GameObject ordersListUI;
 
-    void Start()
+  void Start()
+  {
+    gameObject.GetComponent<AudioSource>().Play();
+    ScoreText.text = GlobalVariables.scoreValue + "$";
+    StartCoroutine(OrderSpawner());
+  }
+
+  IEnumerator OrderSpawner()
+  {
+    while (!GlobalVariables.end)
     {
-        gameObject.GetComponent<AudioSource>().Play();
-        ScoreText.text = GlobalVariables.scoreValue + "$";
-        StartCoroutine(OrderSpawner());
+      // ждем перед генерацией нового заказа
+      yield return new WaitForSeconds(GlobalVariables.Times["BetweenOrders"]);
+
+      // генерируем заказ по шаблону, добавляя его в список на сцене и инициализируя
+      GameObject newOrder = Instantiate(orderTemplate);
+      newOrder.GetComponent<Order>().GenerateOrder(ordersList, ordersListUI);
     }
+    // save results
 
-    IEnumerator OrderSpawner()
-    {
-        while (!GlobalVariables.end)
-        {
-            // ждем перед генерацией нового заказа
-            yield return new WaitForSeconds(GlobalVariables.Times["BetweenOrders"]);
-
-            // генерируем заказ по шаблону, добавляя его в список на сцене и инициализируя
-            GameObject newOrder = Instantiate(orderTemplate);
-            newOrder.GetComponent<Order>().GenerateOrder(ordersList, ordersListUI);
-        }
-        // save results
-
-        yield return null;
-    }
+    yield return null;
+  }
 }
