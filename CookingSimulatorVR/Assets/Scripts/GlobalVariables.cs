@@ -16,7 +16,6 @@ public static class GlobalVariables
   {
     { "Cheese", 20 },
     { "Tomato", 15 },
-    { "Burnt Beef", 30},
     { "Cooked Beef", 30 },
     { "Beef", 30 },
     { "Fanta", 15 },
