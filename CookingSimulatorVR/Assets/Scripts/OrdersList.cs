@@ -18,6 +18,7 @@ public class OrdersList : MonoBehaviour
         OrderUI tempOrderUI = transform.GetChild(i).GetChild(1).GetComponent<Order>().newOrderUI.GetComponent<OrderUI>();
         if (tempOrderUI.timeToFill * tempOrderUI.progressBarImage.fillAmount > orderTime)
         {
+          // сортировка моделей заказов
           for (int j = transform.childCount - 1; j > i + 1; j--)
           {
             if (transform.GetChild(j - 1).childCount > 1)
@@ -27,7 +28,8 @@ public class OrdersList : MonoBehaviour
             }
           }
 
-          int k = ordersListUI.transform.childCount - 1;
+          // сортировка ui заказов
+          int k = ordersListUI.transform.childCount - 2;
           while (ordersListUI.transform.GetChild(k).childCount == 0)
           {
             k--;
@@ -36,16 +38,15 @@ public class OrdersList : MonoBehaviour
 
           for (int j = k + 1; j > uiIndex + 1; j--)
           {
-            //ordersListUI.transform.GetChild(j - 1).GetChild(0).position = ordersListUI.transform.GetChild(j).position;
-            ordersListUI.transform.GetChild(j - 1).GetChild(0).SetParent(ordersListUI.transform.GetChild(j));
+            ordersListUI.transform.GetChild(j - 1).GetChild(0).SetParent(ordersListUI.transform.GetChild(j), false);
           }
 
+          // вставка
           order.position = new Vector3(transform.GetChild(i + 1).position.x, transform.GetChild(i + 1).position.y - 0.05f, transform.GetChild(i + 1).position.z);
           order.rotation = transform.GetChild(i + 1).rotation;
           order.parent = transform.GetChild(i + 1);
 
-          //orderUI.position = ordersListUI.transform.GetChild(uiIndex + 1).position;
-          orderUI.SetParent(ordersListUI.transform.GetChild(uiIndex + 1));
+          orderUI.SetParent(ordersListUI.transform.GetChild(uiIndex + 1), false);
 
           return;
         }
@@ -61,6 +62,7 @@ public class OrdersList : MonoBehaviour
         index = 1;
       }
 
+      // сортировка моделей заказов
       for (int j = transform.childCount - 1; j > index; j--)
       {
         if (transform.GetChild(j - 1).childCount > 1)
@@ -70,37 +72,21 @@ public class OrdersList : MonoBehaviour
         }
       }
 
+      // сортировка ui заказов
       for (int j = ordersListUI.transform.childCount - 1; j > index; j--)
       {
         if (ordersListUI.transform.GetChild(j - 1).childCount != 0)
         {
-          //ordersListUI.transform.GetChild(j - 1).GetChild(0).position = ordersListUI.transform.GetChild(j).position;
-          ordersListUI.transform.GetChild(j - 1).GetChild(0).SetParent(ordersListUI.transform.GetChild(j));
+          ordersListUI.transform.GetChild(j - 1).GetChild(0).SetParent(ordersListUI.transform.GetChild(j), false);
         }
       }
     }
 
+    // вставка
     order.position = new Vector3(transform.GetChild(index).position.x, transform.GetChild(index).position.y - 0.05f, transform.GetChild(index).position.z);
     order.rotation = transform.GetChild(index).rotation;
     order.parent = transform.GetChild(index);
 
-    //orderUI.position = ordersListUI.transform.GetChild(index).position;
-    orderUI.SetParent(ordersListUI.transform.GetChild(index));
+    orderUI.SetParent(ordersListUI.transform.GetChild(index), false);
   }
-
-
-  // Вариант где новый заказ всегда появляется левее остальных bad variant
-  /*
-  public Transform GetNewOrderPlace()
-  {
-    for (int i = gameObject.transform.childCount - 1; i > 0; i--)
-    {
-      if (gameObject.transform.GetChild(i - 1).childCount == 2)
-      {
-        return gameObject.transform.GetChild(i).transform;
-      }
-    }
-    return gameObject.transform.GetChild(0).transform;
-  }
-  */
 }

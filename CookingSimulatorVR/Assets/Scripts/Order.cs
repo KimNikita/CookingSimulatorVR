@@ -37,8 +37,14 @@ public class Order : MonoBehaviour
     }
     orderTime = GlobalVariables.Times["Base"];
 
-    newOrderUI = Instantiate(orderUI, ordersListUI.transform.GetChild(ordersListUI.transform.childCount-1));
-    //newOrderUI.SetActive(false);
+    newOrderUI = Instantiate(orderUI);
+    newOrderUI.transform.SetParent(ordersListUI.transform.GetChild(ordersListUI.transform.childCount - 1), false);
+    newOrderUI.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+    newOrderUI.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+    newOrderUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+    newOrderUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+    newOrderUI.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+    newOrderUI.SetActive(false);
 
     if (hasBurger == 1)
     {
@@ -64,7 +70,7 @@ public class Order : MonoBehaviour
 
     gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
 
-    //newOrderUI.SetActive(true);
+    newOrderUI.SetActive(true);
     newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
   }
   private void Drop()

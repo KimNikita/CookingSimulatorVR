@@ -28,7 +28,7 @@ public static class GlobalVariables
 
   public static Dictionary<string, float> Times = new Dictionary<string, float>
   {
-    { "BetweenOrders", 5},
+    { "BetweenOrders", 15},
     { "Base", 15 },
     { "Drink", 7 },
     { "Beef", 10 }
