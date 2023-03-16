@@ -19,7 +19,7 @@ public class spawn_Bonuses2 : MonoBehaviour
 
   IEnumerator Spawn()
   {
-    yield return new WaitForSeconds(35);
+    yield return new WaitForSeconds(40);
     Vector3 point = spawnPoint.position;
     Instantiate(bonus, point, rotation);
     StartCoroutine(Spawn());

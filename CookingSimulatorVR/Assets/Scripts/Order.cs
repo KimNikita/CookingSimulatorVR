@@ -49,7 +49,7 @@ public class Order : MonoBehaviour
     if (hasBurger == 1)
     {
       burgerRecipe = GlobalVariables.BurgerRecipes[Random.Range(0, GlobalVariables.BurgerRecipes.Count)];
-      orderTime += GlobalVariables.Times["Beef"];
+      orderTime += GlobalVariables.Times["roastTime"];
       newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[burgerRecipe.name];
       newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
       gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[burgerRecipe.name];
