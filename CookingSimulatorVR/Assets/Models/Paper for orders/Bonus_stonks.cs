@@ -42,12 +42,10 @@ public class Bonus_stonks : MonoBehaviour
       time = 10f;
       timeLeft = 10f;
       flag = false;
+      GlobalVariables.Costs["Tips"] = 20;
+      interactiveObject.transform.position = new Vector3(2.302f, 2.5f, 2.15f);
+      interactiveObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
-
-    GlobalVariables.Costs["Tips"] = 20;
-    interactiveObject.transform.parent = null;
-    interactiveObject.transform.position = new Vector3(2.302f, 2.5f, 2.15f);
-    interactiveObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
   }
 
   private IEnumerator StartTimer()
@@ -60,7 +58,7 @@ public class Bonus_stonks : MonoBehaviour
       yield return null;
     }
 
-    GlobalVariables.Costs["Tips"] = 0;
+    if (!flag) { GlobalVariables.Costs["Tips"] = 0; }
     Destroy(gameObject);
   }
 }

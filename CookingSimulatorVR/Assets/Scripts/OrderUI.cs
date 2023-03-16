@@ -42,7 +42,6 @@ public class OrderUI : MonoBehaviour
       yield return null;
     }
 
-    progressBarImage.fillAmount = 0.0f;
     Destroy(order);
     Destroy(gameObject);
   }
