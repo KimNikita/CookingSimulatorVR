@@ -4,39 +4,32 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-  private static Hand instance;
-
-  private void Start()
+  public bool HasChildren()
   {
-    instance = this;
+    return gameObject.transform.childCount != 0;
   }
 
-  public static bool HasChildren()
+  public Vector3 GetPosition()
   {
-    return instance.transform.childCount != 0;
+    return gameObject.transform.position;
   }
 
-  public static Vector3 GetPosition()
+  public Transform GetTransform()
   {
-    return instance.transform.position;
+    return gameObject.transform;
   }
 
-  public static Transform GetTransform()
+  public string GetChildTag()
   {
-    return instance.transform;
-  }
-
-  public static string GetChildTag()
-  {
-    if (instance.transform.childCount != 0)
+    if (gameObject.transform.childCount != 0)
     {
-      return instance.transform.GetChild(0).tag;
+      return gameObject.transform.GetChild(0).tag;
     }
     return "None";
   }
 
-  public static Quaternion GetRotation()
+  public Quaternion GetRotation()
   {
-    return instance.transform.rotation;
+    return gameObject.transform.rotation;
   }
 }
