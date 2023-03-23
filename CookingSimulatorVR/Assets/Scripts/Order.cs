@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class Order : MonoBehaviour
+public class Order : MyInteractionManager
 {
   public GlobalVariables.BurgerRecipe burgerRecipe;
   public GlobalVariables.DrinkRecipe drinkRecipe;
@@ -21,14 +21,27 @@ public class Order : MonoBehaviour
   public float orderTime;
 
   private bool _lolipopWasGiven = false;
+
+  override protected IEnumerator Check()
+  {
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Drop(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Drop(rightOculusHand);
+      }
+    }
+  }
+
   public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
   {
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { Drop(); });
-    eventTrigger.triggers.Add(pointerDown);
-
     hasBurger = Random.Range(0, 2);
     hasDrink = Random.Range(0, 2);
     if (hasBurger == 0 && hasDrink == 0)
@@ -73,16 +86,15 @@ public class Order : MonoBehaviour
     newOrderUI.SetActive(true);
     newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
   }
-  private void Drop()
+  private void Drop(OculusHand hand)
   {
-    if (Hand.HasChildren())
+    if (hand.HasChildren())
     {
-      if (_lolipopWasGiven == false && Hand.GetChildTag() == "Lolipop")
+      if (_lolipopWasGiven == false && hand.GetChildTag() == "Lolipop")
       {
-        Debug.Log(newOrderUI.GetComponent<OrderUI>().timeToFill);
         newOrderUI.GetComponent<OrderUI>().startTime += 4f;
         _lolipopWasGiven = true;
-        Destroy(Hand.GetTransform().GetChild(0).gameObject);
+        Destroy(hand.GetChild().gameObject);
       }
     }
   }

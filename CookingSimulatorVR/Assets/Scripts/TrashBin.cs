@@ -4,46 +4,52 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 
-public class TrashBin : MonoBehaviour
+public class TrashBin : MyInteractionManager
 {
   public TextMeshProUGUI ScoreText;
-  public GameObject interactiveObject;
   public AudioClip sound;
   public float volume = 1;
 
-  void Start()
+  override protected IEnumerator Check()
   {
-    EventTrigger eventTrigger = interactiveObject.AddComponent<EventTrigger>();
-
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { DropIn(); });
-
-    eventTrigger.triggers.Add(pointerDown);
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        DropIn(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        DropIn(rightOculusHand);
+      }
+    }
   }
 
-  void DropIn()
+  void DropIn(OculusHand hand)
   {
-    if (Hand.HasChildren())
+    if (hand.HasChildren())
     {
-      if (Hand.GetChildTag() != "Untagged")
+      if (hand.GetChildTag() != "Untagged")
       {
-        if (GlobalVariables.Costs.ContainsKey(Hand.GetChildTag()))
+        if (GlobalVariables.Costs.ContainsKey(hand.GetChildTag()))
         {
-          int childCount = Hand.GetTransform().GetChild(0).childCount;
+          int childCount = hand.GetChild().childCount;
           if (childCount != 0)
           {
             for (int i = 0; i < childCount; i++)
             {
-              GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetTransform().GetChild(0).GetChild(i).tag];
+              GlobalVariables.scoreValue -= GlobalVariables.Costs[hand.GetChild().GetChild(i).tag];
             }
           }
-          GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetChildTag()];
+          GlobalVariables.scoreValue -= GlobalVariables.Costs[hand.GetChildTag()];
           ScoreText.text = GlobalVariables.scoreValue + "$";
-          Destroy(Hand.GetTransform().GetChild(0).gameObject);
+          Destroy(hand.GetChild().gameObject);
           gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
         }
-        else if (Hand.GetChildTag() != "Order")
+        else if (hand.GetChildTag() != "Order")
         {
           Debug.LogError("Unknown tag of object in hand");
         }
@@ -53,6 +59,9 @@ public class TrashBin : MonoBehaviour
         Debug.LogError("Add tag to object in hand");
       }
     }
+    else
+    {
+      Debug.Log("wrong check children");
+    }
   }
-
 }

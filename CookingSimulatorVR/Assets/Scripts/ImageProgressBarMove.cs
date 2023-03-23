@@ -10,7 +10,6 @@ public class ImageProgressBarMove : MonoBehaviour
   public UnityEvent onBarFilled;
 
   [Header("Custom Settiings")]
-  public bool alwaysFacePlayer = true;
   public bool disableOnFill = false;
 
   // Время в секундах необходимое для заполнения Progressbar'а
@@ -34,16 +33,6 @@ public class ImageProgressBarMove : MonoBehaviour
       Debug.LogError("There is no referenced image on this component!");
     }
 
-  }
-
-  void Update()
-  {
-    if (alwaysFacePlayer)
-    {
-      //происходит обращение не к к конкретному экземпляру класса, а к классу со статическим методом
-      //Instanse - класс, который может находиться на сцене в единственном экземпляре.
-      transform.LookAt(Player.GetPosition());
-    }
   }
 
   public void StartFillingProgressBar()

@@ -2,35 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class Drag : MonoBehaviour
+public class Drag : MyInteractionManager
 {
-    void Start()
+  override protected IEnumerator Check()
+  {
+    while (true)
     {
-        EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-        EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-        pointerDown.eventID = EventTriggerType.PointerDown;
-        pointerDown.callback.AddListener((eventData) => { MoveToHand(); });
-
-        eventTrigger.triggers.Add(pointerDown);
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        MoveToHand(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        MoveToHand(rightOculusHand);
+      }
     }
+  }
 
-    void MoveToHand()
+  void MoveToHand(OculusHand hand)
+  {
+    if (!hand.HasChildren())
     {
-        if (!Hand.HasChildren())
-        {
-            if (gameObject.tag == "Fanta" || gameObject.tag == "Cola")
-            {
-                gameObject.transform.position = new Vector3(Hand.GetPosition().x, Hand.GetPosition().y - 0.25f, Hand.GetPosition().z);
-                GlobalVariables.hasDrink = false;
-            }
-            else
-            {
-                gameObject.transform.position = Hand.GetPosition();
-            }
-            gameObject.transform.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
-            gameObject.transform.parent = Hand.GetTransform();
-        }
+      if (gameObject.tag == "Fanta" || gameObject.tag == "Cola")
+      {
+        gameObject.transform.position = new Vector3(hand.GetPosition().x, hand.GetPosition().y - 0.25f, hand.GetPosition().z);
+        GlobalVariables.hasDrink = false;
+      }
+      else
+      {
+        gameObject.transform.position = hand.GetPosition();
+      }
+      gameObject.transform.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
+      gameObject.transform.parent = hand.GetTransform();
     }
+  }
 }
