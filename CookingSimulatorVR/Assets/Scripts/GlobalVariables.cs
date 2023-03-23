@@ -29,11 +29,10 @@ public static class GlobalVariables
 
   public static Dictionary<string, float> Times = new Dictionary<string, float>
   {
-    { "BetweenOrders", 15},
+    { "BetweenOrders", 20},
     { "Base", 15 },
     { "Drink", 7 },
-    { "Beef", 10 },
-    {"roastTime", 10 }
+    {"roastTime", 20 }
   };
 
   public struct BurgerRecipe
