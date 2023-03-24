@@ -8,8 +8,8 @@ public class DrinkPlace : MonoBehaviour
 {
     private Transform tray;
     [Range(0, 1)] public float value;
-    List<Vector3> line1;
-    Transform object1;
+    List<Vector3> _line;
+    Transform _object_to_move;
 
     void Start()
     {
@@ -20,53 +20,51 @@ public class DrinkPlace : MonoBehaviour
         pointerDown.callback.AddListener((eventData) => { OnPointerDown(); });
         eventTrigger.triggers.Add(pointerDown);
 
-        line1 = new List<Vector3>(2);
+        _line = new List<Vector3>(2);
+        _line.Add(new Vector3());
+        _line.Add(new Vector3());
     }
-    void LerpLine1()
+    void LerpLine()
     {
-        object1.position = Vector3.Lerp(line1[0], line1[1], value);
+        _object_to_move.position = Vector3.Lerp(_line[0], _line[1], value);
     }
     IEnumerator PlusValue()
     {   
-        object1.transform.rotation = tray.transform.rotation;
+        _object_to_move.transform.rotation = tray.transform.rotation;
         while (value <= 1)
         {
             yield return new WaitForSeconds(0.01f);
             value += 0.07f;
             Move();
         }        
-        object1.parent = tray.transform;
+        _object_to_move.parent = tray.transform;
         value = 0;
     }
     IEnumerator MinusValue()
     {
-        object1.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
+        _object_to_move.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
         value = 1;
         while (value >= 0)
         {
             yield return new WaitForSeconds(0.01f);
             value -= 0.07f;
+            _line[0] = Hand.GetTransform().position;
             Move();
         }
-        object1.parent = Hand.GetTransform();
+        _object_to_move.parent = Hand.GetTransform();
     }
     void Move()
     {
-        LerpLine1();
-        DrawLine1();
-    }
-    void DrawLine1()
-    {
-        Debug.DrawLine(line1[0], line1[1], Color.red, 0.01f);
+        LerpLine();
     }
     void OnPointerDown()
     {
-        if(line1.Count == 0) line1.Add(Hand.GetTransform().position); // точка из которой начинается движение
+        _line[0] = Hand.GetTransform().position; // точка из которой начинается движение
         if (!Hand.HasChildren())
         {
             if (tray.childCount == 2)
             {
-                object1 = tray.GetChild(1);
+                _object_to_move = tray.GetChild(1);
 
                 StartCoroutine(MinusValue());
             }
@@ -79,10 +77,10 @@ public class DrinkPlace : MonoBehaviour
                 // TODO may be need list of possible drinks
                 if (ingredientTag == "Fanta" || ingredientTag == "Cola")
                 {
-                    object1 = Hand.GetTransform().GetChild(0);
-                    line1.Add(tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f));
+                    _object_to_move = Hand.GetTransform().GetChild(0);
+                    _line[1] = tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f);
                     
-                    var triggersList = object1.GetComponent<EventTrigger>().triggers;
+                    var triggersList = _object_to_move.GetComponent<EventTrigger>().triggers;
                     foreach (var trigger in triggersList)
                     {
                         if(trigger.eventID == EventTriggerType.PointerDown)
