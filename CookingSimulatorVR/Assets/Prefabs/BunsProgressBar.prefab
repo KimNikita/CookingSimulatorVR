@@ -29,6 +29,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0.85003793, z: -0, w: 0.52672154}
   m_LocalPosition: {x: 0, y: 0, z: -0.0020049042}
   m_LocalScale: {x: 0.0017206948, y: 0.0017206954, z: 0.0017206948}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7080459996104277958}
   m_Father: {fileID: 0}
@@ -82,6 +83,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3665594095882926422
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +129,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.1438257, y: 1.1942064, z: 1.0157408}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7080459996104277958}
   m_RootOrder: 0
@@ -159,6 +162,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -184,7 +188,6 @@ GameObject:
   - component: {fileID: 7080459996104277958}
   - component: {fileID: 7779142319649055423}
   - component: {fileID: 8992598846733504922}
-  - component: {fileID: 815061989729723656}
   - component: {fileID: 1455915493715767382}
   - component: {fileID: 2921392566901228583}
   m_Layer: 5
@@ -204,6 +207,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0059333, y: 1.0059333, z: 1.0059333}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2686244293821499453}
   m_Father: {fileID: 8638687569311919227}
@@ -237,6 +241,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.3372549, g: 0.9686275, b: 0.011764707, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -251,35 +256,6 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &815061989729723656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8530261011997172098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aba49b343e2840e44a3f8d376f7cfbbc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onBarFilled:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 11500000, guid: f097c7d2f739ac047a9bb8af99901ab2, type: 3}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  alwaysFacePlayer: 0
-  disableOnFill: 0
-  timeToFill: 2
 --- !u!65 &1455915493715767382
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -309,6 +285,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
         m_MethodName: StartMoving
         m_Mode: 1
         m_Arguments:

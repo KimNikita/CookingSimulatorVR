@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
 
-public class Bonus_stonks : MonoBehaviour
+public class Bonus_stonks : MyInteractionManager
 {
 
   public GameObject interactiveObject;
@@ -24,15 +24,19 @@ public class Bonus_stonks : MonoBehaviour
     timeLeft = time;
     interactiveObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
     StartCoroutine(StartTimer());
-    
-    EventTrigger eventTrigger = interactiveObject.AddComponent<EventTrigger>();
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { Double_money(); });
-    eventTrigger.triggers.Add(pointerDown);
+  }
 
-
-   
+  override protected IEnumerator Check()
+  {
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1 || rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Double_money();
+      }
+    }
   }
 
   void Double_money()

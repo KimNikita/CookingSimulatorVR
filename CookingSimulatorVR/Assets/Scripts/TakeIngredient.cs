@@ -2,25 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class TakeIngredient : MonoBehaviour
+public class TakeIngredient : MyInteractionManager
 {
   public GameObject ingredientPrefab;
   public string ingredientTag;
-  void Start()
+
+  override protected IEnumerator Check()
   {
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { MoveToHand(); });
-    eventTrigger.triggers.Add(pointerDown);
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        MoveToHand(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        MoveToHand(rightOculusHand);
+      }
+    }
   }
 
-  public void MoveToHand()
+  public void MoveToHand(OculusHand hand)
   {
-    if (!Hand.HasChildren())
+    if (!hand.HasChildren())
     {
-      GameObject instance = Instantiate(ingredientPrefab, Hand.GetPosition(), new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w), Hand.GetTransform());
+      GameObject instance = Instantiate(ingredientPrefab, hand.GetPosition(), new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w), hand.GetTransform());
       instance.tag = ingredientTag;
       instance.AddComponent<BoxCollider>();
     }

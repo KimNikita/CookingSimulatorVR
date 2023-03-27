@@ -3,33 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class OrderPlace : MonoBehaviour
+public class OrderPlace : MyInteractionManager
 {
-
-  void Start()
+  override protected IEnumerator Check()
   {
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { PlaceOrder(); });
-
-    eventTrigger.triggers.Add(pointerDown);
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        PlaceOrder(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        PlaceOrder(rightOculusHand);
+      }
+    }
   }
 
-  void PlaceOrder()
+  void PlaceOrder(OculusHand hand)
   {
-    if (Hand.HasChildren())
+    if (hand.HasChildren())
     {
-      if (Hand.GetChildTag() != "Untagged")
+      if (hand.GetChildTag() != "Untagged")
       {
-        if (Hand.GetChildTag() == "Order")
+        if (hand.GetChildTag() == "Order")
         {
-          if (gameObject.transform.childCount == 1)
+          if (transform.childCount == 1)
           {
-            Hand.GetTransform().GetChild(0).position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.05f, gameObject.transform.position.z);
-            Hand.GetTransform().GetChild(0).rotation = gameObject.transform.rotation;
-            Hand.GetTransform().GetChild(0).parent = gameObject.transform;
+            hand.GetChild().position = new Vector3(transform.position.x, transform.position.y - 0.05f, transform.position.z);
+            hand.GetChild().rotation = transform.rotation;
+            hand.GetChild().parent = transform;
           }
         }
       }
