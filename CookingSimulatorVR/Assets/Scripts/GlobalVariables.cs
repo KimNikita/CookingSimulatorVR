@@ -9,7 +9,10 @@ public static class GlobalVariables
     { "Cheeseburger", "Чизбургер" },
     { "Gamburger", "Гамбургер" },
     { "Fanta", "Фанта" },
-    { "Cola", "Кока-кола" }
+    { "Cola", "Кока-кола" },
+    { "Easy", "Легко" },
+    { "Medium", "Средне" },
+    { "Hard", "Сложно" }
   };
 
   public static Dictionary<string, int> Costs = new Dictionary<string, int>
@@ -70,7 +73,6 @@ public static class GlobalVariables
 
   public static bool end = false;
   public static int scoreValue = 100;
-  public static float timeBetweenOrders = 20;
   public static bool hasDrink = false;
 
 }

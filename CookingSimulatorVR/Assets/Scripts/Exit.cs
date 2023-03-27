@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class Exit : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class Exit : MonoBehaviour
 
   private Image progressBarImage = null;
   public Coroutine barFillCoroutine = null;
+
+  public TextMeshProUGUI Score;
+  public TextMeshProUGUI BestScore;
 
   void Start()
   {
@@ -55,6 +59,12 @@ public class Exit : MonoBehaviour
 
     progressBarImage.fillAmount = 0.0f;
     GlobalVariables.end = true;
+    Score.text = "     Ваш результат: " + GlobalVariables.scoreValue + "$";
+    if (GlobalVariables.scoreValue > PlayerPrefs.GetInt("BestScore"))
+    {
+      PlayerPrefs.SetInt("BestScore", GlobalVariables.scoreValue);
+    }
+    BestScore.text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
 
     if (onBarFilled != null)
     {
