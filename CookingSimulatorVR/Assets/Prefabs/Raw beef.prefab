@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5365761726699283432}
   - component: {fileID: 2412958646093593120}
   - component: {fileID: 8488359825559826766}
-  - component: {fileID: -2821938684389562905}
   m_Layer: 0
   m_Name: Raw beef
   m_TagString: Beef
@@ -108,17 +107,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   preparedness: 0
---- !u!114 &-2821938684389562905
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5870441756518220349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9771a907d4124374e9a220b2f29f2034, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ingredientPrefab: {fileID: 5870441756518220349}
-  ingredientTag: Beef
