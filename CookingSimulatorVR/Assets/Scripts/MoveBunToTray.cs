@@ -59,7 +59,7 @@ public class MoveBunToTray : MonoBehaviour
         while (value < 1)
         {
             yield return new WaitForSeconds(0.01f);
-            value += 0.01f;
+            value += 0.02f;
             Move();
         }
         instance.transform.parent = tray;

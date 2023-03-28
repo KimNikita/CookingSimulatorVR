@@ -3,14 +3,19 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static GlobalVariables;
+using static GlobalVariables.achievements;
 
-public class BurgerBuilder : MonoBehaviour
+public class BurgerBuilder : MonoBehaviour, Observable
 {
     private Transform tray;
     [Range(0, 1)] public float value;
     List<Vector3> _line;
     Transform _object_to_move;
     bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
+
+    List<Observer> _observers;
+    int _cheeseNumber = 0;
     void Start()
     {
         tray = gameObject.transform;
@@ -23,6 +28,11 @@ public class BurgerBuilder : MonoBehaviour
         _line = new List<Vector3>(2);
         _line.Add(Hand.GetTransform().position); // точка камеры
         _line.Add(new Vector3());
+
+        _observers = new List<Observer>();
+        // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
+        Observer obs = new AchievementObserver();
+        AddObserver(obs);
     }
     void LerpLine()
     {
@@ -103,8 +113,13 @@ public class BurgerBuilder : MonoBehaviour
             }
             else if (tray.childCount != 0)
             {
-                if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Beef" || ingredientTag == "Bun")
+                if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
                 {
+                    if (ingredientTag == "Cheese")
+                    {
+                        _cheeseNumber++;
+                        if (_cheeseNumber == 10) NotifyObserver(cheeseAchiev);                        
+                    }
                     _object_to_move = Hand.GetTransform().GetChild(0);
                     _object_to_move.parent = tray; // это не удалять. так ингредиенты ложатся хотя бы параллельно подносу     
 
@@ -121,9 +136,26 @@ public class BurgerBuilder : MonoBehaviour
                     _object_to_move.transform.rotation = tray.GetChild(0).rotation;
                     _object_to_move.transform.rotation = new Quaternion(0, 90, 0, 0);
                     StartCoroutine(PlusValue());
-
                 }
             }
+        }
+    }
+
+    // методы интерфейса Observable, позволяют возбуждать события для AchivementObserver'а
+    public void AddObserver(Observer o)
+    {
+        _observers.Add(o);
+    }    
+    public void RemoveObserver(Observer o)
+    {
+        _observers.Remove(o);
+    }
+
+    public void NotifyObserver(achievements ach)
+    {
+        foreach(var ob in _observers)
+        {
+            ob.HandleEvent(ach);
         }
     }
 }

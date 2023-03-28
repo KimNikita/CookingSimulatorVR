@@ -42,6 +42,7 @@ public class OrderUI : MonoBehaviour
       yield return null;
     }
 
+    CompleteOrder.ResetOrdersNumber();
     Destroy(order);
     Destroy(gameObject);
   }
