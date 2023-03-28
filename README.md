@@ -11,4 +11,4 @@ Clone repository and copy .apk file on your mobile phone. Then install by clicki
 ## Usefull links
 
 Miro Board:
-https://miro.com/welcomeonboard/cXVrZ0JwSUZIZFZEcGJNWUtyeFRVeUlzazlDb2NLaTBvYXZLcUdjZVdFS0FVYlhHUXhBTFNCMVV6RFU4T3pNNnwzMDc0NDU3MzY1NzMzOTY5NjgzfDI=?share_link_id=131045256301
+https://miro.com/app/board/uXjVPops5Po=/?share_link_id=133032179272
