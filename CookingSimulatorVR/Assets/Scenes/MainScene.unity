@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.50065696, g: 0.5199047, b: 0.52650005, a: 1}
+  m_IndirectSpecularColor: {r: 0.50074106, g: 0.51863515, b: 0.52661765, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -657,6 +657,7 @@ MonoBehaviour:
   ingredientPrefab: {fileID: 919132149155446097, guid: 820ae3d95595c944a8d46f8a26710a6b,
     type: 3}
   ingredientTag: Tomato
+  value: 0
 --- !u!65 &79941984
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1230,6 +1231,7 @@ MonoBehaviour:
   ingredientPrefab: {fileID: 5870441756518220349, guid: d3809633e576cb742adb25d4ae049158,
     type: 3}
   ingredientTag: Beef
+  value: 0
 --- !u!65 &155552015
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5625,6 +5627,7 @@ MonoBehaviour:
   ingredientPrefab: {fileID: 919132149155446097, guid: f0ae48ff313cf284d9f521e2a08800fa,
     type: 3}
   ingredientTag: Bun
+  value: 0
 --- !u!65 &812927061
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12129,6 +12132,7 @@ MonoBehaviour:
   ingredientPrefab: {fileID: 919132149155446097, guid: 630a394731c125c4199fb466d49e7037,
     type: 3}
   ingredientTag: Cheese
+  value: 0
 --- !u!65 &1965215799
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14489,7 +14493,7 @@ PrefabInstance:
     - target: {fileID: 6293736653144946715, guid: 60a417bc3aa6f694da4cca36e4fc203c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6293736653144946715, guid: 60a417bc3aa6f694da4cca36e4fc203c,
         type: 3}
