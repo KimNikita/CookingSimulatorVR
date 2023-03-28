@@ -10,7 +10,7 @@ public class Roasting : MonoBehaviour
 
   // поля для анимации переноса
   [Range(0, 1)] public float value;
-  List<Vector3> line1;
+  List<Vector3> _line;
   Transform beef;
   bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
 
@@ -28,13 +28,13 @@ public class Roasting : MonoBehaviour
     pointerDown.callback.AddListener((eventData) => { OnPointerDown(); });
     eventTrigger.triggers.Add(pointerDown);
 
-    line1 = new List<Vector3>(2);
-    line1.Add(new Vector3());
-    line1.Add(new Vector3());
+    _line = new List<Vector3>(2);
+    _line.Add(new Vector3());
+    _line.Add(new Vector3());
   }
   void LerpLine1()
   {
-    beef.position = Vector3.Lerp(line1[0], line1[1], value);
+    beef.position = Vector3.Lerp(_line[0], _line[1], value);
   }
   IEnumerator PlusValue()
   {
@@ -59,11 +59,11 @@ public class Roasting : MonoBehaviour
     while (value >= 0)
     {
       yield return new WaitForSeconds(0.01f);
+      _line[0] = Hand.GetPosition();
       value -= 0.07f;
       Move();
     }
     beef.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
-    //beef.parent = Hand.GetTransform();
     canTakeIngredient = true;
   }
   void Move()
@@ -72,7 +72,7 @@ public class Roasting : MonoBehaviour
   }
   void OnPointerDown()
   {
-    line1[0] = Hand.GetTransform().position; // точка из которой начинается движение
+    _line[0] = Hand.GetTransform().position; // точка из которой начинается движение
     if (!canTakeIngredient)
       return;
 
@@ -85,7 +85,7 @@ public class Roasting : MonoBehaviour
         beef.gameObject.GetComponent<Beef>().preparedness = progressBarImage.fillAmount;
         progressBarImage.fillAmount = 0;
         beef = stove.GetChild(0);
-        line1[1] = beef.position;
+        _line[1] = beef.position;
         beef.parent = Hand.GetTransform();
         StartCoroutine(MinusValue());
       }
@@ -98,7 +98,7 @@ public class Roasting : MonoBehaviour
       {
         beef = Hand.GetTransform().GetChild(0);
         Vector3 destination = stove.position + new Vector3(0, beef.GetComponent<BoxCollider>().size.y / 2, 0);
-        line1[1] = destination;
+        _line[1] = destination;
 
         StartCoroutine(PlusValue());
       }

@@ -32,32 +32,33 @@ public class TakeIngredient : MonoBehaviour
     {
         LerpLine();
     }
-    IEnumerator PlusValue()
+    IEnumerator MinusValue()
     {
         canTakeIngredient = false;
-        while (value <= 1)
+        value = 1;
+        while (value >= 0)
         {
             yield return new WaitForSeconds(0.01f);
-            value += 0.07f;
+            _line[0] = Hand.GetPosition();
+            value -= 0.07f;
             Move();
         }
         canTakeIngredient = true;
         _object_to_move.transform.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
         _object_to_move.transform.parent = Hand.GetTransform();
-        value = 0;
     }
 
     public void MoveToHand()
     {        
         if (!Hand.HasChildren())
         {
+            _line[0] = Hand.GetPosition();
             GameObject instance = Instantiate(ingredientPrefab);
             _object_to_move = instance.transform;
-            _line[0] = gameObject.transform.position; // берётся позиция cheeseSpawner, т.к. у префаба позиция неподходящая
+            _line[1] = gameObject.transform.position; // берётся позиция cheeseSpawner, т.к. у префаба позиция неподходящая
             instance.tag = ingredientTag;
-            instance.AddComponent<BoxCollider>();
-            _line[1] = Hand.GetPosition();
-            StartCoroutine(PlusValue());
+            instance.AddComponent<BoxCollider>();            
+            StartCoroutine(MinusValue());
         }
     }
 }

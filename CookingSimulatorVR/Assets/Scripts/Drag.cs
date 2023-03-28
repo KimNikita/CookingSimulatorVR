@@ -30,23 +30,24 @@ public class Drag : MonoBehaviour
     {
         LerpLine();
     }
-    IEnumerator PlusValue()
+    IEnumerator MinusValue()
     {
         canTakeIngredient = false;
-        while (value <= 1)
+        value = 1;
+        while (value >= 0)
         {
             yield return new WaitForSeconds(0.01f);
-            value += 0.07f;
+            _line[0] = Hand.GetPosition();
+            value -= 0.07f;
             Move();
         }
         canTakeIngredient = true;
         _object_to_move.transform.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
         _object_to_move.transform.parent = Hand.GetTransform();
-        value = 0;
     }
     void MoveToHand()
     {
-        _line[0] = gameObject.transform.position;
+        _line[1] = gameObject.transform.position;
         if (!Hand.HasChildren())
         {
             _object_to_move = gameObject.transform;
@@ -57,9 +58,9 @@ public class Drag : MonoBehaviour
             }
             else
             {
-                _line[1] = Hand.GetPosition();
+                _line[0] = Hand.GetPosition();
             }
-            StartCoroutine(PlusValue());
+            StartCoroutine(MinusValue());
         }
     }
 }
