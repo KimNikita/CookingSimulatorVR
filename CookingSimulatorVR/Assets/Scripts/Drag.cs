@@ -40,8 +40,8 @@ public class Drag : MonoBehaviour
             Move();
         }
         canTakeIngredient = true;
-        gameObject.transform.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
-        gameObject.transform.parent = Hand.GetTransform();
+        _object_to_move.transform.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
+        _object_to_move.transform.parent = Hand.GetTransform();
         value = 0;
     }
     void MoveToHand()

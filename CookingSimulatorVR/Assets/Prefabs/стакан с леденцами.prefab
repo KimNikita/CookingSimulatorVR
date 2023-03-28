@@ -679,6 +679,7 @@ MonoBehaviour:
   ingredientPrefab: {fileID: 386756570650214111, guid: fc5f36bf28ff15341899f9b21cfb97a1,
     type: 3}
   ingredientTag: Lolipop
+  value: 0
 --- !u!1 &6409364770281788094
 GameObject:
   m_ObjectHideFlags: 0
