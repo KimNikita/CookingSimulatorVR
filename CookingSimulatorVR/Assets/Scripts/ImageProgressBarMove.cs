@@ -10,7 +10,6 @@ public class ImageProgressBarMove : MonoBehaviour
   public UnityEvent onBarFilled;
 
   [Header("Custom Settiings")]
-  public bool alwaysFacePlayer = true;
   public bool disableOnFill = false;
 
   // Время в секундах необходимое для заполнения Progressbar'а
@@ -34,38 +33,14 @@ public class ImageProgressBarMove : MonoBehaviour
       Debug.LogError("There is no referenced image on this component!");
     }
 
-    // EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-    // Создаём контроллер для события наведения указателя на объект
-    EventTrigger eventTrigger = gameObject.transform.parent.gameObject.AddComponent<EventTrigger>();
-
-    EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
-    pointerEnter.eventID = EventTriggerType.PointerEnter;
-    pointerEnter.callback.AddListener((eventData) => { StartFillingProgressBar(); });
-    eventTrigger.triggers.Add(pointerEnter);
-
-    EventTrigger.Entry pointerExit = new EventTrigger.Entry();
-    pointerExit.eventID = EventTriggerType.PointerExit;
-    pointerExit.callback.AddListener((eventData) => { StopFillingProgressBar(); });
-    eventTrigger.triggers.Add(pointerExit);
   }
 
-  void Update()
-  {
-    if (alwaysFacePlayer)
-    {
-      //происходит обращение не к к конкретному экземпляру класса, а к классу со статическим методом
-      //Instanse - класс, который может находиться на сцене в единственном экземпляре.
-      transform.LookAt(Player.GetPosition());
-    }
-  }
-
-  void StartFillingProgressBar()
+  public void StartFillingProgressBar()
   {
     barFillCoroutine = StartCoroutine("Fill");
   }
 
-  void StopFillingProgressBar()
+  public void StopFillingProgressBar()
   {
     StopCoroutine(barFillCoroutine);
     progressBarImage.fillAmount = 0.0f;

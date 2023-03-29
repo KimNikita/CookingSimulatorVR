@@ -21,26 +21,14 @@ public class Exit : MonoBehaviour
   void Start()
   {
     progressBarImage = gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>();
-
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-    EventTrigger.Entry pointerEnter = new EventTrigger.Entry();
-    pointerEnter.eventID = EventTriggerType.PointerEnter;
-    pointerEnter.callback.AddListener((eventData) => { StartFillingProgressBar(); });
-    eventTrigger.triggers.Add(pointerEnter);
-
-    EventTrigger.Entry pointerExit = new EventTrigger.Entry();
-    pointerExit.eventID = EventTriggerType.PointerExit;
-    pointerExit.callback.AddListener((eventData) => { StopFillingProgressBar(); });
-    eventTrigger.triggers.Add(pointerExit);
   }
 
-  void StartFillingProgressBar()
+  public void StartFillingProgressBar()
   {
     barFillCoroutine = StartCoroutine("Fill");
   }
 
-  void StopFillingProgressBar()
+  public void StopFillingProgressBar()
   {
     StopCoroutine(barFillCoroutine);
     progressBarImage.fillAmount = 0.0f;

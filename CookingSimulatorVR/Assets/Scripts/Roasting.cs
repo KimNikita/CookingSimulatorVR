@@ -1,16 +1,17 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using System.Transactions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Roasting : MonoBehaviour
+public class Roasting : MyInteractionManager
 {
   Transform stove;
 
   // поля для анимации переноса
   [Range(0, 1)] public float value;
-  List<Vector3> _line;
+  List<Vector3> line1 = new List<Vector3>(2);
   Transform beef;
   bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
 
@@ -19,23 +20,29 @@ public class Roasting : MonoBehaviour
   public Image progressBarImage;
   public GameObject cookedBeef, burntBeef;
 
-  void Start()
+  override protected IEnumerator Check()
   {
-    stove = gameObject.transform;
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { OnPointerDown(); });
-    eventTrigger.triggers.Add(pointerDown);
-
-    _line = new List<Vector3>(2);
-    _line.Add(new Vector3());
-    _line.Add(new Vector3());
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        OnPointerDown(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        OnPointerDown(rightOculusHand);
+      }
+    }
   }
+
   void LerpLine1()
   {
-    beef.position = Vector3.Lerp(_line[0], _line[1], value);
+    beef.position = Vector3.Lerp(line1[0], line1[1], value);
   }
+
   IEnumerator PlusValue()
   {
     canTakeIngredient = false;
@@ -52,31 +59,40 @@ public class Roasting : MonoBehaviour
     timeToFill = GlobalVariables.Times["roastTime"] * (1 - beef.gameObject.GetComponent<Beef>().preparedness);
     StartCoroutine("Fill");
   }
-  IEnumerator MinusValue()
+
+  IEnumerator MinusValue(OculusHand hand)
   {
     canTakeIngredient = false;
     value = 1;
     while (value >= 0)
     {
       yield return new WaitForSeconds(0.01f);
-      _line[0] = Hand.GetPosition();
       value -= 0.07f;
       Move();
     }
-    beef.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
+    beef.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
+    //beef.parent = Hand.GetTransform();
     canTakeIngredient = true;
   }
+
   void Move()
   {
     LerpLine1();
   }
-  void OnPointerDown()
+
+  void OnPointerDown(OculusHand hand)
   {
-    _line[0] = Hand.GetTransform().position; // точка из которой начинается движение
+    stove = gameObject.transform;
+
+    line1 = new List<Vector3>(2);
+    line1.Add(new Vector3());
+    line1.Add(new Vector3());
+
+    line1[0] = hand.GetTransform().position; // точка из которой начинается движение
     if (!canTakeIngredient)
       return;
 
-    if (!Hand.HasChildren()) // if hand is empty - put the ingredient into it
+    if (!hand.HasChildren()) // if hand is empty - put the ingredient into it
     {
       if (stove.childCount != 0)
       {
@@ -85,20 +101,20 @@ public class Roasting : MonoBehaviour
         beef.gameObject.GetComponent<Beef>().preparedness = progressBarImage.fillAmount;
         progressBarImage.fillAmount = 0;
         beef = stove.GetChild(0);
-        _line[1] = beef.position;
-        beef.parent = Hand.GetTransform();
-        StartCoroutine(MinusValue());
+        line1[1] = beef.position;
+        beef.parent = hand.GetTransform();
+        StartCoroutine(MinusValue(hand));
       }
     }
     else // put ingredient onto stove
     {
-      string ingredientTag = Hand.GetChildTag();
+      string ingredientTag = hand.GetChildTag();
       // TODO may be need list of possible ingredients
       if (stove.childCount == 0 && (ingredientTag == "Beef" || ingredientTag == "Cooked Beef" || ingredientTag == "Burnt Beef"))
       {
-        beef = Hand.GetTransform().GetChild(0);
+        beef = hand.GetChild();
         Vector3 destination = stove.position + new Vector3(0, beef.GetComponent<BoxCollider>().size.y / 2, 0);
-        _line[1] = destination;
+        line1[1] = destination;
 
         StartCoroutine(PlusValue());
       }
@@ -118,7 +134,7 @@ public class Roasting : MonoBehaviour
       if (beef.tag == "Beef" && progressBarImage.fillAmount >= (1.0 / 3.0) && progressBarImage.fillAmount <= (2.0 / 3.0))
       {
         // пожареная котлета
-        var new_beef_stage = GameObject.Instantiate(cookedBeef);
+        var new_beef_stage = Instantiate(cookedBeef);
         new_beef_stage.transform.parent = beef.transform.parent;
         new_beef_stage.transform.position = beef.transform.position;
         Destroy(beef.gameObject);
@@ -127,7 +143,7 @@ public class Roasting : MonoBehaviour
       else if (beef.tag == "Cooked Beef" && progressBarImage.fillAmount >= (2.0 / 3.0) && progressBarImage.fillAmount < 1.0)
       {
         // сгоревшая котлета
-        var new_beef_stage = GameObject.Instantiate(burntBeef);
+        var new_beef_stage = Instantiate(burntBeef);
         new_beef_stage.transform.parent = beef.transform.parent;
         new_beef_stage.transform.position = beef.transform.position;
         Destroy(beef.gameObject);
