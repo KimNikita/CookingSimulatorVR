@@ -2,11 +2,11 @@
 
 ## About
 
-This branch contains source code and setup file (.apk) of game for android (version > 7). Use only with GearVR helmet.
+This branch contains source code and setup file (<missing type>) of game for oculus-quest 2.
 
 ## Installation
 
-Clone repository and copy .apk file on your mobile phone. Then install by clicking on .apk file.
+Clone repository and <do something>.
 
 ## Documentation links
 
