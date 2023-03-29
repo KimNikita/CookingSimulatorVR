@@ -14,6 +14,7 @@ public class BurgerBuilder : MonoBehaviour, Observable
     Transform _object_to_move;
     bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
 
+    public List<GameObject> observers_game_objects;
     List<Observer> _observers;
     int _cheeseNumber = 0;
     void Start()
@@ -31,8 +32,10 @@ public class BurgerBuilder : MonoBehaviour, Observable
 
         _observers = new List<Observer>();
         // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
-        Observer obs = new AchievementObserver();
-        AddObserver(obs);
+        foreach(var game_obj in observers_game_objects)
+        {
+            AddObserver(game_obj.GetComponent<AchievementObserver>());
+        }
     }
     void LerpLine()
     {
