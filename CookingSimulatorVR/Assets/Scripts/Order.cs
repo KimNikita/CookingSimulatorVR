@@ -5,7 +5,7 @@ using static GlobalVariables;
 using static GlobalVariables.achievements;
 using System.Collections.Generic;
 
-public class Order : MonoBehaviour
+public class Order : MyInteractionManager
 {
     public BurgerRecipe burgerRecipe;
     public DrinkRecipe drinkRecipe;
@@ -20,10 +20,46 @@ public class Order : MonoBehaviour
 
     public float orderTime;
 
-    bool _lolipopWasGiven = false;
-    static int _lolipop_num = 0;
+  private bool _lolipopWasGiven = false;
 
-    public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
+  override protected IEnumerator Check()
+  {
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Drop(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Drop(rightOculusHand);
+      }
+    }
+  }
+
+  public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
+  {
+    hasBurger = Random.Range(0, 2);
+    hasDrink = Random.Range(0, 2);
+    if (hasBurger == 0 && hasDrink == 0)
+    {
+      hasBurger = 1;
+    }
+    orderTime = GlobalVariables.Times["Base"];
+
+    newOrderUI = Instantiate(orderUI);
+    newOrderUI.transform.SetParent(ordersListUI.transform.GetChild(ordersListUI.transform.childCount - 1), false);
+    newOrderUI.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
+    newOrderUI.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
+    newOrderUI.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+    newOrderUI.GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 0);
+    newOrderUI.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+    newOrderUI.SetActive(false);
+
+    if (hasBurger == 1)
     {
         EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry pointerDown = new EventTrigger.Entry();
@@ -57,39 +93,18 @@ public class Order : MonoBehaviour
             gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Translate[burgerRecipe.name];
             gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = Color.black;
 
-        }
-        if (hasDrink == 1)
-        {
-            drinkRecipe = DrinkRecipes[Random.Range(0, DrinkRecipes.Count)];
-            orderTime += Times["Drink"];
-            newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Translate[drinkRecipe.name];
-            newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.black;
-            gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = Translate[drinkRecipe.name];
-            gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.black;
-        }
-
-        ordersList.GetComponent<OrdersList>().PlaceOrder(orderTime, ordersListUI, transform, newOrderUI.transform);
-
-        gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
-
-        newOrderUI.SetActive(true);
-        newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
-    }
-
-    private void Drop()
+    newOrderUI.SetActive(true);
+    newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);
+  }
+  private void Drop(OculusHand hand)
+  {
+    if (hand.HasChildren())
     {
-        if (Hand.HasChildren())
-        {
-            if (_lolipopWasGiven == false && Hand.GetChildTag() == "Lolipop")
-            {
-                Debug.Log(newOrderUI.GetComponent<OrderUI>().timeToFill);
-                newOrderUI.GetComponent<OrderUI>().startTime += 4f;
-                _lolipopWasGiven = true;
-                Destroy(Hand.GetTransform().GetChild(0).gameObject);
-
-                _lolipop_num++;
-                if (_lolipop_num == 10) AchievementObserver.GetInstance().HandleEvent(lolipopAchiev);
-            }
-        }
+      if (_lolipopWasGiven == false && hand.GetChildTag() == "Lolipop")
+      {
+        newOrderUI.GetComponent<OrderUI>().startTime += 4f;
+        _lolipopWasGiven = true;
+        Destroy(hand.GetChild().gameObject);
+      }
     }
 }

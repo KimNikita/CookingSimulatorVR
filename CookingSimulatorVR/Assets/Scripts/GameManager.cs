@@ -10,19 +10,19 @@ public class GameManager : MonoBehaviour
     public GameObject ordersList;
     public GameObject ordersListUI;
 
-    void Start()
+  void Start()
+  {
+    gameObject.GetComponent<AudioSource>().Play();
+    ScoreText.text = GlobalVariables.scoreValue + "$";
+    switch (PlayerPrefs.GetString("Difficulty"))
     {
-        gameObject.GetComponent<AudioSource>().Play();
-        ScoreText.text = GlobalVariables.scoreValue + "$";
-        switch (PlayerPrefs.GetString("Difficulty"))
-        {
-            case "Easy": GlobalVariables.Times["BetweenOrders"] = 25; GlobalVariables.Costs["NDS"] = 5; break;
-            case "Medium": GlobalVariables.Times["BetweenOrders"] = 20; GlobalVariables.Costs["NDS"] = 15; break;
-            case "Hard": GlobalVariables.Times["BetweenOrders"] = 15; GlobalVariables.Costs["NDS"] = 25; break;
-            default: Debug.Log("Unknown difficulty " + PlayerPrefs.GetString("Difficulty")); break;
-        }
-        StartCoroutine(OrderSpawner());
+      case "Easy": GlobalVariables.Times["BetweenOrders"] = 25; GlobalVariables.Costs["NDS"] = 5; break;
+      case "Medium": GlobalVariables.Times["BetweenOrders"] = 20; GlobalVariables.Costs["NDS"] = 15; break;
+      case "Hard": GlobalVariables.Times["BetweenOrders"] = 15; GlobalVariables.Costs["NDS"] = 25; break;
+      default: Debug.Log("Unknown difficulty " + PlayerPrefs.GetString("Difficulty")); break;
     }
+    StartCoroutine(OrderSpawner());
+  }
 
     IEnumerator OrderSpawner()
     {

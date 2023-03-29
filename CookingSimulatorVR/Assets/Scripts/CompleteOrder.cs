@@ -6,7 +6,7 @@ using static GlobalVariables;
 using static GlobalVariables.achievements;
 using System.Collections;
 
-public class CompleteOrder : MonoBehaviour
+public class CompleteOrder : MyInteractionManager
 {
   public TextMeshProUGUI ScoreText;
   public GameObject tray;
@@ -14,29 +14,32 @@ public class CompleteOrder : MonoBehaviour
   public AudioClip wrong;
   public float volume = 1;
 
-  static int _orders_number = 0;
-
-  public TextMeshProUGUI CashBoxText;
-
-  void Start()
+  override protected IEnumerator Check()
   {
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { Complete(); });
-
-    eventTrigger.triggers.Add(pointerDown);
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Complete(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Complete(rightOculusHand);
+      }
+    }
   }
 
-  void Complete()
+  void Complete(OculusHand hand)
   {
-    if (Hand.HasChildren())
+    if (hand.HasChildren())
     {
-      if (Hand.GetChildTag() == "Order")
+      if (hand.GetChildTag() == "Order")
       {
-        int money = Costs["Bun"];
-        Order order = Hand.GetTransform().GetChild(0).GetComponent<Order>();
+        int money = GlobalVariables.Costs["Bun"];
+        Order order = hand.GetChild().GetComponent<Order>();
         if (order.hasBurger != 0)
         {
           if (tray.transform.GetChild(2).childCount != 0 && tray.transform.GetChild(2).GetChild(0).childCount + 1 == order.burgerRecipe.ingredients.Count)

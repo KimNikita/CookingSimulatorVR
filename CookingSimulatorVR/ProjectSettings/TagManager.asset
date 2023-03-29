@@ -13,6 +13,11 @@ TagManager:
   - Beef
   - Bun
   - Lolipop
+  - Cooked Beef
+  - Burnt Beef
+  - XR Interaction Manager
+  - LeftHand Controller
+  - RightHand Controller
   layers:
   - Default
   - TransparentFX

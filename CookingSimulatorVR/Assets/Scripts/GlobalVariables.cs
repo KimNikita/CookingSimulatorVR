@@ -72,8 +72,8 @@ public static class GlobalVariables
   };
 
 
-    public static bool end = false;
-    public static int scoreValue = 100;
-    public static bool hasDrink = false;
+  public static bool end = false;
+  public static int scoreValue = 100;
+  public static bool hasDrink = false;
 
 }

@@ -6,7 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 
 
-public class Bonus_doubleTime : MonoBehaviour
+public class Bonus_doubleTime : MyInteractionManager
 {
   public GameObject interactiveObject;
   [SerializeField] private float time;
@@ -24,12 +24,19 @@ public class Bonus_doubleTime : MonoBehaviour
     timeLeft = time;
     interactiveObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
     StartCoroutine(StartTimer());
+  }
 
-    EventTrigger eventTrigger = interactiveObject.AddComponent<EventTrigger>();
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { Double_time(); });
-    eventTrigger.triggers.Add(pointerDown);
+  override protected IEnumerator Check()
+  {
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1 || rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        Double_time();
+      }
+    }
   }
 
   void Double_time()

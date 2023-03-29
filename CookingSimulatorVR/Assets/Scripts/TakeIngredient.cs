@@ -2,63 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class TakeIngredient : MonoBehaviour
+public class TakeIngredient : MyInteractionManager
 {
-    public GameObject ingredientPrefab;
-    public string ingredientTag;
 
-    [Range(0, 1)] public float value;
-    List<Vector3> _line;
-    Transform _object_to_move;
-    bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
-    void Start()
-    {
-        EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-        EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-        pointerDown.eventID = EventTriggerType.PointerDown;
-        pointerDown.callback.AddListener((eventData) => { MoveToHand(); });
-        eventTrigger.triggers.Add(pointerDown);
+  public GameObject ingredientPrefab;
+  public string ingredientTag;
 
-        _line = new List<Vector3>(2);
-        _line.Add(new Vector3());
-        _line.Add(new Vector3());
-    }
-    void LerpLine()
+  override protected IEnumerator Check()
+  {
+    while (true)
     {
-        _object_to_move.position = Vector3.Lerp(_line[0], _line[1], value);
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        MoveToHand(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        MoveToHand(rightOculusHand);
+      }
     }
-    void Move()
-    {
-        LerpLine();
-    }
-    IEnumerator MinusValue()
-    {
-        canTakeIngredient = false;
-        value = 1;
-        while (value >= 0)
-        {
-            yield return new WaitForSeconds(0.01f);
-            _line[0] = Hand.GetPosition();
-            value -= 0.07f;
-            Move();
-        }
-        canTakeIngredient = true;
-        _object_to_move.transform.rotation = new Quaternion(0, Hand.GetRotation().y, 0, Hand.GetRotation().w);
-        _object_to_move.transform.parent = Hand.GetTransform();
-    }
+  }
 
-    public void MoveToHand()
-    {        
-        if (!Hand.HasChildren())
-        {
-            _line[0] = Hand.GetPosition();
-            GameObject instance = Instantiate(ingredientPrefab);
-            _object_to_move = instance.transform;
-            _line[1] = gameObject.transform.position; // берётся позиция cheeseSpawner, т.к. у префаба позиция неподходящая
-            instance.tag = ingredientTag;
-            instance.AddComponent<BoxCollider>();            
-            StartCoroutine(MinusValue());
-        }
+  public void MoveToHand(OculusHand hand)
+  {
+    if (!hand.HasChildren())
+    {
+      GameObject instance = Instantiate(ingredientPrefab, hand.GetPosition(), new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w), hand.GetTransform());
+      instance.tag = ingredientTag;
+      instance.AddComponent<BoxCollider>();
     }
 }

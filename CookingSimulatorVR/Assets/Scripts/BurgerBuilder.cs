@@ -6,16 +6,41 @@ using UnityEngine.EventSystems;
 using static GlobalVariables;
 using static GlobalVariables.achievements;
 
-public class BurgerBuilder : MonoBehaviour
+public class BurgerBuilder : MyInteractionManager
 {
-    private Transform tray;
-    [Range(0, 1)] public float value;
-    List<Vector3> _line;
-    Transform _object_to_move;
-    bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
+  private Transform tray;
+  [Range(0, 1)] public float value;
+  List<Vector3> line1;
+  Transform object1;
+  bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
 
-    int _cheeseNumber = 0;
-    void Start()
+  override protected IEnumerator Check()
+  {
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        OnPointerDown(leftOculusHand);
+      }
+      else if (rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        OnPointerDown(rightOculusHand);
+      }
+    }
+  }
+
+  void LerpLine1()
+  {
+    object1.position = Vector3.Lerp(line1[0], line1[1], value);
+  }
+
+  IEnumerator PlusValue()
+  {
+    canTakeIngredient = false;
+    while (value <= 1)
     {
         tray = gameObject.transform;
         EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -28,11 +53,41 @@ public class BurgerBuilder : MonoBehaviour
         _line.Add(Hand.GetTransform().position); // точка камеры
         _line.Add(new Vector3());
     }
-    void LerpLine()
+    if (tray.childCount != 0) object1.parent = tray.GetChild(0).transform;
+    else object1.parent = tray;
+    object1.transform.rotation = tray.rotation;
+    canTakeIngredient = true;
+    value = 0;
+  }
+
+  IEnumerator MinusValue(OculusHand hand)
+  {
+    canTakeIngredient = false;
+    value = 1;
+    while (value >= 0)
     {
         _object_to_move.position = Vector3.Lerp(_line[0], _line[1], value);
     }
-    IEnumerator PlusValue()
+    object1.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
+    object1.parent = hand.GetTransform();
+    canTakeIngredient = true;
+  }
+
+  void Move()
+  {
+    LerpLine1();
+    DrawLine1();
+  }
+
+  void DrawLine1()
+  {
+    Debug.DrawLine(line1[0], line1[1], Color.red, 0.01f);
+  }
+
+  Transform GetLastIngredient()
+  {
+    Transform lastIngr = null;
+    if (tray.GetChild(0).childCount == 0)
     {
         canTakeIngredient = false;
         while (value <= 1)
@@ -62,27 +117,48 @@ public class BurgerBuilder : MonoBehaviour
         _object_to_move.parent = Hand.GetTransform();
         canTakeIngredient = true;
     }
-    void Move()
+    return lastIngr;
+  }
+
+  void OnPointerDown(OculusHand hand)
+  {
+    tray = gameObject.transform;
+
+    line1 = new List<Vector3>(2);
+    line1.Add(hand.GetTransform().position); // точка камеры
+
+    if (!canTakeIngredient)
+      return;
+
+    if (!hand.HasChildren()) // if hand is empty - put the ingredient into it
     {
-        LerpLine();
+      if (tray.childCount != 0)
+      {
+        object1 = tray.GetChild(0);
+        if (line1.Count != 2) line1.Add(object1.position);
+        else line1[1] = object1.position;
+
+        StartCoroutine(MinusValue(hand));
+      }
     }
     Transform GetLastIngredient()
     {
-        Transform lastIngr = null;
-        if (tray.GetChild(0).childCount == 0)
+      string ingredientTag = hand.GetChildTag();
+      // TODO may be need list of possible ingredients
+      if (tray.childCount == 0 && ingredientTag == "Bun")
+      {
+        object1 = hand.GetChild();
+        line1[1] = tray.position + new Vector3(0.035f, 0, 0.05f); // костыль
+        object1.transform.rotation = tray.rotation;
+
+        StartCoroutine(PlusValue());
+      }
+      else if (tray.childCount != 0)
+      {
+        if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
         {
-            lastIngr = tray.GetChild(0);
-        }
-        else
-        {
-            lastIngr = tray.GetChild(0).GetChild(tray.GetChild(0).childCount - 1);
-        }
-        return lastIngr;
-    }
-    void OnPointerDown()
-    {
-        if (!canTakeIngredient)
-            return;
+          object1 = hand.GetChild();
+          object1.parent = tray; // это не удалять. так ингредиенты ложатся хотя бы параллельно подносу     
 
         if (!Hand.HasChildren()) // if hand is empty - put the ingredient into it
         {
