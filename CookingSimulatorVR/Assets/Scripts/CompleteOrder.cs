@@ -6,7 +6,7 @@ using static GlobalVariables;
 using static GlobalVariables.achievements;
 using System.Collections;
 
-public class CompleteOrder : MonoBehaviour, Observable
+public class CompleteOrder : MonoBehaviour
 {
   public TextMeshProUGUI ScoreText;
   public GameObject tray;
@@ -14,8 +14,6 @@ public class CompleteOrder : MonoBehaviour, Observable
   public AudioClip wrong;
   public float volume = 1;
 
-  public List<GameObject> observers_game_objects;
-  List<Observer> _observers;
   static int _orders_number = 0;
 
   public TextMeshProUGUI CashBoxText;
@@ -29,13 +27,6 @@ public class CompleteOrder : MonoBehaviour, Observable
     pointerDown.callback.AddListener((eventData) => { Complete(); });
 
     eventTrigger.triggers.Add(pointerDown);
-
-    _observers = new List<Observer>();
-    // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
-    foreach (var game_obj in observers_game_objects)
-    {
-        AddObserver(game_obj.GetComponent<AchievementObserver>());
-    }
   }
 
   void Complete()
@@ -103,8 +94,8 @@ public class CompleteOrder : MonoBehaviour, Observable
         StartCoroutine(Cash_appear(money));
 
         _orders_number++;
-        if (_orders_number == 10) NotifyObserver(orderAchiev);
-        if ((scoreValue - money) < 1000 && scoreValue >= 1000) NotifyObserver(moneyAchiev);
+        if (_orders_number == 10) AchievementObserver.GetInstance().HandleEvent(orderAchiev);
+        if ((scoreValue - money) < 1000 && scoreValue >= 1000) AchievementObserver.GetInstance().HandleEvent(moneyAchiev);
 
         if (tray.transform.GetChild(2).childCount != 0)
         {
@@ -127,24 +118,6 @@ public class CompleteOrder : MonoBehaviour, Observable
   {
     _orders_number = 0;
     Debug.Log("You have failed order");
-  }
-
-  // методы интерфейса Observable, позволяют возбуждать события для AchivementObserver'а
-  public void AddObserver(Observer o)
-  {
-    _observers.Add(o);
-  }
-  public void RemoveObserver(Observer o)
-  {
-    _observers.Remove(o);
-  }
-
-  public void NotifyObserver(achievements ach)
-  {
-    foreach (var ob in _observers)
-    {
-      ob.HandleEvent(ach);
-    }
   }
   
   private IEnumerator Cash_appear(int money)

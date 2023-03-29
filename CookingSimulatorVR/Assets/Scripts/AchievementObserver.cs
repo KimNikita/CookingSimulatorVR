@@ -5,20 +5,34 @@ using UnityEngine;
 using UnityEngine.UI;
 using static GlobalVariables;
 
-public class AchievementObserver : MonoBehaviour, Observer
+public class AchievementObserver : MonoBehaviour
 {    
     public List<Sprite> sprites;
     Dictionary<String, Sprite> _sprites_dictionary;
-    private Image _achiev_image;
+    Image _achiev_image;
+    AudioSource _audio_source;
+    static AchievementObserver _instance;
+
+    int _cheeseNumber = 0;
+    private AchievementObserver()
+    {
+    }
+    static public AchievementObserver GetInstance()
+    {
+        return _instance;
+    }
     void Start()
     {
+        _instance = this;
         _achiev_image = gameObject.GetComponent<Image>();
+        Debug.Log(_achiev_image);
         _achiev_image.enabled = false;
         _sprites_dictionary = new Dictionary<string, Sprite>(sprites.Count);
         foreach (var elem in sprites)
         {
             _sprites_dictionary.Add(elem.name, elem);
         }
+        _audio_source = GetComponent<AudioSource>();
     }
     public void HandleEvent(achievements ach)
     {
@@ -55,8 +69,8 @@ public class AchievementObserver : MonoBehaviour, Observer
     }
     IEnumerator StartAndStopMusic()
     {
-        GetComponent<AudioSource>().Play();
+        _audio_source.Play();
         yield return new WaitForSeconds(2);
-        GetComponent<AudioSource>().Stop();
+        _audio_source.Stop();
     }
 }

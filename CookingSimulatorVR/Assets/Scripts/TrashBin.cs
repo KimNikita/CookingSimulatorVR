@@ -6,7 +6,7 @@ using TMPro;
 using static GlobalVariables;
 using static GlobalVariables.achievements;
 
-public class TrashBin : MonoBehaviour, Observable
+public class TrashBin : MonoBehaviour
 {
     public TextMeshProUGUI ScoreText;
     public GameObject interactiveObject;
@@ -18,8 +18,6 @@ public class TrashBin : MonoBehaviour, Observable
     public AudioClip sound;
     public float volume = 1;
 
-    public List<GameObject> observers_game_objects;
-    List<Observer> _observers;
     int _utilized_objects_count = 0;
 
     void Start()
@@ -37,13 +35,6 @@ public class TrashBin : MonoBehaviour, Observable
         line1.Add(interactiveObject.transform.position + new Vector3(0.3f, 0.3f, 0f));
         line1.Add(interactiveObject.transform.position);
         line1.Add(interactiveObject.transform.position + new Vector3(0, -1f, -0.2f));
-
-        _observers = new List<Observer>();
-        // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
-        foreach (var game_obj in observers_game_objects)
-        {
-            AddObserver(game_obj.GetComponent<AchievementObserver>());
-        }
     }
 
     void LerpLine()
@@ -110,7 +101,7 @@ public class TrashBin : MonoBehaviour, Observable
                     gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
 
                     _utilized_objects_count++;
-                    if (_utilized_objects_count == 10) NotifyObserver(trashBinAchiev);
+                    if (_utilized_objects_count == 10) AchievementObserver.GetInstance().HandleEvent(trashBinAchiev);
                 }
                 else if (Hand.GetChildTag() != "Order")
                 {
@@ -121,25 +112,6 @@ public class TrashBin : MonoBehaviour, Observable
             {
                 Debug.LogError("Add tag to object in hand");
             }
-        }
-    }
-
-    // методы интерфейса Observable, позволяют возбуждать события для AchivementObserver'а
-    public void AddObserver(Observer o)
-    {
-        _observers.Add(o);
-    }
-
-    public void RemoveObserver(Observer o)
-    {
-        _observers.Remove(o);
-    }
-
-    public void NotifyObserver(achievements ach)
-    {
-        foreach (var ob in _observers)
-        {
-            ob.HandleEvent(ach);
         }
     }
 }
