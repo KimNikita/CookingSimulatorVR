@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using static GlobalVariables;
 using static GlobalVariables.achievements;
 
-public class BurgerBuilder : MonoBehaviour, Observable
+public class BurgerBuilder : MonoBehaviour
 {
     private Transform tray;
     [Range(0, 1)] public float value;
@@ -14,8 +14,6 @@ public class BurgerBuilder : MonoBehaviour, Observable
     Transform _object_to_move;
     bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
 
-    public List<GameObject> observers_game_objects;
-    List<Observer> _observers;
     int _cheeseNumber = 0;
     void Start()
     {
@@ -29,13 +27,6 @@ public class BurgerBuilder : MonoBehaviour, Observable
         _line = new List<Vector3>(2);
         _line.Add(Hand.GetTransform().position); // точка камеры
         _line.Add(new Vector3());
-
-        _observers = new List<Observer>();
-        // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
-        foreach(var game_obj in observers_game_objects)
-        {
-            AddObserver(game_obj.GetComponent<AchievementObserver>());
-        }
     }
     void LerpLine()
     {
@@ -121,7 +112,7 @@ public class BurgerBuilder : MonoBehaviour, Observable
                     if (ingredientTag == "Cheese")
                     {
                         _cheeseNumber++;
-                        if (_cheeseNumber == 10) NotifyObserver(cheeseAchiev);                        
+                        if (_cheeseNumber == 10) AchievementObserver.GetInstance().HandleEvent(cheeseAchiev);
                     }
                     _object_to_move = Hand.GetTransform().GetChild(0);
                     _object_to_move.parent = tray; // это не удалять. так ингредиенты ложатся хотя бы параллельно подносу     
@@ -141,24 +132,6 @@ public class BurgerBuilder : MonoBehaviour, Observable
                     StartCoroutine(PlusValue());
                 }
             }
-        }
-    }
-
-    // методы интерфейса Observable, позволяют возбуждать события для AchivementObserver'а
-    public void AddObserver(Observer o)
-    {
-        _observers.Add(o);
-    }    
-    public void RemoveObserver(Observer o)
-    {
-        _observers.Remove(o);
-    }
-
-    public void NotifyObserver(achievements ach)
-    {
-        foreach(var ob in _observers)
-        {
-            ob.HandleEvent(ach);
         }
     }
 }

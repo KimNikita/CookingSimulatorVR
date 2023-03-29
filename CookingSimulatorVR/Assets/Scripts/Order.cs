@@ -5,7 +5,7 @@ using static GlobalVariables;
 using static GlobalVariables.achievements;
 using System.Collections.Generic;
 
-public class Order : MonoBehaviour, Observable
+public class Order : MonoBehaviour
 {
     public BurgerRecipe burgerRecipe;
     public DrinkRecipe drinkRecipe;
@@ -21,19 +21,8 @@ public class Order : MonoBehaviour, Observable
     public float orderTime;
 
     bool _lolipopWasGiven = false;
-    public List<GameObject> observers_game_objects;
-    static List<Observer> _observers; // static поле существует во всех объектах класса в согласованном виде (с одним и тем же значением)
     static int _lolipop_num = 0;
 
-    void Start()
-    {
-        _observers = new List<Observer>();
-        // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
-        foreach (var game_obj in observers_game_objects)
-        {
-            AddObserver(game_obj.GetComponent<AchievementObserver>());
-        }
-    }
     public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
     {
         EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -99,26 +88,8 @@ public class Order : MonoBehaviour, Observable
                 Destroy(Hand.GetTransform().GetChild(0).gameObject);
 
                 _lolipop_num++;
-                if (_lolipop_num == 10) NotifyObserver(lolipopAchiev);
+                if (_lolipop_num == 10) AchievementObserver.GetInstance().HandleEvent(lolipopAchiev);
             }
-        }
-    }
-    // методы интерфейса Observable, позволяют возбуждать события для AchivementObserver'а
-
-    public void AddObserver(Observer o)
-    {
-        _observers.Add(o);
-    }
-    public void RemoveObserver(Observer o)
-    {
-        _observers.Remove(o);
-    }
-
-    public void NotifyObserver(achievements ach)
-    {
-        foreach (var ob in _observers)
-        {
-            ob.HandleEvent(ach);
         }
     }
 }
