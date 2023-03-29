@@ -21,6 +21,7 @@ public class Order : MonoBehaviour, Observable
     public float orderTime;
 
     bool _lolipopWasGiven = false;
+    public List<GameObject> observers_game_objects;
     static List<Observer> _observers; // static поле существует во всех объектах класса в согласованном виде (с одним и тем же значением)
     static int _lolipop_num = 0;
 
@@ -28,8 +29,10 @@ public class Order : MonoBehaviour, Observable
     {
         _observers = new List<Observer>();
         // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
-        Observer obs = new AchievementObserver();
-        AddObserver(obs);
+        foreach (var game_obj in observers_game_objects)
+        {
+            AddObserver(game_obj.GetComponent<AchievementObserver>());
+        }
     }
     public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
     {

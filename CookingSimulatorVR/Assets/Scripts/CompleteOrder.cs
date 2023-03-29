@@ -14,6 +14,7 @@ public class CompleteOrder : MonoBehaviour, Observable
   public AudioClip wrong;
   public float volume = 1;
 
+  public List<GameObject> observers_game_objects;
   List<Observer> _observers;
   static int _orders_number = 0;
 
@@ -31,8 +32,10 @@ public class CompleteOrder : MonoBehaviour, Observable
 
     _observers = new List<Observer>();
     // здесь следует получить объект со сцены, на котором будет висеть скрипт AchievementObserver
-    Observer obs = new AchievementObserver();
-    AddObserver(obs);
+    foreach (var game_obj in observers_game_objects)
+    {
+        AddObserver(game_obj.GetComponent<AchievementObserver>());
+    }
   }
 
   void Complete()

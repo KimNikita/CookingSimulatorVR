@@ -771,13 +771,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orderUI: {fileID: 3413386834830680027, guid: 2d03ff19138030c439b11abd79960bf8, type: 3}
-  ordersListUI: {fileID: 6048738287568855396, guid: 0ec09f89b4b32ae4db210183803abe9f,
-    type: 3}
+  newOrderUI: {fileID: 0}
   sound: {fileID: 8300000, guid: 3f9432a64ebe59543b630d6f41860aa2, type: 3}
   volume: 0.5
   hasBurger: 0
   hasDrink: 0
   orderTime: 0
+  observers_game_objects:
+  - {fileID: 4880997837367106852, guid: 02a2eeac10136f441a34bb1ff510b1e4, type: 3}
 --- !u!114 &9081802096943009561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,6 +791,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38233de7bf986a4b9cab96115dfcdbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 0
 --- !u!82 &9081802096943009562
 AudioSource:
   m_ObjectHideFlags: 0
