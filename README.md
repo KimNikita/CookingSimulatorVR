@@ -1,20 +1,14 @@
 # CookingSimulatorVR
 
-## ТЗ
+## About
 
-В ходе работы над кейсом вам предстоит  разработать решение с использованием GoogleVR SDK, в котором необходимо создать «Закусочную на колесах» - приложение, в котором пользователю предстоит, используя всем известные рецепты, создавать невероятно вкусные бургеры и напитки. Перед игроком будет стоять задача создать определенное количество бургеров и напитков, добавляя при этом правильные ингридиенты.
+This branch contains source code and setup file (.apk) of game for android (version > 7). Use only with GearVR helmet.
 
-В геймплей должны быть включены следующие механики: 
-- справочник рецептов (достаточно будет разнообразить меню двумя видами бургеров и двумя видами напитков);
-- возможность подбирать ингридиенты и добавлять их в бургер или напиток;
-- прогресс бар (таймер) ожидания клиента (если клиент не успевает поулчить свой заказ вовремя, вы можете угостить его печенькой, чтобы выиграть немного времени);
-- время от времени будут падать рандомные бонусы (ускоренное время прожарки котлет или ускоренное создание напитков).
+## Installation
 
-Условия:
+Clone repository and copy .apk file on your mobile phone. Then install by clicking on .apk file.
 
-- запись работы приложения, где будут отражены все геймлпеные механики
+## Documentation links
 
-## Полезные ссылки
-
-Доска Miro:
-https://miro.com/welcomeonboard/cXVrZ0JwSUZIZFZEcGJNWUtyeFRVeUlzazlDb2NLaTBvYXZLcUdjZVdFS0FVYlhHUXhBTFNCMVV6RFU4T3pNNnwzMDc0NDU3MzY1NzMzOTY5NjgzfDI=?share_link_id=131045256301
+Miro Board:
+https://miro.com/app/board/uXjVPops5Po=/?share_link_id=133032179272
