@@ -55,7 +55,7 @@ public class TakeIngredient : MonoBehaviour
             _line[0] = Hand.GetPosition();
             GameObject instance = Instantiate(ingredientPrefab);
             _object_to_move = instance.transform;
-            _line[1] = gameObject.transform.position; // берётся позиция cheeseSpawner, т.к. у префаба позиция неподходящая
+            _line[1] = _object_to_move.tag == "Lolipop" ? instance.transform.position: gameObject.transform.position; // берётся позиция Spawner, т.к. у префаба позиция неподходящая
             instance.tag = ingredientTag;
             instance.AddComponent<BoxCollider>();            
             StartCoroutine(MinusValue());
