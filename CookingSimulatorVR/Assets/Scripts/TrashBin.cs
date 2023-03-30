@@ -34,7 +34,7 @@ public class TrashBin : MonoBehaviour
         line1.Add(Hand.GetTransform().position); // точка камеры
         line1.Add(interactiveObject.transform.position + new Vector3(0.3f, 0.3f, 0f));
         line1.Add(interactiveObject.transform.position);
-        line1.Add(interactiveObject.transform.position + new Vector3(0, -1f, -0.2f));
+        line1.Add(interactiveObject.transform.position + new Vector3(0, -0.5f, -0.2f));
     }
 
     void LerpLine()
