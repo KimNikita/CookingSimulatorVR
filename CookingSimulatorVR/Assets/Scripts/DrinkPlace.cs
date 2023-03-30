@@ -48,7 +48,7 @@ public class DrinkPlace : MonoBehaviour
         {
             yield return new WaitForSeconds(0.01f);
             value -= 0.07f;
-            _line[0] = Hand.GetTransform().position;
+            _line[0] = Hand.GetTransform().position + new Vector3(0, -0.25f, 0);
             Move();
         }
         _object_to_move.parent = Hand.GetTransform();

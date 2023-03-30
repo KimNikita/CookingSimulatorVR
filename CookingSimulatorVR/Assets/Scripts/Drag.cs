@@ -21,6 +21,8 @@ public class Drag : MonoBehaviour
         _line = new List<Vector3>(2);
         _line.Add(new Vector3());
         _line.Add(new Vector3());
+        _line[0] = Hand.GetPosition();
+        _line[1] = gameObject.transform.position;
     }
     void LerpLine()
     {
@@ -38,6 +40,10 @@ public class Drag : MonoBehaviour
         {
             yield return new WaitForSeconds(0.01f);
             _line[0] = Hand.GetPosition();
+            if (gameObject.tag == "Fanta" || gameObject.tag == "Cola")
+            {
+              _line[0] += new Vector3(0, -0.25f, 0);
+            }
             value -= 0.07f;
             Move();
         }
@@ -47,18 +53,13 @@ public class Drag : MonoBehaviour
     }
     void MoveToHand()
     {
-        _line[1] = gameObject.transform.position;
-        if (!Hand.HasChildren())
+        
+    if (!Hand.HasChildren())
         {
             _object_to_move = gameObject.transform;
             if (gameObject.tag == "Fanta" || gameObject.tag == "Cola")
             {
-                _line[1] = new Vector3(Hand.GetPosition().x, Hand.GetPosition().y - 0.25f, Hand.GetPosition().z);
                 GlobalVariables.hasDrink = false;
-            }
-            else
-            {
-                _line[0] = Hand.GetPosition();
             }
             StartCoroutine(MinusValue());
         }
