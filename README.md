@@ -2,7 +2,7 @@
 
 ## About
 
-This branch contains source code and setup file (.apk) of game for android (version > 7). Use only with GearVR helmet.
+This branch contains source code and setup file (.apk) of game for android (version > 7). Use only with GearVR helmet or special controller.
 
 ## Installation
 
