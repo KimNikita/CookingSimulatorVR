@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
+using static GlobalVariables;
+using static GlobalVariables.achievements;
 
 public class Order : MyInteractionManager
 {
-  public GlobalVariables.BurgerRecipe burgerRecipe;
-  public GlobalVariables.DrinkRecipe drinkRecipe;
+  public BurgerRecipe burgerRecipe;
+  public DrinkRecipe drinkRecipe;
 
   public GameObject orderUI, newOrderUI;
 
@@ -21,6 +23,7 @@ public class Order : MyInteractionManager
   public float orderTime;
 
   private bool _lolipopWasGiven = false;
+  static int _lolipop_num = 0;
 
   override protected IEnumerator Check()
   {
@@ -30,12 +33,26 @@ public class Order : MyInteractionManager
       if (leftController.action.ReadValue<float>() > 0.1)
       {
         StopCoroutine("Check");
-        Drop(leftOculusHand);
+        if (leftOculusHand.HasChildren())
+        {
+          Drop(leftOculusHand);
+        }
+        else
+        {
+          GetComponent<Drag>().MoveToHand(leftOculusHand);
+        }
       }
       else if (rightController.action.ReadValue<float>() > 0.1)
       {
         StopCoroutine("Check");
-        Drop(rightOculusHand);
+        if (rightOculusHand.HasChildren())
+        {
+          Drop(rightOculusHand);
+        }
+        else
+        {
+          GetComponent<Drag>().MoveToHand(rightOculusHand);
+        }
       }
     }
   }
@@ -48,7 +65,7 @@ public class Order : MyInteractionManager
     {
       hasBurger = 1;
     }
-    orderTime = GlobalVariables.Times["Base"];
+    orderTime = Times["Base"];
 
     newOrderUI = Instantiate(orderUI);
     newOrderUI.transform.SetParent(ordersListUI.transform.GetChild(ordersListUI.transform.childCount - 1), false);
@@ -61,21 +78,21 @@ public class Order : MyInteractionManager
 
     if (hasBurger == 1)
     {
-      burgerRecipe = GlobalVariables.BurgerRecipes[Random.Range(0, GlobalVariables.BurgerRecipes.Count)];
-      orderTime += GlobalVariables.Times["roastTime"];
-      newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[burgerRecipe.name];
+      burgerRecipe = BurgerRecipes[Random.Range(0, BurgerRecipes.Count)];
+      orderTime += Times["roastTime"];
+      newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Translate[burgerRecipe.name];
       newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
-      gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[burgerRecipe.name];
+      gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Translate[burgerRecipe.name];
       gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = Color.black;
 
     }
     if (hasDrink == 1)
     {
-      drinkRecipe = GlobalVariables.DrinkRecipes[Random.Range(0, GlobalVariables.DrinkRecipes.Count)];
-      orderTime += GlobalVariables.Times["Drink"];
-      newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[drinkRecipe.name];
+      drinkRecipe = DrinkRecipes[Random.Range(0, DrinkRecipes.Count)];
+      orderTime += Times["Drink"];
+      newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Translate[drinkRecipe.name];
       newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.black;
-      gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = GlobalVariables.Translate[drinkRecipe.name];
+      gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = Translate[drinkRecipe.name];
       gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.black;
     }
 
@@ -95,6 +112,9 @@ public class Order : MyInteractionManager
         newOrderUI.GetComponent<OrderUI>().startTime += 4f;
         _lolipopWasGiven = true;
         Destroy(hand.GetChild().gameObject);
+
+        _lolipop_num++;
+        if (_lolipop_num == 10) AchievementManager.GetInstance().HandleEvent(lolipopAchiev);
       }
     }
   }

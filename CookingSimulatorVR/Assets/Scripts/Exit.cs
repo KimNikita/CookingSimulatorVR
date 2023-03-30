@@ -5,10 +5,13 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.XR.Interaction.Toolkit;
+using static GlobalVariables;
 
 public class Exit : MonoBehaviour
 {
   public UnityEvent onBarFilled;
+  public bool enable;
 
   private float timeToFill = 4.0f;
 
@@ -20,12 +23,16 @@ public class Exit : MonoBehaviour
 
   void Start()
   {
+    enable = true;
     progressBarImage = gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>();
   }
 
   public void StartFillingProgressBar()
   {
-    barFillCoroutine = StartCoroutine("Fill");
+    if (enable)
+    {
+      barFillCoroutine = StartCoroutine("Fill");
+    }
   }
 
   public void StopFillingProgressBar()
@@ -46,20 +53,21 @@ public class Exit : MonoBehaviour
     }
 
     progressBarImage.fillAmount = 0.0f;
-    GlobalVariables.end = true;
-    Score.text = "     Ваш результат: " + GlobalVariables.scoreValue + "$";
-    if (GlobalVariables.scoreValue > PlayerPrefs.GetInt("BestScore"))
+    end = true;
+    Score.text = "     Ваш результат: " + scoreValue + "$";
+    if (scoreValue > PlayerPrefs.GetInt("BestScore"))
     {
-      PlayerPrefs.SetInt("BestScore", GlobalVariables.scoreValue);
+      PlayerPrefs.SetInt("BestScore", scoreValue);
     }
     BestScore.text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
 
     if (onBarFilled != null)
     {
+      enable = false;
       onBarFilled.Invoke();
+      gameObject.AddComponent<Rigidbody>();
+      gameObject.GetComponent<Rigidbody>().mass = 0.05f;
     }
-    gameObject.AddComponent<Rigidbody>();
-    gameObject.GetComponent<Rigidbody>().mass = 0.05f;
-    Destroy(gameObject.GetComponent<EventTrigger>());
+    
   }
 }

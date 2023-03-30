@@ -946,34 +946,10 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9081802096943009561}
-        m_TargetAssemblyTypeName: MyInteractionManager, Assembly-CSharp
-        m_MethodName: StartCheck
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_HoverExited:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9081802096943009561}
-        m_TargetAssemblyTypeName: MyInteractionManager, Assembly-CSharp
-        m_MethodName: StopCheck
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   m_FirstSelectEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -1022,7 +998,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   leftController:
-    m_UseReference: 1
+    m_UseReference: 0
     m_Action:
       m_Name: Left Controller
       m_Type: 0
@@ -1035,7 +1011,7 @@ MonoBehaviour:
     m_Reference: {fileID: -5982496924579745919, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
   rightController:
-    m_UseReference: 1
+    m_UseReference: 0
     m_Action:
       m_Name: Right Controller
       m_Type: 0
@@ -1047,6 +1023,7 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 83097790271614945, guid: c348712bda248c246b8c49b3db54643f,
       type: 3}
+  value: 0
 --- !u!82 &9081802096943009562
 AudioSource:
   m_ObjectHideFlags: 0

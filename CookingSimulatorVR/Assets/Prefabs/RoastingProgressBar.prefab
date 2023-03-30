@@ -28,7 +28,8 @@ RectTransform:
   m_GameObject: {fileID: 5301591493570988007}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0.314}
-  m_LocalScale: {x: -0.00084871845, y: -0.0008487188, z: -0.00084871845}
+  m_LocalScale: {x: -0.0006761825, y: -0.0006761828, z: -0.0006761825}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 726597960379346977}
   m_Father: {fileID: 0}
@@ -82,6 +83,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &5689418873405828962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,6 +129,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0059333, y: 1.0059333, z: 1.0059333}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6293736653144946715}
   m_RootOrder: 0
@@ -159,6 +162,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

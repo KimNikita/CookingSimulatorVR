@@ -5,19 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using static GlobalVariables;
 
-public class AchievementObserver : MonoBehaviour
+public class AchievementManager : MonoBehaviour
 {    
     public List<Sprite> sprites;
     Dictionary<String, Sprite> _sprites_dictionary;
     Image _achiev_image;
     AudioSource _audio_source;
-    static AchievementObserver _instance;
+    static AchievementManager _instance;
 
     int _cheeseNumber = 0;
-    private AchievementObserver()
+    private AchievementManager()
     {
     }
-    static public AchievementObserver GetInstance()
+    static public AchievementManager GetInstance()
     {
         return _instance;
     }
@@ -64,7 +64,7 @@ public class AchievementObserver : MonoBehaviour
     IEnumerator ShowAndHideImage()
     {
         _achiev_image.enabled = true;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         _achiev_image.enabled = false;
     }
     IEnumerator StartAndStopMusic()

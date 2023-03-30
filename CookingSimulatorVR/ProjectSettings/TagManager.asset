@@ -18,6 +18,7 @@ TagManager:
   - XR Interaction Manager
   - LeftHand Controller
   - RightHand Controller
+  - BottomBun
   layers:
   - Default
   - TransparentFX

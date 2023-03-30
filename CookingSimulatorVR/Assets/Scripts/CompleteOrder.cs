@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using static GlobalVariables;
+using static GlobalVariables.achievements;
 
 public class CompleteOrder : MyInteractionManager
 {
@@ -11,6 +13,10 @@ public class CompleteOrder : MyInteractionManager
   public AudioClip right;
   public AudioClip wrong;
   public float volume = 1;
+
+  static int _orders_number = 0;
+
+  public TextMeshProUGUI CashBoxText;
 
   override protected IEnumerator Check()
   {
@@ -36,7 +42,7 @@ public class CompleteOrder : MyInteractionManager
     {
       if (hand.GetChildTag() == "Order")
       {
-        int money = GlobalVariables.Costs["Bun"];
+        int money = Costs["Bun"];
         Order order = hand.GetChild().GetComponent<Order>();
         if (order.hasBurger != 0)
         {
@@ -47,7 +53,7 @@ public class CompleteOrder : MyInteractionManager
             {
               if (burger.GetChild(i).tag == order.burgerRecipe.ingredients[i + 1])
               {
-                money += GlobalVariables.Costs[order.burgerRecipe.ingredients[i + 1]] + GlobalVariables.Costs["NDS"] + GlobalVariables.Costs["Tips"];
+                money += Costs[order.burgerRecipe.ingredients[i + 1]] + GlobalVariables.Costs["NDS"] + GlobalVariables.Costs["Tips"];
               }
               else
               {
@@ -75,7 +81,7 @@ public class CompleteOrder : MyInteractionManager
         {
           if (tray.transform.GetChild(0).childCount == 2 && order.drinkRecipe.name == tray.transform.GetChild(0).GetChild(1).tag)
           {
-            money += GlobalVariables.Costs[order.drinkRecipe.name] + GlobalVariables.Costs["NDS"] + GlobalVariables.Costs["Tips"];
+            money += Costs[order.drinkRecipe.name] + Costs["NDS"] + Costs["Tips"];
           }
           else
           {
@@ -89,9 +95,16 @@ public class CompleteOrder : MyInteractionManager
           return;
         }
 
-        GlobalVariables.scoreValue += money;
-        ScoreText.text = GlobalVariables.scoreValue + "$";
+        scoreValue += money;
+        ScoreText.text = scoreValue + "$";
         gameObject.GetComponent<AudioSource>().PlayOneShot(right, volume);
+        StartCoroutine(Cash_appear(money));
+
+        _orders_number++;
+        if (_orders_number == 10) AchievementManager.GetInstance().HandleEvent(orderAchiev);
+        if ((scoreValue - money) < 1000 && scoreValue >= 1000) AchievementManager.GetInstance().HandleEvent(moneyAchiev);
+
+
         if (tray.transform.GetChild(2).childCount != 0)
         {
           Destroy(tray.transform.GetChild(2).GetChild(0).gameObject);
@@ -107,5 +120,23 @@ public class CompleteOrder : MyInteractionManager
         }
       }
     }
+  }
+
+  public static void ResetOrdersNumber()
+  {
+    _orders_number = 0;
+    Debug.Log("You have failed order");
+  }
+
+  private IEnumerator Cash_appear(int money)
+  {
+    float timeLeft = 2f;
+    CashBoxText.text = "+" + money + "$";
+    while (timeLeft > 0)
+    {
+      timeLeft -= Time.deltaTime;
+      yield return null;
+    }
+    CashBoxText.text = "";
   }
 }

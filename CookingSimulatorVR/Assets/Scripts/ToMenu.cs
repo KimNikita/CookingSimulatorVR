@@ -4,18 +4,21 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class ToMenu : MonoBehaviour
+public class ToMenu : MyInteractionManager
 {
   // Start is called before the first frame update
-  void Start()
+
+  override protected IEnumerator Check()
   {
-    EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
-
-    EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-    pointerDown.eventID = EventTriggerType.PointerDown;
-    pointerDown.callback.AddListener((eventData) => { GoToMenu(); });
-
-    eventTrigger.triggers.Add(pointerDown);
+    while (true)
+    {
+      yield return new WaitForSeconds(0.1f);
+      if (leftController.action.ReadValue<float>() > 0.1 || rightController.action.ReadValue<float>() > 0.1)
+      {
+        StopCoroutine("Check");
+        GoToMenu();
+      }
+    }
   }
 
   public void GoToMenu()

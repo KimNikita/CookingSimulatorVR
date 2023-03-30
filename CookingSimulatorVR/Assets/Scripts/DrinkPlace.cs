@@ -3,13 +3,24 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
+using static GlobalVariables;
 
 public class DrinkPlace : MyInteractionManager
 {
   private Transform tray;
   [Range(0, 1)] public float value;
-  List<Vector3> line1;
-  Transform object1;
+  List<Vector3> _line;
+  Transform _object_to_move;
+
+  protected override void Start()
+  {
+    base.Start();
+    tray = gameObject.transform;
+    _line = new List<Vector3>(2);
+    _line.Add(new Vector3());
+    _line.Add(new Vector3());
+  }
 
   override protected IEnumerator Check()
   {
@@ -31,57 +42,51 @@ public class DrinkPlace : MyInteractionManager
 
   void LerpLine1()
   {
-    object1.position = Vector3.Lerp(line1[0], line1[1], value);
+    _object_to_move.position = Vector3.Lerp(_line[0], _line[1], value);
   }
 
   IEnumerator PlusValue()
   {
-    object1.transform.rotation = tray.transform.rotation;
+    _object_to_move.transform.rotation = tray.transform.rotation;
     while (value <= 1)
     {
       yield return new WaitForSeconds(0.01f);
       value += 0.07f;
       Move();
     }
-    object1.parent = tray.transform;
+    _object_to_move.parent = tray.transform;
     value = 0;
   }
 
   IEnumerator MinusValue(OculusHand hand)
   {
-    object1.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
+    _object_to_move.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
     value = 1;
     while (value >= 0)
     {
       yield return new WaitForSeconds(0.01f);
       value -= 0.07f;
+      _line[0] = hand.GetTransform().position + Offsets[_object_to_move.tag];
       Move();
     }
-    object1.parent = hand.GetTransform();
+    _object_to_move.parent = hand.GetTransform();
   }
 
   void Move()
   {
     LerpLine1();
-    DrawLine1();
   }
 
-  void DrawLine1()
-  {
-    Debug.DrawLine(line1[0], line1[1], Color.red, 0.01f);
-  }
 
   void OnPointerDown(OculusHand hand)
   {
-    tray = gameObject.transform;
-    line1 = new List<Vector3>(2);
+    _line[0] = hand.GetTransform().position; // точка из которой начинается движение
 
-    if (line1.Count == 0) line1.Add(hand.GetTransform().position); // точка из которой начинается движение
     if (!hand.HasChildren())
     {
       if (tray.childCount == 2)
       {
-        object1 = tray.GetChild(1);
+        _object_to_move = tray.GetChild(1);
 
         StartCoroutine(MinusValue(hand));
       }
@@ -94,18 +99,8 @@ public class DrinkPlace : MyInteractionManager
         // TODO may be need list of possible drinks
         if (ingredientTag == "Fanta" || ingredientTag == "Cola")
         {
-          object1 = hand.GetChild();
-          line1.Add(tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f));
-
-          var triggersList = object1.GetComponent<EventTrigger>().triggers;
-          foreach (var trigger in triggersList)
-          {
-            if (trigger.eventID == EventTriggerType.PointerDown)
-            {
-              triggersList.Remove(trigger);
-              break;
-            }
-          }
+          _object_to_move = hand.GetChild();
+          _line[1] = tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f);
 
           StartCoroutine(PlusValue());
         }

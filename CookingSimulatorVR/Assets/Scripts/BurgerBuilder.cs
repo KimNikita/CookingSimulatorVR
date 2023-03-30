@@ -3,14 +3,17 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using static GlobalVariables;
+using static GlobalVariables.achievements;
 
 public class BurgerBuilder : MyInteractionManager
 {
   private Transform tray;
   [Range(0, 1)] public float value;
-  List<Vector3> line1;
-  Transform object1;
+  List<Vector3> _line;
+  Transform _object_to_move;
   bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
+  int _cheeseNumber = 0;
 
   override protected IEnumerator Check()
   {
@@ -32,7 +35,7 @@ public class BurgerBuilder : MyInteractionManager
 
   void LerpLine1()
   {
-    object1.position = Vector3.Lerp(line1[0], line1[1], value);
+    _object_to_move.position = Vector3.Lerp(_line[0], _line[1], value);
   }
 
   IEnumerator PlusValue()
@@ -44,9 +47,9 @@ public class BurgerBuilder : MyInteractionManager
       value += 0.07f;
       Move();
     }
-    if (tray.childCount != 0) object1.parent = tray.GetChild(0).transform;
-    else object1.parent = tray;
-    object1.transform.rotation = tray.rotation;
+    if (tray.childCount != 0) _object_to_move.parent = tray.GetChild(0).transform;
+    else _object_to_move.parent = tray;
+    _object_to_move.transform.rotation = tray.rotation;
     canTakeIngredient = true;
     value = 0;
   }
@@ -59,22 +62,17 @@ public class BurgerBuilder : MyInteractionManager
     {
       yield return new WaitForSeconds(0.01f);
       value -= 0.07f;
+      _line[0] = hand.GetTransform().position + Offsets[_object_to_move.tag];
       Move();
     }
-    object1.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
-    object1.parent = hand.GetTransform();
+    _object_to_move.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
+    _object_to_move.parent = hand.GetTransform();
     canTakeIngredient = true;
   }
 
   void Move()
   {
     LerpLine1();
-    DrawLine1();
-  }
-
-  void DrawLine1()
-  {
-    Debug.DrawLine(line1[0], line1[1], Color.red, 0.01f);
   }
 
   Transform GetLastIngredient()
@@ -95,8 +93,9 @@ public class BurgerBuilder : MyInteractionManager
   {
     tray = gameObject.transform;
 
-    line1 = new List<Vector3>(2);
-    line1.Add(hand.GetTransform().position); // точка камеры
+    _line = new List<Vector3>(2);
+    _line.Add(hand.GetTransform().position); // точка камеры
+    _line.Add(new Vector3());
 
     if (!canTakeIngredient)
       return;
@@ -105,9 +104,9 @@ public class BurgerBuilder : MyInteractionManager
     {
       if (tray.childCount != 0)
       {
-        object1 = tray.GetChild(0);
-        if (line1.Count != 2) line1.Add(object1.position);
-        else line1[1] = object1.position;
+        _object_to_move = tray.GetChild(0);
+        _line[1] = _object_to_move.position;
+        StartCoroutine(MinusValue(hand));
 
         StartCoroutine(MinusValue(hand));
       }
@@ -116,11 +115,11 @@ public class BurgerBuilder : MyInteractionManager
     {
       string ingredientTag = hand.GetChildTag();
       // TODO may be need list of possible ingredients
-      if (tray.childCount == 0 && ingredientTag == "Bun")
+      if (tray.childCount == 0 && ingredientTag == "BottomBun")
       {
-        object1 = hand.GetChild();
-        line1[1] = tray.position + new Vector3(0.035f, 0, 0.05f); // костыль
-        object1.transform.rotation = tray.rotation;
+        _object_to_move = hand.GetChild();
+        _line[1] = tray.position + new Vector3(0.035f, 0, 0.05f); // костыль
+        _object_to_move.transform.rotation = tray.rotation;
 
         StartCoroutine(PlusValue());
       }
@@ -128,23 +127,28 @@ public class BurgerBuilder : MyInteractionManager
       {
         if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
         {
-          object1 = hand.GetChild();
-          object1.parent = tray; // это не удалять. так ингредиенты ложатся хотя бы параллельно подносу     
+          if (ingredientTag == "Cheese")
+          {
+            _cheeseNumber++;
+            if (_cheeseNumber == 10) AchievementManager.GetInstance().HandleEvent(cheeseAchiev);
+          }
+
+          _object_to_move = hand.GetChild();
+          _object_to_move.parent = tray; // это не удалять. так ингредиенты ложатся хотя бы параллельно подносу     
 
           // расчёт точки приземления
           BoxCollider last_ingr_collider = GetLastIngredient().GetComponent<BoxCollider>();
           float last_ingr_y = last_ingr_collider.size.y;
 
-          BoxCollider new_ingr_collider = object1.GetComponent<BoxCollider>();
+          BoxCollider new_ingr_collider = _object_to_move.GetComponent<BoxCollider>();
           float new_ingr_y = new_ingr_collider.size.y;
 
           Vector3 destination = last_ingr_collider.gameObject.transform.position + new Vector3(0, last_ingr_y / 2f + new_ingr_y / 2f, 0);
 
-          if (line1.Count != 2) line1.Add(destination);
-          else line1[1] = destination;
+          _line[1] = destination;
 
-          object1.transform.rotation = tray.GetChild(0).rotation;
-          object1.transform.rotation = new Quaternion(0, 90, 0, 0);
+          _object_to_move.transform.rotation = tray.GetChild(0).rotation;
+          _object_to_move.transform.rotation = new Quaternion(0, 90, 0, 0);
           StartCoroutine(PlusValue());
 
         }

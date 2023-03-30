@@ -4,6 +4,8 @@ using System.Transactions;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.XR;
+using static GlobalVariables;
 
 public class Roasting : MyInteractionManager
 {
@@ -11,7 +13,7 @@ public class Roasting : MyInteractionManager
 
   // поля для анимации переноса
   [Range(0, 1)] public float value;
-  List<Vector3> line1 = new List<Vector3>(2);
+  List<Vector3> _line;
   Transform beef;
   bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
 
@@ -19,6 +21,15 @@ public class Roasting : MyInteractionManager
   private float timeToFill, startTime;
   public Image progressBarImage;
   public GameObject cookedBeef, burntBeef;
+
+  protected override void Start()
+  {
+    base.Start();
+    stove = gameObject.transform;
+    _line = new List<Vector3>(2);
+    _line.Add(new Vector3());
+    _line.Add(new Vector3());
+  }
 
   override protected IEnumerator Check()
   {
@@ -40,7 +51,7 @@ public class Roasting : MyInteractionManager
 
   void LerpLine1()
   {
-    beef.position = Vector3.Lerp(line1[0], line1[1], value);
+    beef.position = Vector3.Lerp(_line[0], _line[1], value);
   }
 
   IEnumerator PlusValue()
@@ -56,7 +67,7 @@ public class Roasting : MyInteractionManager
     canTakeIngredient = true;
     beef.parent = stove;
     beef.rotation = new Quaternion(0, 0, 0, 0);
-    timeToFill = GlobalVariables.Times["roastTime"] * (1 - beef.gameObject.GetComponent<Beef>().preparedness);
+    timeToFill = Times["roastTime"] * (1 - beef.gameObject.GetComponent<Beef>().preparedness);
     StartCoroutine("Fill");
   }
 
@@ -67,11 +78,11 @@ public class Roasting : MyInteractionManager
     while (value >= 0)
     {
       yield return new WaitForSeconds(0.01f);
+      _line[0] = hand.GetPosition() + Offsets[beef.tag];
       value -= 0.07f;
       Move();
     }
     beef.rotation = new Quaternion(0, hand.GetRotation().y, 0, hand.GetRotation().w);
-    //beef.parent = Hand.GetTransform();
     canTakeIngredient = true;
   }
 
@@ -82,13 +93,8 @@ public class Roasting : MyInteractionManager
 
   void OnPointerDown(OculusHand hand)
   {
-    stove = gameObject.transform;
 
-    line1 = new List<Vector3>(2);
-    line1.Add(new Vector3());
-    line1.Add(new Vector3());
-
-    line1[0] = hand.GetTransform().position; // точка из которой начинается движение
+    _line[0] = hand.GetTransform().position; // точка из которой начинается движение
     if (!canTakeIngredient)
       return;
 
@@ -101,7 +107,7 @@ public class Roasting : MyInteractionManager
         beef.gameObject.GetComponent<Beef>().preparedness = progressBarImage.fillAmount;
         progressBarImage.fillAmount = 0;
         beef = stove.GetChild(0);
-        line1[1] = beef.position;
+        _line[1] = beef.position;
         beef.parent = hand.GetTransform();
         StartCoroutine(MinusValue(hand));
       }
@@ -114,7 +120,7 @@ public class Roasting : MyInteractionManager
       {
         beef = hand.GetChild();
         Vector3 destination = stove.position + new Vector3(0, beef.GetComponent<BoxCollider>().size.y / 2, 0);
-        line1[1] = destination;
+        _line[1] = destination;
 
         StartCoroutine(PlusValue());
       }

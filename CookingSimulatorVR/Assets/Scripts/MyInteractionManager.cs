@@ -13,7 +13,7 @@ public class MyInteractionManager : XRSimpleInteractable
 
   protected OculusHand leftOculusHand, rightOculusHand;
 
-  void Start()
+  protected virtual void Start()
   {
     interactionManager = GameObject.FindGameObjectWithTag("XR Interaction Manager").GetComponent<XRInteractionManager>();
     leftOculusHand = GameObject.FindGameObjectWithTag("LeftHand Controller").GetComponent<OculusHand>();
