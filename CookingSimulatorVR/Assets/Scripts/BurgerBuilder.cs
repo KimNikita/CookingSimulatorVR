@@ -15,6 +15,16 @@ public class BurgerBuilder : MyInteractionManager
   bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
   int _cheeseNumber = 0;
 
+  protected override void Start()
+  {
+    base.Start();
+    tray = gameObject.transform;
+
+    _line = new List<Vector3>(2);
+    _line.Add(new Vector3()); // точка камеры
+    _line.Add(new Vector3());
+  }
+
   override protected IEnumerator Check()
   {
     while (true)
@@ -91,12 +101,7 @@ public class BurgerBuilder : MyInteractionManager
 
   void OnPointerDown(OculusHand hand)
   {
-    tray = gameObject.transform;
-
-    _line = new List<Vector3>(2);
-    _line.Add(hand.GetTransform().position); // точка камеры
-    _line.Add(new Vector3());
-
+    _line[0] = hand.GetTransform().position; // точка камеры
     if (!canTakeIngredient)
       return;
 
