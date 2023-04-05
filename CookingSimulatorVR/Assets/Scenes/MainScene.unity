@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.5007724, g: 0.51856005, b: 0.52658623, a: 1}
+  m_IndirectSpecularColor: {r: 0.50065696, g: 0.5199047, b: 0.52650005, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -16023,7 +16023,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7191586777624314492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.000014901163}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7191586777044687686}
@@ -16031,7 +16031,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -7.5, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &7191586777624314492
@@ -16065,8 +16065,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 103.79146, y: 108.50702, z: 43.74271}
-  m_Center: {x: -23.225237, y: -8.97638, z: 23.811697}
+  m_Size: {x: 95.2864, y: 108.50702, z: 43.74271}
+  m_Center: {x: -6.478022, y: -8.97638, z: 23.8117}
 --- !u!1 &7531461981001274527
 GameObject:
   m_ObjectHideFlags: 0
