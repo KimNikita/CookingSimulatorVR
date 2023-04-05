@@ -33,26 +33,12 @@ public class Order : MyInteractionManager
       if (leftController.action.ReadValue<float>() > 0.1)
       {
         StopCoroutine("Check");
-        if (leftOculusHand.HasChildren())
-        {
-          Drop(leftOculusHand);
-        }
-        else
-        {
-          GetComponent<Drag>().MoveToHand(leftOculusHand);
-        }
+        Drop(leftOculusHand);
       }
       else if (rightController.action.ReadValue<float>() > 0.1)
       {
         StopCoroutine("Check");
-        if (rightOculusHand.HasChildren())
-        {
-          Drop(rightOculusHand);
-        }
-        else
-        {
-          GetComponent<Drag>().MoveToHand(rightOculusHand);
-        }
+        Drop(rightOculusHand);
       }
     }
   }
@@ -116,6 +102,12 @@ public class Order : MyInteractionManager
         _lolipop_num++;
         if (_lolipop_num == 10) AchievementManager.GetInstance().HandleEvent(lolipopAchiev);
       }
+    }
+    else
+    {
+      transform.position = hand.GetPosition() + Offsets[gameObject.tag];
+      transform.rotation = hand.GetRotation();
+      transform.parent = hand.GetTransform();
     }
   }
 }
