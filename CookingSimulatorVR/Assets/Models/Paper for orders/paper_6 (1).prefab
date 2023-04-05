@@ -672,7 +672,6 @@ GameObject:
   - component: {fileID: 7280621387901841101}
   - component: {fileID: 4659892941213496299}
   - component: {fileID: 4227664579825468367}
-  - component: {fileID: 9081802096943009561}
   - component: {fileID: 9081802096943009562}
   m_Layer: 0
   m_Name: paper_6 (1)
@@ -777,21 +776,6 @@ MonoBehaviour:
   hasBurger: 0
   hasDrink: 0
   orderTime: 0
-  observers_game_objects:
-  - {fileID: 4880997837367106852, guid: 02a2eeac10136f441a34bb1ff510b1e4, type: 3}
---- !u!114 &9081802096943009561
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9081802096943009560}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b38233de7bf986a4b9cab96115dfcdbe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  value: 0
 --- !u!82 &9081802096943009562
 AudioSource:
   m_ObjectHideFlags: 0
