@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
     ScoreText.text = scoreValue + "$";
     switch (PlayerPrefs.GetString("Difficulty"))
     {
-      case "Easy": Times["BetweenOrders"] = 25; Costs["NDS"] = 5; orders_achieve = 10; break;
-      case "Medium": Times["BetweenOrders"] = 20; Costs["NDS"] = 15; orders_achieve = 9; break;
-      case "Hard": Times["BetweenOrders"] = 15; Costs["NDS"] = 25; orders_achieve = 8; break;
+      case "Easy": Times["BetweenOrders"] = 25; Costs["NDS"] = 5; break;
+      case "Medium": Times["BetweenOrders"] = 20; Costs["NDS"] = 15; break;
+      case "Hard": Times["BetweenOrders"] = 15; Costs["NDS"] = 25; break;
       default: Debug.Log("Unknown difficulty " + PlayerPrefs.GetString("Difficulty")); break;
     }
     StartCoroutine(OrderSpawner());

@@ -101,7 +101,7 @@ public class CompleteOrder : MyInteractionManager
         StartCoroutine(Cash_appear(money));
 
         _orders_number++;
-        if (_orders_number == orders_achieve) AchievementManager.GetInstance().HandleEvent(orderAchiev);
+        if (_orders_number == 10) AchievementManager.GetInstance().HandleEvent(orderAchiev);
         if ((scoreValue - money) < 1000 && scoreValue >= 1000) AchievementManager.GetInstance().HandleEvent(moneyAchiev);
 
         if (tray.transform.GetChild(2).childCount != 0)

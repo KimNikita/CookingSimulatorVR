@@ -87,7 +87,6 @@ public static class GlobalVariables
     { new DrinkRecipe("Cola") }
   };
 
-  public static int orders_achieve = 10;
   public static bool end = false;
   public static int scoreValue = 100;
   public static bool hasDrink = false;
