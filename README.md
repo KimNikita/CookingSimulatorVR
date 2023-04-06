@@ -2,11 +2,11 @@
 
 ## About
 
-This branch contains source code and setup file (<missing type>) of game for oculus-quest 2.
+This branch contains source code and setup file (.exe) of game for oculus-quest 2.
 
 ## Installation
 
-Clone repository and <do something>.
+Clone repository and run Build\CSVR.exe.
 
 ## Documentation links
 
