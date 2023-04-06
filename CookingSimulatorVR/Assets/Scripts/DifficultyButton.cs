@@ -15,7 +15,6 @@ public class DifficultyButton : MyInteractionManager
       yield return new WaitForSeconds(0.1f);
       if (leftController.action.ReadValue<float>() > 0.1 || rightController.action.ReadValue<float>() > 0.1)
       {
-        StopCoroutine("Check");
         Difficulty();
       }
     }

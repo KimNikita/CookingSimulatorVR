@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using static GlobalVariables;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,12 +14,12 @@ public class GameManager : MonoBehaviour
   void Start()
   {
     gameObject.GetComponent<AudioSource>().Play();
-    ScoreText.text = GlobalVariables.scoreValue + "$";
+    ScoreText.text = scoreValue + "$";
     switch (PlayerPrefs.GetString("Difficulty"))
     {
-      case "Easy": GlobalVariables.Times["BetweenOrders"] = 25; GlobalVariables.Costs["NDS"] = 5; break;
-      case "Medium": GlobalVariables.Times["BetweenOrders"] = 20; GlobalVariables.Costs["NDS"] = 15; break;
-      case "Hard": GlobalVariables.Times["BetweenOrders"] = 15; GlobalVariables.Costs["NDS"] = 25; break;
+      case "Easy": Times["BetweenOrders"] = 25; Costs["NDS"] = 5; orders_achieve = 10; break;
+      case "Medium": Times["BetweenOrders"] = 20; Costs["NDS"] = 15; orders_achieve = 9; break;
+      case "Hard": Times["BetweenOrders"] = 15; Costs["NDS"] = 25; orders_achieve = 8; break;
       default: Debug.Log("Unknown difficulty " + PlayerPrefs.GetString("Difficulty")); break;
     }
     StartCoroutine(OrderSpawner());
@@ -26,10 +27,10 @@ public class GameManager : MonoBehaviour
 
   IEnumerator OrderSpawner()
   {
-    while (!GlobalVariables.end)
+    while (!end)
     {
       // ждем перед генерацией нового заказа
-      yield return new WaitForSeconds(GlobalVariables.Times["BetweenOrders"]);
+      yield return new WaitForSeconds(Times["BetweenOrders"]);
 
       // генерируем заказ по шаблону, добавляя его в список на сцене и инициализируя
       GameObject newOrder = Instantiate(orderTemplate);

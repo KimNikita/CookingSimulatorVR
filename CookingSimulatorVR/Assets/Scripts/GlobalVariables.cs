@@ -37,7 +37,7 @@ public static class GlobalVariables
     { "BetweenOrders", 20},
     { "Base", 15 },
     { "Drink", 7 },
-    {"roastTime", 20 }
+    { "roastTime", 20 }
   };
 
   public static Dictionary<string, Vector3> Offsets = new Dictionary<string, Vector3>
@@ -51,7 +51,7 @@ public static class GlobalVariables
     { "Cola", new Vector3(0, -0.15f, 0) },
     { "BottomBun", new Vector3(0, 0.02f, 0) },
     { "Bun", new Vector3(0, 0.02f, 0) },
-    { "Lolipop", new Vector3(0, 0.05f, 0.1f) },
+    { "Lolipop", new Vector3(0, 0.04f, 0) },
     { "Order", new Vector3(0, 0, 0) }
   };
 
@@ -87,7 +87,7 @@ public static class GlobalVariables
     { new DrinkRecipe("Cola") }
   };
 
-
+  public static int orders_achieve = 10;
   public static bool end = false;
   public static int scoreValue = 100;
   public static bool hasDrink = false;
