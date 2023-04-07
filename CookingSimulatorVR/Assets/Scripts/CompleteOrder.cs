@@ -107,6 +107,7 @@ public class CompleteOrder : MonoBehaviour
         }
         if (order.orderUI != null)
         {
+          Destroy(order.person);
           Destroy(order.newOrderUI);
           Destroy(order.gameObject);
         }
@@ -119,7 +120,7 @@ public class CompleteOrder : MonoBehaviour
     _orders_number = 0;
     Debug.Log("You have failed order");
   }
-  
+
   private IEnumerator Cash_appear(int money)
   {
     float timeLeft = 2f;
