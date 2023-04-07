@@ -11,6 +11,7 @@ public class Order : MonoBehaviour
   public DrinkRecipe drinkRecipe;
 
   public GameObject orderUI, newOrderUI;
+  public GameObject person;
 
   public AudioClip sound;
   public float volume = 0.5f;
@@ -23,7 +24,7 @@ public class Order : MonoBehaviour
   bool _lolipopWasGiven = false;
   static int _lolipop_num = 0;
 
-  public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
+  public void GenerateOrder(GameObject ordersList, GameObject ordersListUI, GameObject _person)
   {
     EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
     EventTrigger.Entry pointerDown = new EventTrigger.Entry();
@@ -31,6 +32,7 @@ public class Order : MonoBehaviour
     pointerDown.callback.AddListener((eventData) => { Drop(); });
     eventTrigger.triggers.Add(pointerDown);
 
+    person = _person;
     hasBurger = Random.Range(0, 2);
     hasDrink = Random.Range(0, 2);
     if (hasBurger == 0 && hasDrink == 0)
