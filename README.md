@@ -6,7 +6,7 @@ This branch contains source code and setup file (.exe) of game for oculus-quest 
 
 ## Usage
 
-Clone repository and run Build\CSVR.exe.
+Clone repository and run CSVR.exe in Build folder.
 
 ## Documentation links
 
