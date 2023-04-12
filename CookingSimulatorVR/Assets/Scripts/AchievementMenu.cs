@@ -61,8 +61,7 @@ public class AchievementMenu : MonoBehaviour
         {
             image = images_grid.transform.GetChild(grid_child_index).GetComponent<Image>();
             image.enabled = true;
-            //image.sprite = PlayerPrefs.HasKey(complete_achiev_sprites[i].name) ? complete_achiev_sprites[i] : incomplete_achiev_sprites[i];
-            image.sprite = complete_achiev_sprites[i];
+            image.sprite = PlayerPrefs.HasKey(complete_achiev_sprites[i].name) ? complete_achiev_sprites[i] : null ;//incomplete_achiev_sprites[i];
         }
         for (; i < max_image_number * (1 + page_number); ++i, ++grid_child_index) // если остались ещё пустые места для достижений - спрятать их
         {
@@ -80,8 +79,6 @@ public class AchievementMenu : MonoBehaviour
     }
     private void rightScroll()
     {
-        Debug.Log(page_number);
-        Debug.Log(max_page_number);
         if (page_number < max_page_number - 1)
         {
             clearImages();
