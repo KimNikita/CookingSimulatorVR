@@ -26,6 +26,7 @@ public static class GlobalVariables
     { "Fanta", 15 },
     { "Cola", 20 },
     { "Bun", 5},
+    { "TopBun", 5},
     { "Lolipop", 5},
     { "Tips", 0 },
     { "NDS", 15 }
@@ -61,8 +62,8 @@ public static class GlobalVariables
 
     public static List<BurgerRecipe> BurgerRecipes = new List<BurgerRecipe>
   {
-    { new BurgerRecipe("Cheeseburger", new List<string>{ "Bun", "Cheese", "Cooked Beef", "Cheese", "Bun" }) },
-    { new BurgerRecipe("Gamburger", new List<string>{ "Bun", "Cooked Beef", "Tomato", "Cooked Beef", "Bun" }) }
+    { new BurgerRecipe("Cheeseburger", new List<string>{ "Bun", "Cheese", "Cooked Beef", "Cheese", "TopBun" }) },
+    { new BurgerRecipe("Gamburger", new List<string>{ "Bun", "Cooked Beef", "Tomato", "Cooked Beef", "TopBun" }) }
   };
 
     public static List<DrinkRecipe> DrinkRecipes = new List<DrinkRecipe>

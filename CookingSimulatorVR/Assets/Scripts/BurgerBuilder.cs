@@ -107,7 +107,7 @@ public class BurgerBuilder : MonoBehaviour
             }
             else if (tray.childCount != 0)
             {
-                if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
+                if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun" || ingredientTag == "TopBun")
                 {
                     if (ingredientTag == "Cheese")
                     {

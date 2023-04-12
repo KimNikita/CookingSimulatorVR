@@ -6166,7 +6166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ingredientPrefab: {fileID: 919132149155446097, guid: f0ae48ff313cf284d9f521e2a08800fa,
     type: 3}
-  ingredientTag: Bun
+  ingredientTag: TopBun
   value: 0
 --- !u!65 &812927061
 BoxCollider:

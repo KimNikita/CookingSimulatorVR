@@ -25,7 +25,6 @@ public class AchievementObserver : MonoBehaviour
     {
         _instance = this;
         _achiev_image = gameObject.GetComponent<Image>();
-        Debug.Log(_achiev_image);
         _achiev_image.enabled = false;
         _sprites_dictionary = new Dictionary<string, Sprite>(sprites.Count);
         foreach (var elem in sprites)
