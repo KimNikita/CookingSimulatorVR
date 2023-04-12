@@ -20,7 +20,6 @@ public class Menu : MonoBehaviour
       PlayerPrefs.SetString("Difficulty", "Easy");
     }
 
-    transform.GetChild(0).GetChild(4).GetComponent<TextMeshProUGUI>().text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
     transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Сложность: " + GlobalVariables.Translate[PlayerPrefs.GetString("Difficulty")];
 
     EventTrigger startTrigger = transform.GetChild(0).GetChild(0).gameObject.AddComponent<EventTrigger>();
@@ -46,19 +45,27 @@ public class Menu : MonoBehaviour
     achievPointerDown.eventID = EventTriggerType.PointerDown;
     achievPointerDown.callback.AddListener((eventData) => { Achievements(); });
     achievTrigger.triggers.Add(achievPointerDown);
-  }
 
-  public void StartGame()
+    transform.GetChild(0).GetChild(4).GetComponent<TextMeshProUGUI>().text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
+
+    EventTrigger resetRecordTrigger = transform.GetChild(0).GetChild(5).gameObject.AddComponent<EventTrigger>();
+    EventTrigger.Entry resetRecordPointerDown = new EventTrigger.Entry();
+    resetRecordPointerDown.eventID = EventTriggerType.PointerDown;
+    resetRecordPointerDown.callback.AddListener((eventData) => { ResetRecord(); });
+    resetRecordTrigger.triggers.Add(resetRecordPointerDown);
+    }
+
+  private void StartGame()
   {
     SceneManager.LoadScene(1);
   }
 
-  public void HowTo()
+  private void HowTo()
   {
     Debug.Log("Not implemented");
   }
 
-  public void Difficulty()
+  private void Difficulty()
   {
     switch (PlayerPrefs.GetString("Difficulty"))
     {
@@ -69,8 +76,18 @@ public class Menu : MonoBehaviour
     }
     transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Сложность: " + GlobalVariables.Translate[PlayerPrefs.GetString("Difficulty")];
   }
-  public void Achievements()
+  private void Achievements()
   {
     Instantiate(achievPanel);
+  }
+  private void ResetRecord()
+  {
+    var ach_list = new string[]{ "cheeseAchiev", "lolipopAchiev", "moneyAchiev", "orderAchiev", "trashBinAchiev" };
+    foreach(string achiev_key in ach_list)
+    {
+      PlayerPrefs.DeleteKey(achiev_key);
+    }
+    PlayerPrefs.SetInt("BestScore", 0);
+    transform.GetChild(0).GetChild(4).GetComponent<TextMeshProUGUI>().text = "Лучший результат: 0$";
   }
 }
