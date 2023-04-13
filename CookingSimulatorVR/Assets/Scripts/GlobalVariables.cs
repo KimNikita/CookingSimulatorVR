@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -25,7 +24,6 @@ public static class GlobalVariables
     { "Beef", 30 },
     { "Fanta", 15 },
     { "Cola", 20 },
-    { "BottomBun", 5},
     { "Bun", 5},
     { "TopBun", 5},
     { "Lolipop", 5},
@@ -50,8 +48,8 @@ public static class GlobalVariables
     { "Beef", new Vector3(0, 0, 0) },
     { "Fanta", new Vector3(0, -0.15f, 0) },
     { "Cola", new Vector3(0, -0.15f, 0) },
-    { "BottomBun", new Vector3(0, 0.02f, 0) },
     { "Bun", new Vector3(0, 0.02f, 0) },
+    { "TopBun", new Vector3(0, 0.02f, 0) },
     { "Lolipop", new Vector3(0, 0.04f, 0) },
     { "Order", new Vector3(0, 0, 0) }
   };
@@ -78,8 +76,8 @@ public static class GlobalVariables
 
   public static List<BurgerRecipe> BurgerRecipes = new List<BurgerRecipe>
   {
-    { new BurgerRecipe("Cheeseburger", new List<string>{ "BottomBun", "Cheese", "Cooked Beef", "Cheese", "Bun" }) },
-    { new BurgerRecipe("Gamburger", new List<string>{ "BottomBun", "Cooked Beef", "Tomato", "Cooked Beef", "Bun" }) }
+    { new BurgerRecipe("Cheeseburger", new List<string>{ "Bun", "Cheese", "Cooked Beef", "Cheese", "TopBun" }) },
+    { new BurgerRecipe("Gamburger", new List<string>{ "Bun", "Cooked Beef", "Tomato", "Cooked Beef", "TopBun" }) }
   };
 
   public static List<DrinkRecipe> DrinkRecipes = new List<DrinkRecipe>

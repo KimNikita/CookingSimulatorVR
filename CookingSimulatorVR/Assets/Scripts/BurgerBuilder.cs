@@ -112,15 +112,13 @@ public class BurgerBuilder : MyInteractionManager
         _object_to_move = tray.GetChild(0);
         _line[1] = _object_to_move.position;
         StartCoroutine(MinusValue(hand));
-
-        StartCoroutine(MinusValue(hand));
       }
     }
     else
     {
       string ingredientTag = hand.GetChildTag();
       // TODO may be need list of possible ingredients
-      if (tray.childCount == 0 && ingredientTag == "BottomBun")
+      if (tray.childCount == 0 && ingredientTag == "Bun")
       {
         _object_to_move = hand.GetChild();
         _line[1] = tray.position + new Vector3(0.035f, 0, 0.05f); // костыль
@@ -130,7 +128,7 @@ public class BurgerBuilder : MyInteractionManager
       }
       else if (tray.childCount != 0)
       {
-        if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun")
+        if (ingredientTag == "Cheese" || ingredientTag == "Tomato" || ingredientTag == "Cooked Beef" || ingredientTag == "Bun" || ingredientTag == "TopBun")
         {
           if (ingredientTag == "Cheese")
           {

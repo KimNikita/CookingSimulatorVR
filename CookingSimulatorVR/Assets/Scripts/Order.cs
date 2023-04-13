@@ -1,9 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
-using UnityEngine.EventSystems;
 using static GlobalVariables;
 using static GlobalVariables.achievements;
 
@@ -13,6 +10,7 @@ public class Order : MyInteractionManager
   public DrinkRecipe drinkRecipe;
 
   public GameObject orderUI, newOrderUI;
+  public GameObject person;
 
   public AudioClip sound;
   public float volume = 0.5f;
@@ -43,8 +41,9 @@ public class Order : MyInteractionManager
     }
   }
 
-  public void GenerateOrder(GameObject ordersList, GameObject ordersListUI)
+  public void GenerateOrder(GameObject ordersList, GameObject ordersListUI, GameObject _person)
   {
+    person = _person;
     hasBurger = Random.Range(0, 2);
     hasDrink = Random.Range(0, 2);
     if (hasBurger == 0 && hasDrink == 0)

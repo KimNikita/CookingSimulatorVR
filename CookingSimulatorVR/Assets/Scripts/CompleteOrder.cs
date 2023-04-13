@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using TMPro;
 using static GlobalVariables;
 using static GlobalVariables.achievements;
@@ -53,7 +51,7 @@ public class CompleteOrder : MyInteractionManager
             {
               if (burger.GetChild(i).tag == order.burgerRecipe.ingredients[i + 1])
               {
-                money += Costs[order.burgerRecipe.ingredients[i + 1]] + GlobalVariables.Costs["NDS"] + GlobalVariables.Costs["Tips"];
+                money += Costs[order.burgerRecipe.ingredients[i + 1]] + Costs["NDS"] +Costs["Tips"];
               }
               else
               {

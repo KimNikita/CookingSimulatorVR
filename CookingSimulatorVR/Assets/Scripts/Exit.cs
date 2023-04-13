@@ -1,12 +1,10 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.XR.Interaction.Toolkit;
 using static GlobalVariables;
+using UnityEngine.SceneManagement;
 
 public class Exit : MonoBehaviour
 {
@@ -24,7 +22,8 @@ public class Exit : MonoBehaviour
   void Start()
   {
     enable = true;
-    progressBarImage = gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+    progressBarImage = transform.GetChild(0).GetChild(0).GetComponent<Image>();
+
   }
 
   public void StartFillingProgressBar()
@@ -52,21 +51,29 @@ public class Exit : MonoBehaviour
       yield return null;
     }
     progressBarImage.fillAmount = 0.0f;
-    end = true;
-    Score.text = "     Ваш результат: " + scoreValue + "$";
-    if (scoreValue > PlayerPrefs.GetInt("BestScore"))
-    {
-      PlayerPrefs.SetInt("BestScore", scoreValue);
-    }
-    BestScore.text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
 
-    if (onBarFilled != null)
+    if (SceneManager.GetActiveScene().name == "MainScene")
     {
-      enable = false;
-      onBarFilled.Invoke();
-      gameObject.AddComponent<Rigidbody>();
-      gameObject.GetComponent<Rigidbody>().mass = 0.05f;
+      end = true;
+      Score.text = "     Ваш результат: " + scoreValue + "$";
+      if (scoreValue > PlayerPrefs.GetInt("BestScore"))
+      {
+        PlayerPrefs.SetInt("BestScore", scoreValue);
+      }
+      BestScore.text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
+
+      if (onBarFilled != null)
+      {
+        enable = false;
+        onBarFilled.Invoke();
+        gameObject.AddComponent<Rigidbody>();
+        gameObject.GetComponent<Rigidbody>().mass = 0.05f;
+      }
     }
-    
+    else if (SceneManager.GetActiveScene().name == "MainMenu")
+    {
+      Application.Quit();
+    }
+
   }
 }

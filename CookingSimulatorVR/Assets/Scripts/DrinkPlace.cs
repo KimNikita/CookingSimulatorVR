@@ -80,7 +80,7 @@ public class DrinkPlace : MyInteractionManager
 
   void OnPointerDown(OculusHand hand)
   {
-    _line[0] = hand.GetTransform().position; // точка из которой начинается движение
+    _line[0] = hand.GetPosition(); // точка из которой начинается движение
 
     if (!hand.HasChildren())
     {
@@ -100,7 +100,7 @@ public class DrinkPlace : MyInteractionManager
         if (ingredientTag == "Fanta" || ingredientTag == "Cola")
         {
           _object_to_move = hand.GetChild();
-          _line[1] = tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f);
+          _line[1] = tray.transform.position + new Vector3(0.033f, -0.19f, -0.3f); // костыль
 
           StartCoroutine(PlusValue());
         }

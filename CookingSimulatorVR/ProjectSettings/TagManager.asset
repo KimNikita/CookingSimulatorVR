@@ -19,6 +19,8 @@ TagManager:
   - LeftHand Controller
   - RightHand Controller
   - BottomBun
+  - TopBun
+  - Menu
   layers:
   - Default
   - TransparentFX

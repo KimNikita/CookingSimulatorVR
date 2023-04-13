@@ -23,7 +23,7 @@ public class TrashBin : MyInteractionManager
   {
     base.Start();
     line1 = new List<Vector3>(2);
-    line1.Add(new Vector3()); // ����� ������
+    line1.Add(new Vector3());
     line1.Add(transform.position + new Vector3(0.3f, 0.3f, 0f));
     line1.Add(transform.position);
     line1.Add(transform.position + new Vector3(0, -0.5f, -0.2f));

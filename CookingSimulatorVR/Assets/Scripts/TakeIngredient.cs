@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.XR;
-using UnityEngine.XR.Interaction.Toolkit;
 using static GlobalVariables;
 
 public class TakeIngredient : MyInteractionManager
@@ -74,7 +70,7 @@ public class TakeIngredient : MyInteractionManager
       _line[0] = hand.GetPosition();
       GameObject instance = Instantiate(ingredientPrefab);
       _object_to_move = instance.transform;
-      _line[1] = gameObject.transform.position; // ������ ������� cheeseSpawner, �.�. � ������� ������� ������������
+      _line[1] = _object_to_move.tag == "Lolipop" ? instance.transform.position : gameObject.transform.position; // берётся позиция Spawner, т.к. у префаба позиция неподходящая
       instance.tag = ingredientTag;
       instance.AddComponent<BoxCollider>();
       StartCoroutine(MinusValue(hand));

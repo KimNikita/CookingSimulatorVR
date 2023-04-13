@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
   public GameObject orderTemplate;
   public GameObject ordersList;
   public GameObject ordersListUI;
+  [SerializeField] List<GameObject> personsList;
+  public GameObject personsPlacesList;
 
   void Start()
   {
@@ -32,9 +34,19 @@ public class GameManager : MonoBehaviour
       // ждем перед генерацией нового заказа
       yield return new WaitForSeconds(Times["BetweenOrders"]);
 
+      int i = 0;
+      for (; i < personsPlacesList.transform.childCount; i++)
+      {
+        if (personsPlacesList.transform.GetChild(i).childCount == 0)
+        {
+          break;
+        }
+      }
+      GameObject person = Instantiate(personsList[Random.Range(0, personsList.Count)], personsPlacesList.transform.GetChild(i).position, new Quaternion(0, 180, 0, 0), personsPlacesList.transform.GetChild(i));
+
       // генерируем заказ по шаблону, добавляя его в список на сцене и инициализируя
       GameObject newOrder = Instantiate(orderTemplate);
-      newOrder.GetComponent<Order>().GenerateOrder(ordersList, ordersListUI);
+      newOrder.GetComponent<Order>().GenerateOrder(ordersList, ordersListUI, person);
     }
     // save results
 
