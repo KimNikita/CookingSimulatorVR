@@ -8,6 +8,7 @@ using System;
 
 public class Menu : MonoBehaviour
 {
+  public GameObject achievPanel;
   void Start()
   {
     if (!PlayerPrefs.HasKey("BestScore"))
@@ -19,7 +20,20 @@ public class Menu : MonoBehaviour
       PlayerPrefs.SetString("Difficulty", "Easy");
     }
 
-    transform.GetChild(0).GetChild(3).GetComponent<TextMeshProUGUI>().text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
     transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Сложность: " + GlobalVariables.Translate[PlayerPrefs.GetString("Difficulty")];
+  }
+  private void Achievements()
+  {
+    Instantiate(achievPanel);
+  }
+  private void ResetRecord()
+  {
+    var ach_list = new string[]{ "cheeseAchiev", "lolipopAchiev", "moneyAchiev", "orderAchiev", "trashBinAchiev" };
+    foreach(string achiev_key in ach_list)
+    {
+      PlayerPrefs.DeleteKey(achiev_key);
+    }
+    PlayerPrefs.SetInt("BestScore", 0);
+    transform.GetChild(0).GetChild(4).GetComponent<TextMeshProUGUI>().text = "Лучший результат: 0$";
   }
 }

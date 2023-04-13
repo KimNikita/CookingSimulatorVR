@@ -25,7 +25,6 @@ public class AchievementManager : MonoBehaviour
     {
         _instance = this;
         _achiev_image = gameObject.GetComponent<Image>();
-        Debug.Log(_achiev_image);
         _achiev_image.enabled = false;
         _sprites_dictionary = new Dictionary<string, Sprite>(sprites.Count);
         foreach (var elem in sprites)
@@ -40,22 +39,27 @@ public class AchievementManager : MonoBehaviour
         if (ach == achievements.cheeseAchiev)
         {
             _achiev_image.sprite = _sprites_dictionary["cheeseAchiev"];
+            PlayerPrefs.SetString("cheeseAchiev", "cheeseAchiev");
         }
         if (ach == achievements.trashBinAchiev)
         {
             _achiev_image.sprite = _sprites_dictionary["trashBinAchiev"];
+            PlayerPrefs.SetString("trashBinAchiev", "trashBinAchiev");
         }
         if (ach == achievements.moneyAchiev)
         {
             _achiev_image.sprite = _sprites_dictionary["moneyAchiev"];
+            PlayerPrefs.SetString("moneyAchiev", "moneyAchiev");
         }
         if (ach == achievements.orderAchiev)
         {
             _achiev_image.sprite = _sprites_dictionary["orderAchiev"];
+            PlayerPrefs.SetString("orderAchiev", "orderAchiev");
         }
         if (ach == achievements.lolipopAchiev)
         {
             _achiev_image.sprite = _sprites_dictionary["lolipopAchiev"];
+            PlayerPrefs.SetString("lolipopAchiev", "lolipopAchiev");
         }
         StartCoroutine(ShowAndHideImage());
         StartCoroutine(StartAndStopMusic());

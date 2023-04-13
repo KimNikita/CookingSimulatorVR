@@ -114,6 +114,7 @@ public class CompleteOrder : MyInteractionManager
         }
         if (order.orderUI != null)
         {
+          Destroy(order.person);
           Destroy(order.newOrderUI);
           Destroy(order.gameObject);
         }

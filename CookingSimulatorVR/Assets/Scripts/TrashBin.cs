@@ -23,7 +23,7 @@ public class TrashBin : MyInteractionManager
   {
     base.Start();
     line1 = new List<Vector3>(2);
-    line1.Add(new Vector3()); // точка камеры
+    line1.Add(new Vector3()); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     line1.Add(transform.position + new Vector3(0.3f, 0.3f, 0f));
     line1.Add(transform.position);
     line1.Add(transform.position + new Vector3(0, -0.5f, -0.2f));
@@ -99,7 +99,7 @@ public class TrashBin : MyInteractionManager
       {
         if (Costs.ContainsKey(hand.GetChildTag()))
         {
-          line1[0] = hand.GetTransform().position; // точка камеры
+          line1[0] = hand.GetTransform().position; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
           int childCount = hand.GetChild().childCount;
           if (childCount != 0)
           {

@@ -27,6 +27,7 @@ public static class GlobalVariables
     { "Cola", 20 },
     { "BottomBun", 5},
     { "Bun", 5},
+    { "TopBun", 5},
     { "Lolipop", 5},
     { "Tips", 0 },
     { "NDS", 15 }

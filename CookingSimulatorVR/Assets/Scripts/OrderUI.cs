@@ -43,6 +43,7 @@ public class OrderUI : MonoBehaviour
     }
 
     CompleteOrder.ResetOrdersNumber();
+    Destroy(order.GetComponent<Order>().person);
     Destroy(order);
     Destroy(gameObject);
   }

@@ -51,7 +51,6 @@ public class Exit : MonoBehaviour
       progressBarImage.fillAmount = Mathf.Lerp(0, 1, (Time.time - startTime) / timeToFill);
       yield return null;
     }
-
     progressBarImage.fillAmount = 0.0f;
     end = true;
     Score.text = "     Ваш результат: " + scoreValue + "$";

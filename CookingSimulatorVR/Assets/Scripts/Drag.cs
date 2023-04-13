@@ -11,7 +11,7 @@ public class Drag : MyInteractionManager
   [Range(0, 1)] public float value;
   List<Vector3> _line;
   Transform _object_to_move;
-  bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
+  bool canTakeIngredient = true; // canTakeIngredient пїЅпїЅпїЅпїЅпїЅпїЅпїЅ false, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
   protected override void Start()
   {

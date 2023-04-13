@@ -15,7 +15,7 @@ public class TakeIngredient : MyInteractionManager
   [Range(0, 1)] public float value;
   List<Vector3> _line;
   Transform _object_to_move;
-  bool canTakeIngredient = true; // canTakeIngredient сетится false, пока ингредиент не "долетел" до места назначения
+  bool canTakeIngredient = true; // canTakeIngredient пїЅпїЅпїЅпїЅпїЅпїЅпїЅ false, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
   protected override void Start()
   {
@@ -74,7 +74,7 @@ public class TakeIngredient : MyInteractionManager
       _line[0] = hand.GetPosition();
       GameObject instance = Instantiate(ingredientPrefab);
       _object_to_move = instance.transform;
-      _line[1] = gameObject.transform.position; // берётся позиция cheeseSpawner, т.к. у префаба позиция неподходящая
+      _line[1] = gameObject.transform.position; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ cheeseSpawner, пїЅ.пїЅ. пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
       instance.tag = ingredientTag;
       instance.AddComponent<BoxCollider>();
       StartCoroutine(MinusValue(hand));
