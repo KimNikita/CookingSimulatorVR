@@ -68,7 +68,7 @@ public class AchievementObserver : MonoBehaviour
     IEnumerator ShowAndHideImage()
     {
         _achiev_image.enabled = true;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(4);
         _achiev_image.enabled = false;
     }
     IEnumerator StartAndStopMusic()
