@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 70
+  controlID: 85
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -223,7 +223,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 118
+  controlID: 17
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -248,7 +248,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 119
+  controlID: 18
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -322,18 +322,18 @@ MonoBehaviour:
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
-  m_StartGridSize: 64
+  m_StartGridSize: 96
   m_LastFolders:
   - Assets/Scenes
-  m_LastFoldersGridSize: -1
+  m_LastFoldersGridSize: 96
   m_LastProjectPath: C:\Users\UnityTester\Desktop\CSVROculus\CookingSimulatorVR\CookingSimulatorVR
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 267}
-    m_SelectedIDs: bc660000
-    m_LastClickedID: 26300
-    m_ExpandedIDs: 000000008466000086660000886600008a6600008c6600008e660000c26600003067000000ca9a3b
+    scrollPos: {x: 0, y: 43}
+    m_SelectedIDs: 24b00000
+    m_LastClickedID: 45092
+    m_ExpandedIDs: 0000000018b000002ab0000068b5000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -361,7 +361,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008466000086660000886600008a6600008c6600008e660000
+    m_ExpandedIDs: 
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -414,7 +414,7 @@ MonoBehaviour:
       m_ResourceFile: 
     m_NewAssetIndexInList: -1
     m_ScrollPosition: {x: 0, y: 0}
-    m_GridSize: 64
+    m_GridSize: 96
   m_SkipHiddenPackages: 0
   m_DirectoriesAreaWidth: 207
 --- !u!114 &13
@@ -491,9 +491,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 32b00000
       m_LastClickedID: 0
-      m_ExpandedIDs: 7e43ffff0661ffff187cffffa49bffff12a1ffffdeabffff48b1ffff04fbffffec990000ac9a00006cd50000ced5000018d700002ad70000
+      m_ExpandedIDs: f089ffff388fffffaa94ffff8ab0ffff8eb1ffff80b0000010b1000010d4000072d40000bcd50000ced50000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -776,9 +776,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 3.8231742, y: 1.5884249, z: 0.06203255}
+    m_Target: {x: 0.6023391, y: 1.2085412, z: -4.359227}
     speed: 2
-    m_Value: {x: 3.8231742, y: 1.5884249, z: 0.06203255}
+    m_Value: {x: 0.6023391, y: 1.2085412, z: -4.359227}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -825,9 +825,9 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.012533046, y: -0.95356166, z: 0.04007444, w: -0.29845515}
+    m_Target: {x: -0.0018878424, y: -0.9978805, z: 0.056939654, w: -0.03327297}
     speed: 2
-    m_Value: {x: -0.012532305, y: -0.9535053, z: 0.040072072, w: -0.2984375}
+    m_Value: {x: -0.0018877308, y: -0.9978215, z: 0.056936286, w: -0.033271004}
   m_Size:
     m_Target: 3.9432447
     speed: 2
