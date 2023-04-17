@@ -8,7 +8,7 @@ using System;
 
 public class Menu : MonoBehaviour
 {
-  public GameObject achievPanel;
+  public GameObject achievPanel, howToPanel;
   void Start()
   {
     if (!PlayerPrefs.HasKey("BestScore"))
@@ -62,7 +62,7 @@ public class Menu : MonoBehaviour
 
   private void HowTo()
   {
-    Debug.Log("Not implemented");
+    Instantiate(howToPanel);
   }
 
   private void Difficulty()
