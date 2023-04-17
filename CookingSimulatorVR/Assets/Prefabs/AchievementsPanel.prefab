@@ -800,8 +800,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7cc0d69ccbb1e524ba94524578dc5749, type: 3}
   - {fileID: 21300000, guid: de90967d9fd635d4f80c0aa36d4f27e8, type: 3}
   incomplete_achiev_sprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 837433524935bb045beb296d5705ab90, type: 3}
+  - {fileID: 21300000, guid: f91b50c838857f944bfc7e4d59d253b7, type: 3}
+  - {fileID: 21300000, guid: 1f83f2faed9ef484d907aa5a977e8888, type: 3}
+  - {fileID: 21300000, guid: d31fa73fa9d448d4f8a3c4b342019911, type: 3}
+  - {fileID: 21300000, guid: 062e6b2452945f044ac27369f9bf32dd, type: 3}
