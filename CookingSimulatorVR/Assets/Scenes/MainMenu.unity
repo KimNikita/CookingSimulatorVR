@@ -9717,6 +9717,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   achievPanel: {fileID: 1021725854036967753, guid: 94c27f2ac16707149892e1156b3adb6c,
     type: 3}
+  howToPanel: {fileID: 707722495673998290, guid: 36b26d437cc079a4ba848f725243c25e,
+    type: 3}
 --- !u!4 &1844736885 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 8025e0b66fe6c8042ab45505eb80f3f8,
