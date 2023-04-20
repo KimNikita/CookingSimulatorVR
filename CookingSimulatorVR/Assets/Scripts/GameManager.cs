@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
   void Start()
   {
-    gameObject.GetComponent<AudioSource>().Play();
+    GetComponent<AudioSource>().Play();
     ScoreText.text = scoreValue + "$";
     switch (PlayerPrefs.GetString("Difficulty"))
     {
@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
       GameObject newOrder = Instantiate(orderTemplate);
       newOrder.GetComponent<Order>().GenerateOrder(ordersList, ordersListUI, person);
     }
-    // save results
 
     yield return null;
   }

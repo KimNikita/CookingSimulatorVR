@@ -1,7 +1,6 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Beef : MonoBehaviour
 {
-    public float preparedness;
+  public float preparedness;
 }

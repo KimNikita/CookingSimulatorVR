@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -48,16 +47,6 @@ public class ImageProgressBarMove : MonoBehaviour
     pointerExit.eventID = EventTriggerType.PointerExit;
     pointerExit.callback.AddListener((eventData) => { StopFillingProgressBar(); });
     eventTrigger.triggers.Add(pointerExit);
-  }
-
-  void Update()
-  {
-    if (alwaysFacePlayer)
-    {
-      //происходит обращение не к к конкретному экземпляру класса, а к классу со статическим методом
-      //Instanse - класс, который может находиться на сцене в единственном экземпляре.
-      transform.LookAt(Player.GetPosition());
-    }
   }
 
   void StartFillingProgressBar()

@@ -1,11 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
 
 public class OrdersList : MonoBehaviour
 {
-
   // Вариант где новый заказ сортируется вставкой
   public void PlaceOrder(float orderTime, GameObject ordersListUI, Transform order, Transform orderUI)
   {

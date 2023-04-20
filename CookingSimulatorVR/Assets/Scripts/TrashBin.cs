@@ -32,7 +32,7 @@ public class TrashBin : MonoBehaviour
     eventTrigger.triggers.Add(pointerDown);
 
     line1 = new List<Vector3>(2);
-    line1.Add(Hand.GetTransform().position); // точка камеры
+    line1.Add(Hand.GetPosition()); // точка камеры
     line1.Add(interactiveObject.transform.position + new Vector3(0.3f, 0.3f, 0f));
     line1.Add(interactiveObject.transform.position);
     line1.Add(interactiveObject.transform.position + new Vector3(0, -0.5f, -0.2f));
@@ -84,7 +84,7 @@ public class TrashBin : MonoBehaviour
     {
       if (Hand.GetChildTag() != "Untagged")
       {
-        if (GlobalVariables.Costs.ContainsKey(Hand.GetChildTag()))
+        if (Costs.ContainsKey(Hand.GetChildTag()))
         {
           int childCount = Hand.GetTransform().GetChild(0).childCount;
           int minus = 0;
@@ -92,18 +92,18 @@ public class TrashBin : MonoBehaviour
           {
             for (int i = 0; i < childCount; i++)
             {
-              GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetTransform().GetChild(0).GetChild(i).tag];
-              minus += GlobalVariables.Costs[Hand.GetTransform().GetChild(0).GetChild(i).tag];
+              scoreValue -= Costs[Hand.GetTransform().GetChild(0).GetChild(i).tag];
+              minus += Costs[Hand.GetTransform().GetChild(0).GetChild(i).tag];
             }
           }
-          GlobalVariables.scoreValue -= GlobalVariables.Costs[Hand.GetChildTag()];
-          minus += GlobalVariables.Costs[Hand.GetChildTag()];
+          scoreValue -= Costs[Hand.GetChildTag()];
+          minus += Costs[Hand.GetChildTag()];
           StartCoroutine(Cash_appear(minus));
-          ScoreText.text = GlobalVariables.scoreValue + "$";
-          line1[0] = Hand.GetTransform().position;
+          ScoreText.text = scoreValue + "$";
+          line1[0] = Hand.GetPosition();
           object1 = Hand.GetTransform().GetChild(0);
           StartCoroutine(PlusValue());
-          gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
+          GetComponent<AudioSource>().PlayOneShot(sound, volume);
 
           _utilized_objects_count++;
           if (_utilized_objects_count == 10) AchievementObserver.GetInstance().HandleEvent(trashBinAchiev);
