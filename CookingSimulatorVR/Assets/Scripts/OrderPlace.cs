@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class OrderPlace : MonoBehaviour
 {
-
   void Start()
   {
     EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -25,11 +22,11 @@ public class OrderPlace : MonoBehaviour
       {
         if (Hand.GetChildTag() == "Order")
         {
-          if (gameObject.transform.childCount == 1)
+          if (transform.childCount == 1)
           {
-            Hand.GetTransform().GetChild(0).position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y - 0.05f, gameObject.transform.position.z);
-            Hand.GetTransform().GetChild(0).rotation = gameObject.transform.rotation;
-            Hand.GetTransform().GetChild(0).parent = gameObject.transform;
+            Hand.GetTransform().GetChild(0).position = new Vector3(transform.position.x, transform.position.y - 0.05f, transform.position.z);
+            Hand.GetTransform().GetChild(0).rotation = transform.rotation;
+            Hand.GetTransform().GetChild(0).parent = transform;
           }
         }
       }

@@ -3,7 +3,6 @@ using TMPro;
 using UnityEngine.EventSystems;
 using static GlobalVariables;
 using static GlobalVariables.achievements;
-using System.Collections.Generic;
 
 public class Order : MonoBehaviour
 {
@@ -56,8 +55,8 @@ public class Order : MonoBehaviour
       orderTime += Times["roastTime"];
       newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = Translate[burgerRecipe.name];
       newOrderUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().color = Color.black;
-      gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Translate[burgerRecipe.name];
-      gameObject.transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = Color.black;
+      transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = Translate[burgerRecipe.name];
+      transform.GetChild(2).transform.GetChild(2).GetComponent<TextMeshProUGUI>().color = Color.black;
 
     }
     if (hasDrink == 1)
@@ -66,13 +65,13 @@ public class Order : MonoBehaviour
       orderTime += Times["Drink"];
       newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = Translate[drinkRecipe.name];
       newOrderUI.transform.GetChild(1).GetComponent<TextMeshProUGUI>().color = Color.black;
-      gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = Translate[drinkRecipe.name];
-      gameObject.transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.black;
+      transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = Translate[drinkRecipe.name];
+      transform.GetChild(2).transform.GetChild(3).GetComponent<TextMeshProUGUI>().color = Color.black;
     }
 
     ordersList.GetComponent<OrdersList>().PlaceOrder(orderTime, ordersListUI, transform, newOrderUI.transform);
 
-    gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
+    GetComponent<AudioSource>().PlayOneShot(sound, volume);
 
     newOrderUI.SetActive(true);
     newOrderUI.GetComponent<OrderUI>().StartProgressBar(orderTime, gameObject);

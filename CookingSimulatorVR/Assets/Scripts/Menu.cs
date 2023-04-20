@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System;
+using static GlobalVariables;
 
 public class Menu : MonoBehaviour
 {
@@ -13,14 +11,14 @@ public class Menu : MonoBehaviour
   {
     if (!PlayerPrefs.HasKey("BestScore"))
     {
-      PlayerPrefs.SetInt("BestScore", GlobalVariables.scoreValue);
+      PlayerPrefs.SetInt("BestScore", scoreValue);
     }
     if (!PlayerPrefs.HasKey("Difficulty"))
     {
       PlayerPrefs.SetString("Difficulty", "Easy");
     }
 
-    transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Сложность: " + GlobalVariables.Translate[PlayerPrefs.GetString("Difficulty")];
+    transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Сложность: " + Translate[PlayerPrefs.GetString("Difficulty")];
 
     EventTrigger startTrigger = transform.GetChild(0).GetChild(0).gameObject.AddComponent<EventTrigger>();
     EventTrigger.Entry startPointerDown = new EventTrigger.Entry();
@@ -53,7 +51,7 @@ public class Menu : MonoBehaviour
     resetRecordPointerDown.eventID = EventTriggerType.PointerDown;
     resetRecordPointerDown.callback.AddListener((eventData) => { ResetRecord(); });
     resetRecordTrigger.triggers.Add(resetRecordPointerDown);
-    }
+  }
 
   private void StartGame()
   {
@@ -74,7 +72,7 @@ public class Menu : MonoBehaviour
       case "Hard": PlayerPrefs.SetString("Difficulty", "Easy"); break;
       default: Debug.Log("Unknown difficulty " + PlayerPrefs.GetString("Difficulty")); break;
     }
-    transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Сложность: " + GlobalVariables.Translate[PlayerPrefs.GetString("Difficulty")];
+    transform.GetChild(0).GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>().text = "Сложность: " + Translate[PlayerPrefs.GetString("Difficulty")];
   }
   private void Achievements()
   {
@@ -82,8 +80,8 @@ public class Menu : MonoBehaviour
   }
   private void ResetRecord()
   {
-    var ach_list = new string[]{ "cheeseAchiev", "lolipopAchiev", "moneyAchiev", "orderAchiev", "trashBinAchiev" };
-    foreach(string achiev_key in ach_list)
+    var ach_list = new string[] { "cheeseAchiev", "lolipopAchiev", "moneyAchiev", "orderAchiev", "trashBinAchiev" };
+    foreach (string achiev_key in ach_list)
     {
       PlayerPrefs.DeleteKey(achiev_key);
     }

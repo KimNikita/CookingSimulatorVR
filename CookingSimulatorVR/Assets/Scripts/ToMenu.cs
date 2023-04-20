@@ -1,8 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using static GlobalVariables;
 
 public class ToMenu : MonoBehaviour
 {
@@ -20,8 +19,8 @@ public class ToMenu : MonoBehaviour
 
   public void GoToMenu()
   {
-    GlobalVariables.scoreValue = 100;
-    GlobalVariables.end = false;
+    scoreValue = 100;
+    end = false;
     SceneManager.LoadScene(0);
   }
 }

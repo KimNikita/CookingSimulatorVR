@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Doors : MonoBehaviour
 {
@@ -9,7 +7,7 @@ public class Doors : MonoBehaviour
   public float volume = 0.3f;
   public void OpenDoors()
   {
-    gameObject.GetComponent<Animator>().SetBool("Open", true);
+    GetComponent<Animator>().SetBool("Open", true);
     AudioSource.PlayClipAtPoint(clip, target.transform.position, volume);
   }
 }

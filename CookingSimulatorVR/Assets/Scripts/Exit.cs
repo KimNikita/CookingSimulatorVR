@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
+using static GlobalVariables;
 
 public class Exit : MonoBehaviour
 {
@@ -23,11 +23,11 @@ public class Exit : MonoBehaviour
   {
     if (SceneManager.GetActiveScene().name == "MainScene")
     {
-      progressBarImage = gameObject.transform.GetChild(0).GetChild(0).GetComponent<Image>();
+      progressBarImage = transform.GetChild(0).GetChild(0).GetComponent<Image>();
     }
     else if (SceneManager.GetActiveScene().name == "MainMenu")
     {
-      progressBarImage = gameObject.transform.GetChild(1).GetChild(0).GetComponent<Image>();
+      progressBarImage = transform.GetChild(1).GetChild(0).GetComponent<Image>();
     }
 
     EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
@@ -65,13 +65,14 @@ public class Exit : MonoBehaviour
       yield return null;
     }
     progressBarImage.fillAmount = 0.0f;
-    
-    if(SceneManager.GetActiveScene().name == "MainScene") {
-      GlobalVariables.end = true;
-      Score.text = "     Ваш результат: " + GlobalVariables.scoreValue + "$";
-      if (GlobalVariables.scoreValue > PlayerPrefs.GetInt("BestScore"))
+
+    if (SceneManager.GetActiveScene().name == "MainScene")
+    {
+      end = true;
+      Score.text = "     Ваш результат: " + scoreValue + "$";
+      if (scoreValue > PlayerPrefs.GetInt("BestScore"))
       {
-        PlayerPrefs.SetInt("BestScore", GlobalVariables.scoreValue);
+        PlayerPrefs.SetInt("BestScore", scoreValue);
       }
       BestScore.text = "Лучший результат: " + PlayerPrefs.GetInt("BestScore") + "$";
 
@@ -80,8 +81,8 @@ public class Exit : MonoBehaviour
         onBarFilled.Invoke();
       }
       gameObject.AddComponent<Rigidbody>();
-      gameObject.GetComponent<Rigidbody>().mass = 0.05f;
-      Destroy(gameObject.GetComponent<EventTrigger>());
+      GetComponent<Rigidbody>().mass = 0.05f;
+      Destroy(GetComponent<EventTrigger>());
     }
     else if (SceneManager.GetActiveScene().name == "MainMenu")
     {

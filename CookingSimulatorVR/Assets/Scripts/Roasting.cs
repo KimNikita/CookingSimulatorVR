@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static GlobalVariables;
 
 public class Roasting : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class Roasting : MonoBehaviour
 
   void Start()
   {
-    stove = gameObject.transform;
+    stove = transform;
     EventTrigger eventTrigger = gameObject.AddComponent<EventTrigger>();
     EventTrigger.Entry pointerDown = new EventTrigger.Entry();
     pointerDown.eventID = EventTriggerType.PointerDown;
@@ -49,7 +50,7 @@ public class Roasting : MonoBehaviour
     canTakeIngredient = true;
     beef.parent = stove;
     beef.rotation = new Quaternion(0, 0, 0, 0);
-    timeToFill = GlobalVariables.Times["roastTime"] * (1 - beef.gameObject.GetComponent<Beef>().preparedness);
+    timeToFill = Times["roastTime"] * (1 - beef.gameObject.GetComponent<Beef>().preparedness);
     StartCoroutine("Fill");
   }
   IEnumerator MinusValue()
@@ -72,7 +73,7 @@ public class Roasting : MonoBehaviour
   }
   void OnPointerDown()
   {
-    _line[0] = Hand.GetTransform().position; // точка из которой начинается движение
+    _line[0] = Hand.GetPosition(); // точка из которой начинается движение
     if (!canTakeIngredient)
       return;
 
@@ -80,7 +81,7 @@ public class Roasting : MonoBehaviour
     {
       if (stove.childCount != 0)
       {
-        gameObject.GetComponent<AudioSource>().Stop();
+        GetComponent<AudioSource>().Stop();
         StopCoroutine("Fill");
         beef.gameObject.GetComponent<Beef>().preparedness = progressBarImage.fillAmount;
         progressBarImage.fillAmount = 0;
@@ -111,14 +112,14 @@ public class Roasting : MonoBehaviour
     float start = 0 + beef.gameObject.GetComponent<Beef>().preparedness;
     float end = 1;
 
-    gameObject.GetComponent<AudioSource>().Play();
+    GetComponent<AudioSource>().Play();
     while (progressBarImage.fillAmount < 1)
     {
       progressBarImage.fillAmount = Mathf.Lerp(start, end, (Time.time - startTime) / (timeToFill));
       if (beef.tag == "Beef" && progressBarImage.fillAmount >= (1.0 / 3.0) && progressBarImage.fillAmount <= (2.0 / 3.0))
       {
         // пожареная котлета
-        var new_beef_stage = GameObject.Instantiate(cookedBeef);
+        var new_beef_stage = Instantiate(cookedBeef);
         new_beef_stage.transform.parent = beef.transform.parent;
         new_beef_stage.transform.position = beef.transform.position;
         Destroy(beef.gameObject);
@@ -127,7 +128,7 @@ public class Roasting : MonoBehaviour
       else if (beef.tag == "Cooked Beef" && progressBarImage.fillAmount >= (2.0 / 3.0) && progressBarImage.fillAmount < 1.0)
       {
         // сгоревшая котлета
-        var new_beef_stage = GameObject.Instantiate(burntBeef);
+        var new_beef_stage = Instantiate(burntBeef);
         new_beef_stage.transform.parent = beef.transform.parent;
         new_beef_stage.transform.position = beef.transform.position;
         Destroy(beef.gameObject);
@@ -135,7 +136,7 @@ public class Roasting : MonoBehaviour
       }
       yield return null;
     }
-    gameObject.GetComponent<AudioSource>().Stop();
+    GetComponent<AudioSource>().Stop();
     progressBarImage.fillAmount = 0.0f;
   }
 }

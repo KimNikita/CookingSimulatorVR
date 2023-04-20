@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using static GlobalVariables;
 
 public class Orange_Button : MonoBehaviour
 {
@@ -23,10 +23,10 @@ public class Orange_Button : MonoBehaviour
 
   public void ActiveObj()
   {
-    if (!GlobalVariables.hasDrink)
+    if (!hasDrink)
     {
-      GlobalVariables.hasDrink = true;
-      gameObject.GetComponent<AudioSource>().PlayOneShot(sound, volume);
+      hasDrink = true;
+      GetComponent<AudioSource>().PlayOneShot(sound, volume);
       anim.SetTrigger("Active_Button_Orange");
       StartCoroutine(Wait());
     }
