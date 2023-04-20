@@ -910,8 +910,9 @@ MonoBehaviour:
       type: 3}
   orderUI: {fileID: 3413386834830680027, guid: 2d03ff19138030c439b11abd79960bf8, type: 3}
   newOrderUI: {fileID: 0}
+  person: {fileID: 0}
   sound: {fileID: 8300000, guid: 3f9432a64ebe59543b630d6f41860aa2, type: 3}
-  volume: 0.5
+  volume: 0.05
   hasBurger: 0
   hasDrink: 0
   orderTime: 0

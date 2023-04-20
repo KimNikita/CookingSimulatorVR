@@ -1,11 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using TMPro;
 using static GlobalVariables;
 using static GlobalVariables.achievements;
-using UnityEngine.XR;
 
 public class TrashBin : MyInteractionManager
 {
@@ -19,6 +17,8 @@ public class TrashBin : MyInteractionManager
 
   int _utilized_objects_count = 0;
 
+  public TextMeshProUGUI minus_money;
+  int minus;
   protected override void Start()
   {
     base.Start();
@@ -97,16 +97,20 @@ public class TrashBin : MyInteractionManager
       {
         if (Costs.ContainsKey(hand.GetChildTag()))
         {
-          line1[0] = hand.GetTransform().position; // ����� ������
+          line1[0] = hand.GetTransform().position;
           int childCount = hand.GetChild().childCount;
+          minus = 0;
           if (childCount != 0)
           {
             for (int i = 0; i < childCount; i++)
             {
               scoreValue -= Costs[hand.GetChild().GetChild(i).tag];
+              minus += Costs[hand.GetChild().GetChild(i).tag];
             }
           }
           scoreValue -= Costs[hand.GetChildTag()];
+          minus += Costs[hand.GetChildTag()];
+          StartCoroutine(Cash_appear(minus));
           ScoreText.text = scoreValue + "$";
           line1[0] = hand.GetTransform().position;
           object1 = hand.GetChild();
@@ -126,5 +130,17 @@ public class TrashBin : MyInteractionManager
         Debug.LogError("Add tag to object in hand");
       }
     }
+  }
+
+  private IEnumerator Cash_appear(int minus)
+  {
+    float timeLeft = 2f;
+    minus_money.text = "-" + minus + "$";
+    while (timeLeft > 0)
+    {
+      timeLeft -= Time.deltaTime;
+      yield return null;
+    }
+    minus_money.text = "";
   }
 }

@@ -581,7 +581,7 @@ MonoBehaviour:
   time: 10
   timerImage: {fileID: 4962609850974898602}
   sound: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
-  volume: 0.5
+  volume: 0.05
 --- !u!82 &8313392842904392258
 AudioSource:
   m_ObjectHideFlags: 0
