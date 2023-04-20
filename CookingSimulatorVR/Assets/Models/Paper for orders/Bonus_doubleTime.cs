@@ -1,9 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using TMPro;
 using UnityEngine.UI;
+using static GlobalVariables;
 
 
 public class Bonus_doubleTime : MonoBehaviour
@@ -17,7 +16,7 @@ public class Bonus_doubleTime : MonoBehaviour
   public AudioClip sound;
   public float volume = 0.5f;
 
-  private bool  notActive = true;
+  private bool notActive = true;
 
   void Start()
   {
@@ -39,7 +38,7 @@ public class Bonus_doubleTime : MonoBehaviour
       time = 10f;
       timeLeft = 10f;
       notActive = false;
-      GlobalVariables.Times["roastTime"] /= 2;
+      Times["roastTime"] /= 2;
       interactiveObject.transform.position = new Vector3(2.302f, 3f, 2.15f);
       interactiveObject.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
     }
@@ -55,7 +54,7 @@ public class Bonus_doubleTime : MonoBehaviour
       yield return null;
     }
 
-    if (!notActive) { GlobalVariables.Times["roastTime"] *= 2; }
+    if (!notActive) { Times["roastTime"] *= 2; }
     Destroy(gameObject);
   }
 }

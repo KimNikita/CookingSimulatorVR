@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
 using static GlobalVariables;
@@ -51,7 +50,7 @@ public class CompleteOrder : MonoBehaviour
               else
               {
                 Debug.Log("Wrong ingredient");
-                gameObject.GetComponent<AudioSource>().PlayOneShot(wrong, volume);
+                GetComponent<AudioSource>().PlayOneShot(wrong, volume);
                 return;
               }
             }
@@ -59,14 +58,14 @@ public class CompleteOrder : MonoBehaviour
           else
           {
             Debug.Log("Wrong num of ingredients");
-            gameObject.GetComponent<AudioSource>().PlayOneShot(wrong, volume);
+            GetComponent<AudioSource>().PlayOneShot(wrong, volume);
             return;
           }
         }
         else if (tray.transform.GetChild(2).childCount != 0)
         {
           Debug.Log("burger missing");
-          gameObject.GetComponent<AudioSource>().PlayOneShot(wrong, volume);
+          GetComponent<AudioSource>().PlayOneShot(wrong, volume);
           return;
         }
 
@@ -78,19 +77,19 @@ public class CompleteOrder : MonoBehaviour
           }
           else
           {
-            gameObject.GetComponent<AudioSource>().PlayOneShot(wrong, volume);
+            GetComponent<AudioSource>().PlayOneShot(wrong, volume);
             return;
           }
         }
         else if (tray.transform.GetChild(0).childCount == 2)
         {
-          gameObject.GetComponent<AudioSource>().PlayOneShot(wrong, volume);
+          GetComponent<AudioSource>().PlayOneShot(wrong, volume);
           return;
         }
 
         scoreValue += money;
         ScoreText.text = scoreValue + "$";
-        gameObject.GetComponent<AudioSource>().PlayOneShot(right, volume);
+        GetComponent<AudioSource>().PlayOneShot(right, volume);
         StartCoroutine(Cash_appear(money));
 
         _orders_number++;
@@ -107,6 +106,7 @@ public class CompleteOrder : MonoBehaviour
         }
         if (order.orderUI != null)
         {
+          Destroy(order.person);
           Destroy(order.newOrderUI);
           Destroy(order.gameObject);
         }
@@ -119,7 +119,7 @@ public class CompleteOrder : MonoBehaviour
     _orders_number = 0;
     Debug.Log("You have failed order");
   }
-  
+
   private IEnumerator Cash_appear(int money)
   {
     float timeLeft = 2f;

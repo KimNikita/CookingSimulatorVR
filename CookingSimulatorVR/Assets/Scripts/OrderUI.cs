@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,7 +23,7 @@ public class OrderUI : MonoBehaviour
   {
     startTime = Time.time;
 
-    while (progressBarImage.fillAmount>0)
+    while (progressBarImage.fillAmount > 0)
     {
       progressBarImage.fillAmount = Mathf.Lerp(1, 0, (Time.time - startTime) / timeToFill);
       if (progressBarImage.fillAmount <= 0.5f && progressBarImage.fillAmount > 0.25)
@@ -43,6 +42,7 @@ public class OrderUI : MonoBehaviour
     }
 
     CompleteOrder.ResetOrdersNumber();
+    Destroy(order.GetComponent<Order>().person);
     Destroy(order);
     Destroy(gameObject);
   }
