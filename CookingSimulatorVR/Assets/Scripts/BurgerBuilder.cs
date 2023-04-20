@@ -20,9 +20,11 @@ public class BurgerBuilder : MyInteractionManager
     base.Start();
     tray = gameObject.transform;
 
-    _line = new List<Vector3>(2);
-    _line.Add(new Vector3()); // точка камеры
-    _line.Add(new Vector3());
+    _line = new List<Vector3>(2)
+    {
+      new Vector3(), // точка камеры
+      new Vector3()
+    };
   }
 
   override protected IEnumerator Check()

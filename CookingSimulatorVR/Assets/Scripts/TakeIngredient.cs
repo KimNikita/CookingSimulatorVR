@@ -11,7 +11,7 @@ public class TakeIngredient : MyInteractionManager
   [Range(0, 1)] public float value;
   List<Vector3> _line;
   Transform _object_to_move;
-  bool canTakeIngredient = true; // canTakeIngredient ������� false, ���� ���������� �� "�������" �� ����� ����������
+  bool canTakeIngredient = true;
 
   protected override void Start()
   {

@@ -23,7 +23,7 @@ public class OrderUI : MonoBehaviour
   {
     startTime = Time.time;
 
-    while (progressBarImage.fillAmount>0)
+    while (progressBarImage.fillAmount > 0)
     {
       progressBarImage.fillAmount = Mathf.Lerp(1, 0, (Time.time - startTime) / timeToFill);
       if (progressBarImage.fillAmount <= 0.5f && progressBarImage.fillAmount > 0.25)
