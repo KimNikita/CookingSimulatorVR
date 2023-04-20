@@ -68,12 +68,10 @@ public class TrashBin : MyInteractionManager
     value = 0;
     Destroy(object1.gameObject);
   }
-
   void Move()
   {
     LerpLine();
   }
-
   void Lerp2Line(List<Vector3> list2)
   {
     if (list2.Count > 2)

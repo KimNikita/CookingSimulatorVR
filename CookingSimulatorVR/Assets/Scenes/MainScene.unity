@@ -4755,6 +4755,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a39e6bc93e859145a2f868ff0277c31, type: 3}
+--- !u!224 &569909106 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5972367449685739650, guid: 2458a15c3f03e9f4fb922b33db1b6d63,
+    type: 3}
+  m_PrefabInstance: {fileID: 5972367449161979888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &573013833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6136210199978121741, guid: 9a27eb6bfb1a9db44a84bd8b765e30af,
@@ -20503,6 +20509,7 @@ Transform:
   - {fileID: 5608998956405432552}
   - {fileID: 4833941484999765275}
   - {fileID: 1799431678}
+  - {fileID: 569909106}
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
