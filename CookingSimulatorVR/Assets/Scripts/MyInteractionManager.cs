@@ -1,10 +1,7 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class MyInteractionManager : XRSimpleInteractable

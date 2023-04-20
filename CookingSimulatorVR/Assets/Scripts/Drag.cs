@@ -8,14 +8,16 @@ public class Drag : MyInteractionManager
   [Range(0, 1)] public float value;
   List<Vector3> _line;
   Transform _object_to_move;
-  bool canTakeIngredient = true; // canTakeIngredient ������� false, ���� ���������� �� "�������" �� ����� ����������
+  bool canTakeIngredient = true;
 
   protected override void Start()
   {
     base.Start();
-    _line = new List<Vector3>(2);
-    _line.Add(new Vector3());
-    _line.Add(transform.position);
+    _line = new List<Vector3>(2)
+    {
+      new Vector3(),
+      transform.position
+    };
   }
 
   override protected IEnumerator Check()

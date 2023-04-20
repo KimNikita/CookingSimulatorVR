@@ -17,9 +17,11 @@ public class DrinkPlace : MyInteractionManager
   {
     base.Start();
     tray = gameObject.transform;
-    _line = new List<Vector3>(2);
-    _line.Add(new Vector3());
-    _line.Add(new Vector3());
+    _line = new List<Vector3>(2)
+    {
+      new Vector3(),
+      new Vector3()
+    };
   }
 
   override protected IEnumerator Check()
@@ -96,7 +98,6 @@ public class DrinkPlace : MyInteractionManager
       if (tray.childCount == 1)
       {
         string ingredientTag = hand.GetChildTag();
-        // TODO may be need list of possible drinks
         if (ingredientTag == "Fanta" || ingredientTag == "Cola")
         {
           _object_to_move = hand.GetChild();

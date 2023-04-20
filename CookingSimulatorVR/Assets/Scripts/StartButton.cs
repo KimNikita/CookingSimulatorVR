@@ -1,10 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using System;
 
 public class StartButton : MyInteractionManager
 {
