@@ -6,7 +6,7 @@ This branch contains source code and setup file (.apk) of game for android (vers
 
 ## Installation
 
-Clone repository and copy .apk file on your mobile phone. Then install by clicking on .apk file.
+Clone repository and copy csvr.apk file on your android device. Then install by clicking on it.
 
 ## Documentation links
 
